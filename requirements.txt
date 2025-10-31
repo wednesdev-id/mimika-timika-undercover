@@ -1,0 +1,6 @@
+requests
+beautifulsoup4 
+time
+datetime
+ZoneInfo
+Pandas
