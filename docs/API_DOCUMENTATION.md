@@ -3,10 +3,24 @@
 ## Overview
 Indonesian News API is a FastAPI-based web service that provides access to scraped Indonesian news data from multiple sources. It offers both a web interface and RESTful API endpoints for consuming news data.
 
-## Base URL
+## Base URLs
+
+### Local Development
 ```
 http://localhost:8000
 ```
+
+### Vercel Deployment (Demo Mode)
+```
+https://your-app-name.vercel.app
+```
+
+### Full Deployment Options
+- **Railway.app**: `https://your-app-name.up.railway.app`
+- **Render.com**: `https://your-app-name.onrender.com`
+- **PythonAnywhere**: `https://your-username.pythonanywhere.com`
+
+**Note**: Vercel deployment provides read-only demo with sample data. For full scraping functionality, use Railway, Render, or PythonAnywhere.
 
 ## Available Endpoints
 
@@ -147,8 +161,17 @@ GET /health
 ```
 
 ## Interactive Documentation
+
+### Local Development
 - **Swagger UI**: `http://localhost:8000/docs`
 - **ReDoc**: `http://localhost:8000/redoc`
+
+### Vercel Deployment
+- **Swagger UI**: `https://your-app-name.vercel.app/docs`
+- **ReDoc**: `https://your-app-name.vercel.app/redoc`
+
+### Other Deployments
+Replace the domain accordingly for Railway, Render, or PythonAnywhere deployments.
 
 ## Data Model
 
@@ -222,6 +245,56 @@ No specific environment variables are required for the API itself, but the scrap
 - `SCHEDULER_INTERVAL`: Interval in minutes for interval scheduling
 
 ## Data Storage
+
+### Local & Full Deployment
 - Articles are stored in JSON files in the `data/` directory
 - File naming convention: `news_YYYYMMDD.json`
 - The API automatically loads the latest file based on filename sorting
+
+### Vercel Deployment
+- **Read-only demo mode** with sample data
+- No persistent file storage (serverless limitation)
+- Sample data embedded in the application for demonstration
+
+## Deployment Options
+
+### Vercel (Demo Mode)
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel --prod
+```
+
+**Limitations**:
+- Read-only with sample data
+- No scheduled scraping
+- Serverless file system restrictions
+
+### Railway (Recommended for Full Functionality)
+```bash
+# Install Railway CLI
+npm i -g @railway/cli
+
+# Login and deploy
+railway login
+railway init
+railway up
+```
+
+### Render (Free Tier Available)
+1. Connect your GitHub repository
+2. Configure Python environment
+3. Deploy with web service
+
+### Docker Deployment
+```dockerfile
+FROM python:3.9-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+EXPOSE 8000
+CMD ["uvicorn", "web_api:app", "--host", "0.0.0.0", "--port", "8000"]
+```

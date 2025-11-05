@@ -221,8 +221,11 @@ SCHEDULER_INTERVAL=30  # minutes
 ## Development
 
 ### Project Structure
+
 ```
 Papua News/
+├── api/                    # Vercel serverless functions
+│   └── index.py           # FastAPI app for Vercel deployment
 ├── scrapers/              # Individual news source scrapers
 │   ├── kompas_scraper.py
 │   ├── cnn_scraper.py
@@ -233,15 +236,40 @@ Papua News/
 ├── utils/                 # Utility functions
 │   ├── helpers.py
 │   └── scheduler.py
+├── docs/                  # Documentation files
+│   ├── API_DOCUMENTATION.md
+│   ├── FRONTEND_INTEGRATION.md
+│   └── PROJECT_DOCUMENTATION.md
 ├── data/                  # Scraped data storage
 ├── templates/             # HTML templates
 ├── static/                # Static files (CSS, JS, images)
+├── logs/                  # Log files
 ├── main.py               # CLI application
-├── web_api.py            # FastAPI web server
-├── web_viewer.py         # Legacy Flask implementation
+├── web_api.py            # FastAPI web server (local)
+├── vercel.json           # Vercel configuration
+├── .env.example          # Environment variables template
 ├── requirements.txt      # Python dependencies
 └── README.md            # Project documentation
 ```
+
+### File Explanations
+
+#### Core Files
+- **`main.py`**: CLI interface for running scrapers
+- **`web_api.py`**: FastAPI application for local development
+- **`api/index.py`**: Serverless version for Vercel deployment
+- **`vercel.json`**: Vercel deployment configuration
+
+#### Data Directories
+- **`data/`**: JSON files with scraped news data
+- **`templates/`**: HTML templates for web interface
+- **`static/`**: CSS, JavaScript, and image assets
+- **`logs/`**: Application logs
+
+#### Configuration
+- **`requirements.txt`**: Python dependencies
+- **`.env.example`**: Environment variables template
+- **`docs/`**: Comprehensive documentation
 
 ### Adding New Scrapers
 
@@ -297,9 +325,66 @@ print(f"Scraped {len(df)} articles")
 
 ## Deployment
 
+### Option 1: Vercel (Demo Mode - Recommended for Quick Preview)
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy to Vercel
+vercel --prod
+```
+
+**Best for**: Quick demos, frontend showcase, read-only API
+**Limitations**:
+- Sample data only (no real scraping)
+- No scheduled tasks
+- Serverless file system restrictions
+
+### Option 2: Railway (Recommended for Full Functionality)
+
+```bash
+# Install Railway CLI
+npm i -g @railway/cli
+
+# Login and deploy
+railway login
+railway init
+railway up
+```
+
+**Best for**: Full scraping functionality, scheduled tasks, production use
+**Features**:
+- Complete scraping capabilities
+- Scheduled data updates
+- Persistent storage
+- Database support
+
+### Option 3: Render (Free Tier Available)
+
+1. Connect your GitHub repository to [Render](https://render.com)
+2. Create a new "Web Service"
+3. Configure:
+   - Build Command: `pip install -r requirements.txt`
+   - Start Command: `uvicorn web_api:app --host 0.0.0.0 --port $PORT`
+   - Python Version: 3.9 or higher
+
+### Option 4: PythonAnywhere
+
+1. Create a PythonAnywhere account
+2. Upload your project files
+3. Configure virtual environment
+4. Install dependencies
+5. Set up web app with Flask/FastAPI
+6. Configure scheduled tasks for scraping
+
 ### Development
 ```bash
+# Local development
 python web_api.py
+
+# Or for Vercel testing
+python api/index.py
 ```
 
 ### Production (using Gunicorn)
@@ -351,6 +436,67 @@ services:
       - SCHEDULER_TIME=08:00
     restart: unless-stopped
 ```
+
+## Vercel Configuration Details
+
+### vercel.json
+```json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.py"
+    }
+  ],
+  "functions": {
+    "api/index.py": {
+      "runtime": "python3.9"
+    }
+  }
+}
+```
+
+### Vercel Environment Variables
+- `VERCEL_ENV`: `production`
+- `PYTHON_VERSION`: `3.9`
+- `API_BASE_URL`: Your Vercel deployment URL
+
+## Railway Configuration Details
+
+### railway.toml
+```toml
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "uvicorn web_api:app --host 0.0.0.0 --port $PORT"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10
+
+[[services]]
+name = "api"
+
+[services.variables]
+PYTHON_VERSION = "3.9"
+```
+
+### Railway Environment Variables
+- `RAILWAY_ENVIRONMENT`: `production`
+- `API_HOST`: `0.0.0.0`
+- `API_PORT`: `$PORT` (Railway provides this)
+- `SCHEDULER_MODE`: `daily`
+- `SCHEDULER_TIME`: `08:00`
 
 ## Monitoring & Maintenance
 
@@ -454,15 +600,40 @@ This project is licensed under the MIT License. See LICENSE file for details.
 
 ## Changelog
 
-### Version 2.0.0
-- Migrated from Flask to FastAPI
-- Unified API endpoints
-- Improved documentation
-- Better error handling
-- Enhanced security considerations
+### Version 2.0.0 (Current)
+- **Vercel Support**: Added serverless deployment configuration
+- **Multi-Platform Deployment**: Vercel, Railway, Render, PythonAnywhere support
+- **FastAPI Migration**: Migrated from Flask to FastAPI
+- **Unified API endpoints**: RESTful API with pagination
+- **Comprehensive Documentation**: API docs, frontend integration guide, project docs
+- **Sample Data**: Demo data for Vercel deployment
+- **Optimized Dependencies**: Serverless-friendly requirements
+- **Better error handling**: Improved error responses and logging
+- **Enhanced security**: CORS, environment variables
+- **Project structure reorganization**: Separate API for serverless
 
 ### Version 1.0.0
 - Initial release
 - Basic scraping functionality
 - Flask web interface
 - Command line tools
+
+## Next Steps & Future Improvements
+
+### Immediate Tasks
+- [ ] Deploy to Vercel for demo
+- [ ] Set up Railway for full functionality
+- [ ] Configure scheduled scraping
+- [ ] Add API authentication for production
+
+### Future Features
+- **Database Integration**: PostgreSQL/MongoDB for better data management
+- **Caching Layer**: Redis for performance optimization
+- **API Rate Limiting**: Prevent abuse and ensure fair usage
+- **User Authentication**: Personalized news feeds and preferences
+- **Mobile App**: React Native or Flutter app
+- **Analytics Dashboard**: News trend analysis
+- **Email Notifications**: Daily/weekly news summaries
+- **RSS Feeds**: Generate RSS feeds for categories
+- **Advanced Search**: Full-text search with indexing
+- **Social Media Integration**: Share articles to social platforms

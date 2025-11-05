@@ -7,9 +7,20 @@ This guide explains how to integrate with the Indonesian News API for frontend a
 
 ### Option 1: Use Built-in Web Interface
 The API includes a responsive web interface at the root URL:
+
+**Local Development**:
 ```
 http://localhost:8000
 ```
+
+**Vercel Deployment**:
+```
+https://your-app-name.vercel.app
+```
+
+**Other Deployments**:
+- Railway: `https://your-app-name.up.railway.app`
+- Render: `https://your-app-name.onrender.com`
 
 Features:
 - ✅ Responsive design for mobile and desktop
@@ -27,10 +38,15 @@ Use the REST API endpoints to build your own frontend application.
 
 #### Basic Fetch Example
 ```javascript
+// Configure API base URL based on environment
+const API_BASE_URL = process.env.NODE_ENV === 'production'
+  ? 'https://your-app-name.vercel.app'  // Replace with your Vercel URL
+  : 'http://localhost:8000';
+
 // Get all articles with pagination
 async function getArticles(page = 1, perPage = 20) {
   try {
-    const response = await fetch(`/api?page=${page}&per_page=${perPage}`);
+    const response = await fetch(`${API_BASE_URL}/api?page=${page}&per_page=${perPage}`);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -251,9 +267,16 @@ export default {
 ```python
 import requests
 from typing import List, Dict, Optional
+import os
 
 class NewsAPIClient:
-    def __init__(self, base_url: str = "http://localhost:8000"):
+    def __init__(self, base_url: str = None):
+        # Auto-detect base URL based on environment
+        if base_url is None:
+            if os.getenv('VERCEL_ENV') or os.getenv('RAILWAY_ENVIRONMENT'):
+                base_url = os.getenv('API_BASE_URL', 'https://your-app-name.vercel.app')
+            else:
+                base_url = 'http://localhost:8000'
         self.base_url = base_url
 
     def get_articles(
@@ -319,17 +342,23 @@ print(f"Total articles: {stats['total_articles']}")
 
 #### cURL Examples
 ```bash
+# Local development
+API_BASE="http://localhost:8000"
+
+# Vercel deployment
+API_BASE="https://your-app-name.vercel.app"
+
 # Get all articles
-curl "http://localhost:8000/api"
+curl "$API_BASE/api"
 
 # Search with filters
-curl "http://localhost:8000/api?search=politik&source=kompas&page=1&per_page=10"
+curl "$API_BASE/api?search=politik&source=kompas&page=1&per_page=10"
 
 # Get sources
-curl "http://localhost:8000/api/sources"
+curl "$API_BASE/api/sources"
 
 # Get statistics
-curl "http://localhost:8000/api/stats"
+curl "$API_BASE/api/stats"
 ```
 
 #### PHP Example
@@ -558,6 +587,77 @@ function debounce(func, wait) {
 const debouncedSearch = debounce((searchTerm) => {
   fetchArticles({ search: searchTerm });
 }, 300);
+```
+
+## Deployment Considerations for Frontend
+
+### Vercel Deployment (Recommended for Frontend)
+If you're building a custom frontend (React, Vue, Angular), Vercel is excellent for hosting:
+
+```json
+// vercel.json for frontend app
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
+```
+
+### Environment Configuration
+```javascript
+// config/api.js
+const API_CONFIG = {
+  development: {
+    baseURL: 'http://localhost:8000'
+  },
+  production: {
+    baseURL: process.env.NEXT_PUBLIC_API_URL || 'https://your-app-name.vercel.app'
+  }
+};
+
+export const API_BASE_URL = API_CONFIG[process.env.NODE_ENV] || API_CONFIG.development;
+```
+
+### CORS Configuration
+If deploying frontend separately from API, configure CORS in the API:
+
+```python
+# In web_api.py or api/index.py
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",  # React dev server
+        "https://your-frontend.vercel.app",  # Your frontend domain
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+```
+
+### Environment Variables for Deployment
+```bash
+# For Vercel frontend
+NEXT_PUBLIC_API_URL=https://your-api.vercel.app
+
+# For Railway backend
+RAILWAY_ENVIRONMENT=production
+API_BASE_URL=https://your-api.up.railway.app
 ```
 
 This integration guide provides comprehensive examples for building custom frontend applications that consume the Indonesian News API. Choose the option that best fits your project requirements.

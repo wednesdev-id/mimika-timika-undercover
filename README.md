@@ -2,6 +2,29 @@
 
 A comprehensive Indonesian news scraper that collects articles from major news sources and displays them in a beautiful web interface.
 
+## 🚀 Deployment Options
+
+### Vercel Deployment (Demo Mode)
+
+This project is configured for Vercel deployment with sample data:
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy to Vercel
+vercel --prod
+```
+
+**⚠️ Vercel Limitations**: Read-only demo with sample data. No scheduled scraping.
+
+### Full Functionality Deployment
+
+For complete scraping functionality, use:
+- **[Railway.app](https://railway.app)** - Recommended for Python apps
+- **[Render.com](https://render.com)** - Free tier available
+- **[PythonAnywhere](https://www.pythonanywhere.com)** - Python hosting
+
 ## 🚀 Features
 
 - **Multi-source Scraping**: Collects news from 6 major Indonesian news sites:
