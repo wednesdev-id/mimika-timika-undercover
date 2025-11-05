@@ -77,7 +77,7 @@ def index():
     filtered_articles.sort(key=lambda x: x.get('date', ''), reverse=True)
 
     return render_template('index.html',
-                         articles=filtered_articles[:50],  # Limit to 50 articles
+                         articles=filtered_articles,  # Show all articles
                          metadata=metadata,
                          sources=sorted(sources),
                          categories=sorted(categories),
@@ -100,7 +100,18 @@ def api_articles():
     # Apply filters
     filtered_articles = filter_articles(articles, filters)
 
-    # Pagination
+    # Check if all articles are requested
+    all_articles = request.args.get('all', 'false').lower() == 'true'
+
+    if all_articles:
+        # Return all articles without pagination
+        return jsonify({
+            'articles': filtered_articles,
+            'total': len(filtered_articles),
+            'pagination': None
+        })
+
+    # Pagination (default behavior)
     page = int(request.args.get('page', 1))
     per_page = int(request.args.get('per_page', 20))
     start = (page - 1) * per_page
