@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indonesian News Viewer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .subtitle {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 20px;
+        }
+
+        .filters {
+            background: #f8f9fa;
+            padding: 25px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .filter-form {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #495057;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            padding: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            align-self: flex-end;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .results-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #2196f3;
+        }
+
+        .articles-grid {
+            display: grid;
+            gap: 25px;
+        }
+
+        .article-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 25px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .article-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .article-title {
+            color: #2c3e50;
+            font-size: 1.3em;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .article-title:hover {
+            color: #3498db;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.85em;
+            color: #6c757d;
+            margin-bottom: 12px;
+        }
+
+        .source-tag, .category-tag {
+            background: #f1f3f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .source-tag {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .category-tag {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .article-description {
+            color: #495057;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85em;
+            color: #6c757d;
+        }
+
+        .article-link {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .article-link:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        .no-articles {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+
+        .no-articles i {
+            font-size: 3em;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+
+            header {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .filter-form {
+                flex-direction: column;
+            }
+
+            .filter-group {
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .article-header {
+                flex-direction: column;
+            }
+
+            .article-meta {
+                flex-wrap: wrap;
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+
+        .pulse {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📰 Indonesian News Viewer</h1>
+            <p class="subtitle">Real-time news aggregator from major Indonesian news sources</p>
+
+            {% if metadata %}
+            <div class="stats">
+                <div class="stat-item">
+                    <strong>{{ metadata.total_articles }}</strong><br>
+                    <span>Total Articles</span>
+                </div>
+                {% if metadata.sources %}
+                <div class="stat-item">
+                    <strong>{{ metadata.sources|length }}</strong><br>
+                    <span>News Sources</span>
+                </div>
+                {% endif %}
+                {% if metadata.last_updated %}
+                <div class="stat-item">
+                    <strong>📅</strong><br>
+                    <span>{{ metadata.last_updated[:10] }}</span>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </header>
+
+        <section class="filters">
+            <form method="GET" class="filter-form">
+                <div class="filter-group">
+                    <label for="search">🔍 Search News</label>
+                    <input type="text" id="search" name="search" value="{{ filters.search }}" placeholder="Keywords in title or description...">
+                </div>
+
+                {% if sources %}
+                <div class="filter-group">
+                    <label for="source">📡 News Source</label>
+                    <select id="source" name="source">
+                        <option value="all">All Sources</option>
+                        {% for source in sources %}
+                        <option value="{{ source }}" {% if filters.source == source %}selected{% endif %}>{{ source }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
+
+                {% if categories %}
+                <div class="filter-group">
+                    <label for="category">📂 Category</label>
+                    <select id="category" name="category">
+                        <option value="all">All Categories</option>
+                        {% for category in categories %}
+                        <option value="{{ category }}" {% if filters.category == category %}selected{% endif %}>{{ category }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
+
+                <button type="submit" class="btn">Apply Filters</button>
+            </form>
+        </section>
+
+        <main class="content">
+            {% if total_filtered is defined %}
+            <div class="results-info">
+                📊 Showing <strong>{{ articles|length }}</strong> of <strong>{{ total_filtered }}</strong> articles
+                {% if filters.search or filters.source != 'all' or filters.category != 'all' %}
+                    (filtered results)
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if articles %}
+            <div class="articles-grid">
+                {% for article in articles %}
+                <article class="article-card">
+                    <div class="article-header">
+                        <div style="flex: 1;">
+                            <a href="{{ article.url }}" target="_blank" class="article-title">
+                                {{ article.title }}
+                            </a>
+                            <div class="article-meta">
+                                {% if article.source %}
+                                <span class="source-tag">{{ article.source }}</span>
+                                {% endif %}
+                                {% if article.category %}
+                                <span class="category-tag">{{ article.category }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if article.description %}
+                    <p class="article-description">{{ article.description }}</p>
+                    {% endif %}
+
+                    <div class="article-footer">
+                        {% if article.date %}
+                        <span>📅 {{ article.date[:10] }}</span>
+                        {% endif %}
+                        <a href="{{ article.url }}" target="_blank" class="article-link">
+                            Read Full Article →
+                        </a>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="no-articles">
+                <div class="pulse">📭</div>
+                <h3>No articles found</h3>
+                <p>Try adjusting your filters or check back later for new articles.</p>
+            </div>
+            {% endif %}
+        </main>
+
+        <footer>
+            <p>🤖 Powered by Indonesian News Scraper | Data updated automatically</p>
+        </footer>
+    </div>
+
+    <script>
+        // Add some interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-refresh every 5 minutes
+            setTimeout(function() {
+                if (confirm('Refresh to get latest articles?')) {
+                    window.location.reload();
+                }
+            }, 300000);
+
+            // Search on Enter key
+            document.getElementById('search').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    this.form.submit();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
