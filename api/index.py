@@ -23,13 +23,22 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
+# Vercel serverless function handler
+def handler(request):
+    """Vercel serverless function handler"""
+    return app(request)
+
 # Data directory - adjust for Vercel environment
 BASE_DIR = Path(__file__).parent.parent
 DATA_DIR = BASE_DIR / 'data'
 TEMPLATES_DIR = BASE_DIR / 'templates'
 
-# Templates setup
-templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
+# Templates setup - with error handling for serverless
+try:
+    templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
+except Exception:
+    # Fallback for serverless environments
+    templates = None
 
 # Mount static files
 try:
@@ -151,15 +160,68 @@ async def root(request: Request):
     # Sort by date (newest first)
     filtered_articles.sort(key=lambda x: x.get('date', ''), reverse=True)
 
-    return templates.TemplateResponse("index.html", {
-        "request": request,
-        "articles": filtered_articles,
-        "metadata": metadata,
-        "sources": sorted(sources),
-        "categories": sorted(categories),
-        "filters": filters,
-        "total_filtered": len(filtered_articles)
-    })
+    # Handle template rendering with fallback
+    if templates is None:
+        # Fallback HTML response for serverless environments
+        html_content = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Indonesian News Viewer</title>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+                body {{ font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }}
+                .container {{ max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; }}
+                .article {{ border: 1px solid #ddd; margin: 10px 0; padding: 15px; border-radius: 5px; }}
+                .title {{ color: #2c3e50; font-size: 18px; font-weight: bold; margin-bottom: 10px; }}
+                .meta {{ color: #666; font-size: 12px; margin-bottom: 8px; }}
+                .description {{ color: #333; line-height: 1.4; }}
+                .header {{ text-align: center; background: #3498db; color: white; padding: 20px; margin: -20px -20px 20px -20px; border-radius: 10px 10px 0 0; }}
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <h1>📰 Indonesian News Viewer</h1>
+                    <p>Vercel Demo - Sample Data</p>
+                    <p>Total Articles: {len(filtered_articles)}</p>
+                </div>
+        """
+
+        for article in filtered_articles[:10]:  # Show first 10 articles
+            html_content += f"""
+                <div class="article">
+                    <div class="title">{article.get('title', 'No Title')}</div>
+                    <div class="meta">Source: {article.get('source', 'Unknown')} | Category: {article.get('category', 'Unknown')} | Date: {article.get('date', 'Unknown')[:10]}</div>
+                    <div class="description">{article.get('description', 'No description available')}</div>
+                    <div style="margin-top: 10px;">
+                        <a href="{article.get('url', '#')}" target="_blank" style="color: #3498db;">Read Full Article →</a>
+                    </div>
+                </div>
+            """
+
+        html_content += """
+            </div>
+            <div style="text-align: center; margin-top: 40px; color: #666; font-size: 14px;">
+                <p>🚀 This is a Vercel demo with sample data.</p>
+                <p>For full functionality, deploy to Railway or Render.</p>
+                <p><a href="/docs" target="_blank">View API Documentation</a></p>
+            </div>
+        </body>
+        </html>
+        """
+        return HTMLResponse(content=html_content)
+    else:
+        return templates.TemplateResponse("index.html", {
+            "request": request,
+            "articles": filtered_articles,
+            "metadata": metadata,
+            "sources": sorted(sources),
+            "categories": sorted(categories),
+            "filters": filters,
+            "total_filtered": len(filtered_articles)
+        })
 
 @app.get("/api", response_model=ArticleResponse)
 async def get_articles(
@@ -303,7 +365,7 @@ async def health_check():
         "environment": "vercel"
     }
 
-# Vercel serverless handler
-def handler(request):
-    """Vercel serverless function handler"""
-    return app(request)
+# Lambda-style handler for Vercel
+def lambda_handler(event, context):
+    """AWS Lambda-style handler that Vercel can use"""
+    return app(event)
