@@ -23,10 +23,6 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# Vercel serverless function handler
-def handler(request):
-    """Vercel serverless function handler"""
-    return app(request)
 
 # Data directory - adjust for Vercel environment
 BASE_DIR = Path(__file__).parent.parent
@@ -365,7 +361,3 @@ async def health_check():
         "environment": "vercel"
     }
 
-# Lambda-style handler for Vercel
-def lambda_handler(event, context):
-    """AWS Lambda-style handler that Vercel can use"""
-    return app(event)
