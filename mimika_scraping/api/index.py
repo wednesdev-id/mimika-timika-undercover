@@ -58,9 +58,8 @@ class FilterParams(BaseModel):
     all: bool = False
 
 # Sample data for initial deployment when no data files exist
-SAMPLE_DATA = os.path.join(BASE_DIR, "../data/news_sample_20251105.json")
-with open(SAMPLE_DATA, "r", encoding="utf-8") as f:
-    data = json.load(f)
+SAMPLE_DATA = Path(__file__).resolve().parent.parent / "data" / "news_sample_20251105.json"
+print("File exists?", SAMPLE_DATA.exists())
 
 def load_latest_json_data() -> Dict[str, Any]:
     """Load the most recent JSON data file or return sample data"""
