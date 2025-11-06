@@ -58,39 +58,7 @@ class FilterParams(BaseModel):
     all: bool = False
 
 # Sample data for initial deployment when no data files exist
-SAMPLE_DATA = {
-    "metadata": {
-        "total_articles": 3,
-        "last_updated": "2025-11-05",
-        "sources": ["Sample"]
-    },
-    "articles": [
-        {
-            "title": "Selamat Datang di Indonesian News Viewer",
-            "description": "Ini adalah contoh artikel. Data aktual akan muncul setelah scraping dijalankan.",
-            "url": "https://example.com",
-            "source": "Sample",
-            "category": "Demo",
-            "date": "2025-11-05T10:00:00Z"
-        },
-        {
-            "title": "FastAPI + Vercel Deployment Success",
-            "description": "Aplikasi berhasil di-deploy ke Vercel dengan Python runtime.",
-            "url": "https://vercel.com",
-            "source": "Sample",
-            "category": "Tech",
-            "date": "2025-11-05T09:30:00Z"
-        },
-        {
-            "title": "Cara Menggunakan API",
-            "description": "Gunakan endpoint /api untuk mengakses data berita dalam format JSON.",
-            "url": "https://example.com/api",
-            "source": "Sample",
-            "category": "Tutorial",
-            "date": "2025-11-05T08:45:00Z"
-        }
-    ]
-}
+SAMPLE_DATA = "/data/news_sample_20251105.json"
 
 def load_latest_json_data() -> Dict[str, Any]:
     """Load the most recent JSON data file or return sample data"""
