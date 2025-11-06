@@ -65,20 +65,30 @@ def load_latest_json_data() -> Dict[str, Any]:
     """Load the most recent JSON data file or return sample data"""
     try:
         if not DATA_DIR.exists():
-            return SAMPLE_DATA
+            print("Data directory not found, loading sample data")
+            with open(SAMPLE_DATA, 'r', encoding='utf-8') as f:
+                return json.load(f)
 
         json_files = [f for f in DATA_DIR.glob('*.json')]
         if not json_files:
-            return SAMPLE_DATA
+            print("No JSON files found, loading sample data")
+            with open(SAMPLE_DATA, 'r', encoding='utf-8') as f:
+                return json.load(f)
 
         # Sort by filename (which includes date) to get the latest
         latest_file = sorted(json_files)[-1]
+        print(f"Loading data from: {latest_file}")
 
         with open(latest_file, 'r', encoding='utf-8') as f:
             return json.load(f)
     except Exception as e:
         print(f"Error loading data: {e}")
-        return SAMPLE_DATA
+        try:
+            with open(SAMPLE_DATA, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception as e2:
+            print(f"Error loading sample data: {e2}")
+            return {"metadata": {"total_articles": 0, "error": "Failed to load any data"}, "articles": []}
 
 def filter_articles(articles: List[Dict], filters: Dict) -> List[Dict]:
     """Filter articles based on search criteria"""
@@ -101,137 +111,10 @@ def filter_articles(articles: List[Dict], filters: Dict) -> List[Dict]:
 
     return filtered
 
-@app.get("/", response_class=HTMLResponse)
-async def root(request: Request):
-    """Main page with news display"""
-    data = load_latest_json_data()
-    articles = data.get('articles', [])
-    metadata = data.get('metadata', {})
-
-    # Get filter parameters from query
-    filters = {
-        'search': request.query_params.get('search', ''),
-        'source': request.query_params.get('source', 'all'),
-        'category': request.query_params.get('category', 'all')
-    }
-
-    # Apply filters
-    filtered_articles = filter_articles(articles, filters)
-
-    # Get unique sources and categories for dropdowns
-    sources = list(set(article.get('source', 'Unknown') for article in articles))
-    categories = list(set(article.get('category', 'Unknown') for article in articles))
-
-    # Sort by date (newest first)
-    filtered_articles.sort(key=lambda x: x.get('date', ''), reverse=True)
-
-    # Handle template rendering with fallback
-    if templates is None:
-        # Fallback HTML response for serverless environments
-        html_content = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Papua News Viewer</title>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <style>
-                body {{ font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }}
-                .container {{ max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; }}
-                .article {{ border: 1px solid #ddd; margin: 15px 0; padding: 20px; border-radius: 8px; transition: box-shadow 0.3s; }}
-                .article:hover {{ box-shadow: 0 4px 8px rgba(0,0,0,0.1); }}
-                .title {{ color: #2c3e50; font-size: 20px; font-weight: bold; margin-bottom: 10px; }}
-                .meta {{ color: #666; font-size: 12px; margin-bottom: 12px; }}
-                .description {{ color: #333; line-height: 1.6; margin-bottom: 15px; }}
-                .header {{ text-align: center; background: #3498db; color: white; padding: 20px; margin: -20px -20px 20px -20px; border-radius: 10px 10px 0 0; }}
-                .nav-links {{ text-align: center; margin: 20px 0; }}
-                .nav-links a {{ color: #3498db; text-decoration: none; margin: 0 15px; font-weight: bold; }}
-                .stats {{ background: #2c3e50; color: white; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; }}
-                .read-more {{ color: #3498db; text-decoration: none; font-weight: bold; }}
-                .read-more:hover {{ text-decoration: underline; }}
-                .tags {{ margin-top: 10px; }}
-                .tag {{ background: #3498db; color: white; padding: 3px 8px; border-radius: 12px; font-size: 11px; margin-right: 5px; display: inline-block; }}
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <div class="header">
-                    <h1>📰 Papua News Viewer</h1>
-                    <p>Latest news from Papua sources</p>
-                    <p>Last Updated: {metadata.get('last_updated', 'Unknown')}</p>
-                </div>
-
-                <div class="nav-links">
-                    <a href="/articles">View All Articles →</a>
-                    <a href="/docs">API Documentation</a>
-                    <a href="/api/stats">Statistics</a>
-                </div>
-
-                <div class="stats">
-                    <strong>Total Articles:</strong> {len(filtered_articles)} |
-                    <strong>Sources:</strong> {len(set(article.get('source', 'Unknown') for article in articles))} |
-                    <strong>Categories:</strong> {len(set(article.get('category', 'Unknown') for article in articles))}
-                </div>
-        """
-
-        # Show all articles (not just first 10)
-        for article in filtered_articles:
-            title = article.get('title', 'No Title')
-            description = article.get('description', 'No description available')
-            url = article.get('url', '#')
-            source = article.get('source', 'Unknown')
-            category = article.get('category', 'Unknown')
-            date = article.get('date', 'Unknown')[:19].replace('T', ' ')
-            tags = article.get('tags', [])
-
-            html_content += f"""
-                <div class="article">
-                    <div class="title">{title}</div>
-                    <div class="meta">
-                        <strong>Source:</strong> {source} |
-                        <strong>Category:</strong> {category} |
-                        <strong>Date:</strong> {date}
-                    </div>
-                    <div class="description">{description}</div>
-            """
-
-            if tags:
-                html_content += '<div class="tags">'
-                for tag in tags:
-                    html_content += f'<span class="tag">{tag}</span>'
-                html_content += '</div>'
-
-            html_content += f"""
-                    <div style="margin-top: 15px;">
-                        <a href="{url}" target="_blank" class="read-more">Read Full Article →</a>
-                    </div>
-                </div>
-            """
-
-        html_content += f"""
-            </div>
-            <div style="text-align: center; margin-top: 40px; color: #666; font-size: 14px;">
-                <p>🚀 Papua News Viewer - Powered by FastAPI</p>
-                <p>Deployed on Vercel with serverless functions</p>
-                <p><a href="/articles" target="_blank">View All Articles ({len(filtered_articles)} total)</a> | <a href="/docs" target="_blank">API Documentation</a></p>
-                <p style="margin-top: 20px; font-size: 12px;">
-                    Data source: {SAMPLE_DATA.name if SAMPLE_DATA.exists() else 'No data file found'}
-                </p>
-            </div>
-        </body>
-        </html>
-        """
-        return HTMLResponse(content=html_content)
-    else:
-        return templates.TemplateResponse("index.html", {
-            "request": request,
-            "articles": filtered_articles,
-            "metadata": metadata,
-            "sources": sorted(sources),
-            "categories": sorted(categories),
-            "filters": filters,
-            "total_filtered": len(filtered_articles)
-        })
+@app.get("/")
+async def root():
+    """Main page - return JSON data directly"""
+    return load_latest_json_data()
 
 @app.get("/api", response_model=ArticleResponse)
 async def get_articles(
@@ -389,8 +272,8 @@ async def articles_page(request: Request):
     # Sort by date (newest first)
     filtered_articles.sort(key=lambda x: x.get('date', ''), reverse=True)
 
-    # Handle template rendering with fallback
-    if templates is None:
+    # Always use fallback HTML generation for serverless compatibility
+    if True:
         # Fallback HTML response for serverless environments
         html_content = f"""
         <!DOCTYPE html>
@@ -548,7 +431,7 @@ async def articles_page(request: Request):
             let searchTimeout;
             document.getElementById('search').addEventListener('input', function() {
                 clearTimeout(searchTimeout);
-                searchTimeout = setTimeout(() => {
+                searchTimeout = setTimeout(function() {
                     if (this.value.length > 2 || this.value.length === 0) {
                         window.location.href = window.location.pathname + '?' + new URLSearchParams(new FormData(this.closest('form'))).toString();
                     }
@@ -557,18 +440,6 @@ async def articles_page(request: Request):
         </script>
         """
         return HTMLResponse(content=html_content)
-    else:
-        return templates.TemplateResponse("articles.html", {
-            "request": request,
-            "articles": filtered_articles,
-            "metadata": metadata,
-            "sources": sorted(sources),
-            "categories": sorted(categories),
-            "filters": filters,
-            "total_filtered": len(filtered_articles),
-            "total_sources": len(sources),
-            "total_categories": len(categories)
-        })
 
 @app.get("/health")
 async def health_check():
