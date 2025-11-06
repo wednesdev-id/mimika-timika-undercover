@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Papua-inspired color palette */
+    --background: 35 30% 96%;
+    --foreground: 25 35% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 25 35% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 25 35% 20%;
+
+    /* Deep forest green - primary */
+    --primary: 145 45% 25%;
+    --primary-foreground: 35 30% 96%;
+
+    /* Warm earth brown - secondary */
+    --secondary: 25 35% 45%;
+    --secondary-foreground: 35 30% 96%;
+
+    /* Soft cream/beige - muted */
+    --muted: 35 25% 90%;
+    --muted-foreground: 25 25% 40%;
+
+    /* Soft beige accent */
+    --accent: 40 45% 85%;
+    --accent-foreground: 25 35% 25%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 35 20% 88%;
+    --input: 35 20% 88%;
+    --ring: 145 45% 35%;
+
+    --radius: 0.5rem;
+
+    /* Sidebar - deep green theme */
+    --sidebar-background: 145 40% 22%;
+    --sidebar-foreground: 35 30% 95%;
+    --sidebar-primary: 145 50% 30%;
+    --sidebar-primary-foreground: 35 30% 96%;
+    --sidebar-accent: 145 35% 28%;
+    --sidebar-accent-foreground: 35 30% 95%;
+    --sidebar-border: 145 30% 30%;
+    --sidebar-ring: 145 45% 40%;
+
+    /* Status colors */
+    --status-pending: 45 90% 60%;
+    --status-verified: 145 60% 45%;
+    --status-hoax: 0 70% 55%;
+    --status-published: 200 70% 50%;
+  }
+
+  .dark {
+    --background: 25 25% 12%;
+    --foreground: 35 20% 92%;
+
+    --card: 25 20% 15%;
+    --card-foreground: 35 20% 92%;
+
+    --popover: 25 20% 15%;
+    --popover-foreground: 35 20% 92%;
+
+    --primary: 145 50% 40%;
+    --primary-foreground: 35 30% 96%;
+
+    --secondary: 25 30% 25%;
+    --secondary-foreground: 35 20% 92%;
+
+    --muted: 25 20% 20%;
+    --muted-foreground: 35 15% 65%;
+
+    --accent: 25 25% 22%;
+    --accent-foreground: 35 20% 92%;
+
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 25 20% 25%;
+    --input: 25 20% 25%;
+    --ring: 145 50% 50%;
+
+    --sidebar-background: 145 35% 15%;
+    --sidebar-foreground: 35 20% 92%;
+    --sidebar-primary: 145 45% 35%;
+    --sidebar-primary-foreground: 35 30% 96%;
+    --sidebar-accent: 145 30% 20%;
+    --sidebar-accent-foreground: 35 20% 92%;
+    --sidebar-border: 145 25% 20%;
+    --sidebar-ring: 145 50% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
