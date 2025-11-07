@@ -59,28 +59,21 @@ class FilterParams(BaseModel):
 
 # Sample data for initial deployment when no data files exist
 SAMPLE_DATA = Path(__file__).resolve().parent.parent / "data" / "news_detik_20251105.json"
-print("File exists?", SAMPLE_DATA.exists())
+TARGET_DATA_FILE = Path(__file__).resolve().parent.parent / "data" / "news_detik_20251105.json"
+print("File exists?", TARGET_DATA_FILE.exists())
 
 def load_latest_json_data() -> Dict[str, Any]:
-    """Load the most recent JSON data file or return sample data"""
+    """Load data from the specified JSON file"""
     try:
-        if not DATA_DIR.exists():
-            print("Data directory not found, loading sample data")
+        # Always use the target data file as requested
+        if TARGET_DATA_FILE.exists():
+            print(f"Loading data from: {TARGET_DATA_FILE}")
+            with open(TARGET_DATA_FILE, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        else:
+            print(f"Target file {TARGET_DATA_FILE} not found, using fallback")
             with open(SAMPLE_DATA, 'r', encoding='utf-8') as f:
                 return json.load(f)
-
-        json_files = [f for f in DATA_DIR.glob('*.json')]
-        if not json_files:
-            print("No JSON files found, loading sample data")
-            with open(SAMPLE_DATA, 'r', encoding='utf-8') as f:
-                return json.load(f)
-
-        # Sort by filename (which includes date) to get the latest
-        latest_file = sorted(json_files)[-1]
-        print(f"Loading data from: {latest_file}")
-
-        with open(latest_file, 'r', encoding='utf-8') as f:
-            return json.load(f)
     except Exception as e:
         print(f"Error loading data: {e}")
         try:
@@ -115,6 +108,12 @@ def filter_articles(articles: List[Dict], filters: Dict) -> List[Dict]:
 async def root():
     """Main page - return JSON data directly"""
     return load_latest_json_data()
+
+@app.get("/json")
+async def get_json_data():
+    """Return JSON data from the specified file"""
+    data = load_latest_json_data()
+    return JSONResponse(content=data)
 
 @app.get("/api", response_model=ArticleResponse)
 async def get_articles(
@@ -272,8 +271,8 @@ async def articles_page(request: Request):
     # Sort by date (newest first)
     filtered_articles.sort(key=lambda x: x.get('date', ''), reverse=True)
 
-    # Always use fallback HTML generation for serverless compatibility
-    if True:
+    # Handle template rendering with fallback
+    if templates is None:
         # Fallback HTML response for serverless environments
         html_content = f"""
         <!DOCTYPE html>
@@ -400,8 +399,8 @@ async def articles_page(request: Request):
             """
 
         # Add footer with data source info
-        data_source_name = SAMPLE_DATA.name if SAMPLE_DATA.exists() else 'No data file found'
-        last_scraped = metadata.get('scraped_at', 'Unknown')
+        data_source_name = TARGET_DATA_FILE.name if TARGET_DATA_FILE.exists() else SAMPLE_DATA.name
+        last_scraped = metadata.get('last_updated', metadata.get('scraped_at', 'Unknown'))
 
         html_content += f"""
             </div>
@@ -440,6 +439,18 @@ async def articles_page(request: Request):
         </script>
         """
         return HTMLResponse(content=html_content)
+    else:
+        return templates.TemplateResponse("articles.html", {
+            "request": request,
+            "articles": filtered_articles,
+            "metadata": metadata,
+            "sources": sorted(sources),
+            "categories": sorted(categories),
+            "filters": filters,
+            "total_filtered": len(filtered_articles),
+            "total_sources": len(sources),
+            "total_categories": len(categories)
+        })
 
 @app.get("/health")
 async def health_check():
