@@ -7,10 +7,8 @@ import os
 import json
 from datetime import datetime
 from typing import List, Dict, Any, Optional
-from fastapi import FastAPI, Request, HTTPException, Query
-from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi.templating import Jinja2Templates
-from fastapi.staticfiles import StaticFiles
+from fastapi import FastAPI, Query
+from fastapi.responses import JSONResponse, HTMLResponse
 from pydantic import BaseModel
 from pathlib import Path
 
@@ -27,21 +25,7 @@ app = FastAPI(
 # Data directory - adjust for Vercel environment
 BASE_DIR = Path(__file__).parent.parent
 DATA_DIR = BASE_DIR / 'data'
-TEMPLATES_DIR = BASE_DIR / 'templates'
 
-# Templates setup - with error handling for serverless
-try:
-    templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
-except Exception:
-    # Fallback for serverless environments
-    templates = None
-
-# Mount static files
-try:
-    app.mount("/static", StaticFiles(directory=str(BASE_DIR / 'static')), name="static")
-except RuntimeError:
-    # Static files mounting may fail in serverless environment
-    pass
 
 # Pydantic models for API
 class ArticleResponse(BaseModel):
@@ -246,211 +230,99 @@ async def refresh_data():
         ]
     }
 
-# Health check endpoint
-@app.get("/articles", response_class=HTMLResponse)
-async def articles_page(request: Request):
-    """Dedicated page to display all scraped news articles"""
+@app.get("/web", response_class=HTMLResponse)
+async def web_ui():
+    """Web UI showing 50 articles"""
     data = load_latest_json_data()
-    articles = data.get('articles', [])
+    all_articles = data.get('articles', [])
     metadata = data.get('metadata', {})
 
-    # Get filter parameters from query
-    filters = {
-        'search': request.query_params.get('search', ''),
-        'source': request.query_params.get('source', 'all'),
-        'category': request.query_params.get('category', 'all')
-    }
-
-    # Apply filters
-    filtered_articles = filter_articles(articles, filters)
-
-    # Get unique sources and categories for dropdowns
-    sources = list(set(article.get('source', 'Unknown') for article in articles))
-    categories = list(set(article.get('category', 'Unknown') for article in articles))
+    # Take only first 50 articles
+    articles = all_articles[:50]
 
     # Sort by date (newest first)
-    filtered_articles.sort(key=lambda x: x.get('date', ''), reverse=True)
+    articles.sort(key=lambda x: x.get('date', ''), reverse=True)
 
-    # Handle template rendering with fallback
-    if templates is None:
-        # Fallback HTML response for serverless environments
-        html_content = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>All Articles - Indonesian News Viewer</title>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <style>
-                body {{ font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }}
-                .container {{ max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; }}
-                .header {{ text-align: center; background: #e74c3c; color: white; padding: 20px; margin: -20px -20px 20px -20px; border-radius: 10px 10px 0 0; }}
-                .filters {{ background: #ecf0f1; padding: 15px; border-radius: 5px; margin-bottom: 20px; }}
-                .filter-group {{ display: inline-block; margin: 10px; }}
-                .filter-group label {{ display: block; font-weight: bold; margin-bottom: 5px; }}
-                .filter-group input, .filter-group select {{ padding: 8px; border: 1px solid #bdc3c7; border-radius: 3px; width: 200px; }}
-                .article {{ border: 1px solid #ddd; margin: 15px 0; padding: 20px; border-radius: 8px; transition: box-shadow 0.3s; }}
-                .article:hover {{ box-shadow: 0 4px 8px rgba(0,0,0,0.1); }}
-                .title {{ color: #2c3e50; font-size: 20px; font-weight: bold; margin-bottom: 10px; }}
-                .meta {{ color: #666; font-size: 12px; margin-bottom: 12px; }}
-                .description {{ color: #333; line-height: 1.6; margin-bottom: 15px; }}
-                .tags {{ margin-top: 10px; }}
-                .tag {{ background: #3498db; color: white; padding: 3px 8px; border-radius: 12px; font-size: 11px; margin-right: 5px; display: inline-block; }}
-                .read-more {{ color: #e74c3c; text-decoration: none; font-weight: bold; }}
-                .read-more:hover {{ text-decoration: underline; }}
-                .stats {{ background: #2c3e50; color: white; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; }}
-                .nav-links {{ text-align: center; margin: 20px 0; }}
-                .nav-links a {{ color: #e74c3c; text-decoration: none; margin: 0 15px; font-weight: bold; }}
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <div class="header">
-                    <h1>📰 All Articles</h1>
-                    <p>Complete collection of scraped news from Papua sources</p>
-                </div>
-
-                <div class="nav-links">
-                    <a href="/">← Back to Home</a>
-                    <a href="/docs">API Documentation</a>
-                    <a href="/api/stats">Statistics</a>
-                </div>
-
-                <div class="stats">
-                    <strong>Total Articles:</strong> {len(filtered_articles)} |
-                    <strong>Sources:</strong> {len(sources)} |
-                    <strong>Categories:</strong> {len(categories)}
-                </div>
-
-                <div class="filters">
-                    <div class="filter-group">
-                        <label for="search">Search:</label>
-                        <input type="text" id="search" name="search" value="{filters['search']}" placeholder="Search in titles and descriptions...">
-                    </div>
-                    <div class="filter-group">
-                        <label for="source">Source:</label>
-                        <select id="source" name="source">
-                            <option value="all" {'selected' if filters['source'] == 'all' else ''}>All Sources</option>
-        """
-
-        # Add source options
-        for source in sorted(sources):
-            selected = 'selected' if filters['source'] == source else ''
-            html_content += f'<option value="{source}" {selected}>{source}</option>'
-
-        html_content += f"""
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label for="category">Category:</label>
-                        <select id="category" name="category">
-                            <option value="all" {'selected' if filters['category'] == 'all' else ''}>All Categories</option>
-        """
-
-        # Add category options
-        for category in sorted(categories):
-            selected = 'selected' if filters['category'] == category else ''
-            html_content += f'<option value="{category}" {selected}>{category}</option>'
-
-        html_content += """
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>&nbsp;</label>
-                        <button type="submit" style="padding: 8px 20px; background: #e74c3c; color: white; border: none; border-radius: 3px; cursor: pointer;">Apply Filters</button>
-                    </div>
-                </div>
-        """
-
-        # Display all articles
-        for article in filtered_articles:
-            title = article.get('title', 'No Title')
-            description = article.get('description', 'No description available')
-            url = article.get('url', '#')
-            source = article.get('source', 'Unknown')
-            category = article.get('category', 'Unknown')
-            date = article.get('date', 'Unknown')[:19].replace('T', ' ')
-            author = article.get('author', 'Unknown')
-            tags = article.get('tags', [])
-
-            html_content += f"""
-                <div class="article">
-                    <div class="title">{title}</div>
-                    <div class="meta">
-                        <strong>Source:</strong> {source} |
-                        <strong>Category:</strong> {category} |
-                        <strong>Date:</strong> {date} |
-                        <strong>Author:</strong> {author}
-                    </div>
-                    <div class="description">{description}</div>
-            """
-
-            if tags:
-                html_content += '<div class="tags">'
-                for tag in tags:
-                    html_content += f'<span class="tag">{tag}</span>'
-                html_content += '</div>'
-
-            html_content += f"""
-                    <div style="margin-top: 15px;">
-                        <a href="{url}" target="_blank" class="read-more">Read Full Article →</a>
-                    </div>
-                </div>
-            """
-
-        # Add footer with data source info
-        data_source_name = TARGET_DATA_FILE.name if TARGET_DATA_FILE.exists() else SAMPLE_DATA.name
-        last_scraped = metadata.get('last_updated', metadata.get('scraped_at', 'Unknown'))
-
-        html_content += f"""
+    
+    html_content = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Papua News Viewer - 50 Articles</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {{ font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }}
+            .container {{ max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; }}
+            .header {{ text-align: center; background: #e74c3c; color: white; padding: 20px; margin: -20px -20px 20px -20px; border-radius: 10px 10px 0 0; }}
+            .stats {{ background: #2c3e50; color: white; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; }}
+            .nav-links {{ text-align: center; margin: 20px 0; }}
+            .nav-links a {{ color: #e74c3c; text-decoration: none; margin: 0 15px; font-weight: bold; }}
+            .article {{ border: 1px solid #ddd; margin: 15px 0; padding: 20px; border-radius: 8px; transition: box-shadow 0.3s; }}
+            .article:hover {{ box-shadow: 0 4px 8px rgba(0,0,0,0.1); }}
+            .title {{ color: #2c3e50; font-size: 20px; font-weight: bold; margin-bottom: 10px; }}
+            .meta {{ color: #666; font-size: 12px; margin-bottom: 12px; }}
+            .description {{ color: #333; line-height: 1.6; margin-bottom: 15px; }}
+            .read-more {{ color: #e74c3c; text-decoration: none; font-weight: bold; }}
+            .read-more:hover {{ text-decoration: underline; }}
+            .footer {{ text-align: center; margin-top: 40px; color: #666; font-size: 12px; border-top: 1px solid #ddd; padding-top: 20px; }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>📰 Papua News Viewer</h1>
+                <p>Showing 50 latest articles from Detik.com</p>
             </div>
 
-            <div style="text-align: center; margin-top: 40px; color: #666; font-size: 12px; border-top: 1px solid #ddd; padding-top: 20px;">
-                <p>📄 Data source: {data_source_name}</p>
-                <p>Last scraped: {last_scraped}</p>
-                <p>🚀 Papua News Viewer - Powered by FastAPI on Vercel</p>
+            <div class="nav-links">
+                <a href="/">📄 Full JSON API</a>
+                <a href="/docs">API Documentation</a>
+                <a href="/api/stats">Statistics</a>
             </div>
-        </body>
-        </html>
+
+            <div class="stats">
+                <strong>Showing:</strong> {len(articles)} of {len(all_articles)} articles |
+                <strong>Source:</strong> Detik.com |
+                <strong>Full Data:</strong> <a href="/">Available here</a>
+            </div>
+    """
+
+    # Display articles
+    for article in articles:
+        title = article.get('title', 'No Title')
+        description = article.get('description', 'No description available')
+        url = article.get('url', '#')
+        source = article.get('source', 'Unknown')
+        date = article.get('date', 'Unknown')[:10]
+
+        html_content += f"""
+            <div class="article">
+                <div class="title">{title}</div>
+                <div class="meta">
+                    <strong>Source:</strong> {source} |
+                    <strong>Date:</strong> {date}
+                </div>
+                <div class="description">{description}</div>
+                <div style="margin-top: 15px;">
+                    <a href="{url}" target="_blank" class="read-more">Read Full Article →</a>
+                </div>
+            </div>
         """
 
-        # Add JavaScript separately to avoid f-string conflicts
-        html_content += """
-        <script>
-            // Auto-submit form when filters change
-            document.querySelectorAll('input, select').forEach(function(element) {
-                element.addEventListener('change', function() {
-                    if (this.id !== 'search' || this.value.length > 2 || this.value.length === 0) {
-                        window.location.href = window.location.pathname + '?' + new URLSearchParams(new FormData(this.closest('form'))).toString();
-                    }
-                });
-            });
+    html_content += f"""
+            <div class="footer">
+                <p>📄 Data source: {TARGET_DATA_FILE.name}</p>
+                <p>Last updated: {metadata.get('last_updated', 'Unknown')}</p>
+                <p>🚀 For complete data ({len(all_articles)} articles), visit <a href="/">Root API</a></p>
+                <p>🤖 Powered by FastAPI on Vercel</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
 
-            // Debounce search input
-            let searchTimeout;
-            document.getElementById('search').addEventListener('input', function() {
-                clearTimeout(searchTimeout);
-                searchTimeout = setTimeout(function() {
-                    if (this.value.length > 2 || this.value.length === 0) {
-                        window.location.href = window.location.pathname + '?' + new URLSearchParams(new FormData(this.closest('form'))).toString();
-                    }
-                }, 500);
-            });
-        </script>
-        """
-        return HTMLResponse(content=html_content)
-    else:
-        return templates.TemplateResponse("articles.html", {
-            "request": request,
-            "articles": filtered_articles,
-            "metadata": metadata,
-            "sources": sorted(sources),
-            "categories": sorted(categories),
-            "filters": filters,
-            "total_filtered": len(filtered_articles),
-            "total_sources": len(sources),
-            "total_categories": len(categories)
-        })
+    return HTMLResponse(content=html_content)
 
 @app.get("/health")
 async def health_check():
