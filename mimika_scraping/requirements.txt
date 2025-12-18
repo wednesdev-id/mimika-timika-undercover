@@ -1,25 +1,25 @@
-# Core dependencies for Vercel deployment (minimal and compatible)
+# Core dependencies for Vercel deployment with full scraping functionality
 fastapi>=0.95.0,<0.115.0
 jinja2>=3.0.0,<4.0.0
 python-multipart>=0.0.6
-uvicorn
+pydantic>=1.10.0
 
-# Data processing (minimal version for serverless)
+# Data processing for serverless scraping
 requests>=2.25.0,<3.0.0
 python-dotenv>=0.19.0
-
-# Note: Removed beautifulsoup4 and lxml for smaller Vercel build
-# They're not needed for demo mode with sample data
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+pandas>=1.5.0
 
 # Note: For serverless deployment on Vercel:
 # - uvicorn is not needed (handled by Vercel runtime)
-# - pandas, openpyxl, schedule removed for smaller package size
-# - For full functionality with scraping, consider Railway, Render, or PythonAnywhere
+# - openpyxl, schedule removed for smaller package size (can be uncommented if needed)
+# - For full backend functionality with persistent storage, consider Railway, Render, or PythonAnywhere
 
 # Uncomment these if you need them in production:
-# pandas>=1.5.0
-# openpyxl>=3.0.10
-# schedule>=1.2.0
+# openpyxl>=3.0.10          # For Excel export functionality
+# schedule>=1.2.0            # For local scheduler functionality
+# redis>=4.0.0               # For caching (optional)
 
 # For dynamic sites with JavaScript (optional):
 # selenium>=4.8.0

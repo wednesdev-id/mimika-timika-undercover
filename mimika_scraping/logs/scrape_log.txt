@@ -421,3 +421,176 @@
 2025-11-05 09:33:42,308 - INFO - Successfully scraped 1011 articles with keyword 'mimika timika'
 2025-11-05 09:33:43,913 - INFO - Saved 1011 articles to data/news_detik_20251105.json
 2025-11-05 09:33:43,914 - INFO - Results saved to data/news_detik_20251105.json
+2025-12-18 10:55:30,417 - INFO - ============================================================
+2025-12-18 10:55:30,417 - INFO - Starting news scraping from all sources
+2025-12-18 10:55:30,418 - INFO - ============================================================
+2025-12-18 10:55:30,418 - INFO - Scraping kompas...
+2025-12-18 10:55:30,418 - INFO - Scraping section: https://www.kompas.com/news
+2025-12-18 10:55:30,554 - WARNING - Error scraping section https://www.kompas.com/news: 404 Client Error: Not Found for url: https://www.kompas.com/news
+2025-12-18 10:55:30,555 - INFO - Scraping section: https://www.kompas.com/nasional
+2025-12-18 10:55:30,647 - WARNING - Error scraping section https://www.kompas.com/nasional: 404 Client Error: Not Found for url: https://www.kompas.com/nasional
+2025-12-18 10:55:30,954 - INFO - Scraping section: https://www.kompas.com/ekonomi
+2025-12-18 10:55:31,073 - WARNING - Error scraping section https://www.kompas.com/ekonomi: 404 Client Error: Not Found for url: https://www.kompas.com/ekonomi
+2025-12-18 10:55:31,073 - INFO - Scraping section: https://www.kompas.com/bola
+2025-12-18 10:55:31,202 - WARNING - Error scraping section https://www.kompas.com/bola: 404 Client Error: Not Found for url: https://www.kompas.com/bola
+2025-12-18 10:55:31,205 - INFO - Scraping section: https://www.kompas.com/tekno
+2025-12-18 10:55:31,295 - WARNING - Error scraping section https://www.kompas.com/tekno: 404 Client Error: Not Found for url: https://www.kompas.com/tekno
+2025-12-18 10:55:31,295 - INFO - Scraping section: https://www.kompas.com/otomotif
+2025-12-18 10:55:31,421 - WARNING - Error scraping section https://www.kompas.com/otomotif: 404 Client Error: Not Found for url: https://www.kompas.com/otomotif
+2025-12-18 10:55:31,422 - INFO - [Kompas.com] Scraping completed successfully
+2025-12-18 10:55:31,425 - INFO - Successfully scraped 0 articles from Kompas.com
+2025-12-18 10:55:31,426 - WARNING - No articles found from kompas
+2025-12-18 10:55:31,426 - INFO - Scraping cnn...
+2025-12-18 10:55:31,426 - INFO - Scraping section: https://www.cnnindonesia.com/nasional
+2025-12-18 10:55:34,120 - INFO - Scraping section: https://www.cnnindonesia.com/ekonomi
+2025-12-18 10:55:37,146 - INFO - Scraping section: https://www.cnnindonesia.com/teknologi
+2025-12-18 10:55:39,939 - INFO - Scraping section: https://www.cnnindonesia.com/hiburan
+2025-12-18 10:55:42,238 - INFO - Scraping section: https://www.cnnindonesia.com/olahraga
+2025-12-18 10:55:45,803 - INFO - [CNN Indonesia] Scraping completed successfully
+2025-12-18 10:55:45,807 - INFO - Successfully scraped 0 articles from CNN Indonesia
+2025-12-18 10:55:45,809 - WARNING - No articles found from cnn
+2025-12-18 10:55:45,810 - INFO - Scraping antara...
+2025-12-18 10:55:45,811 - INFO - Scraping section: https://www.antaranews.com/berita
+2025-12-18 10:55:45,924 - WARNING - Error scraping section https://www.antaranews.com/berita: 404 Client Error: Not Found for url: https://www.antaranews.com/berita
+2025-12-18 10:55:45,925 - INFO - Scraping section: https://www.antaranews.com/politik
+2025-12-18 10:55:48,152 - INFO - Scraping section: https://www.antaranews.com/ekonomi
+2025-12-18 10:55:50,371 - INFO - Scraping section: https://www.antaranews.com/teknologi
+2025-12-18 10:55:52,782 - INFO - Scraping section: https://www.antaranews.com/olahraga
+2025-12-18 10:55:55,936 - INFO - Scraping section: https://www.antaranews.com/hiburan
+2025-12-18 10:55:58,630 - INFO - [Antara News] Scraping completed successfully
+2025-12-18 10:55:58,632 - INFO - Successfully scraped 0 articles from Antara News
+2025-12-18 10:55:58,633 - WARNING - No articles found from antara
+2025-12-18 10:55:58,633 - INFO - Scraping narasi...
+2025-12-18 10:55:58,633 - INFO - Scraping section: https://www.narasi.tv/pages/news
+2025-12-18 10:55:59,103 - WARNING - Error scraping section https://www.narasi.tv/pages/news: 403 Client Error: Forbidden for url: https://narasi.tv/pages/news
+2025-12-18 10:55:59,105 - INFO - Scraping section: https://www.narasi.tv/pages/politik
+2025-12-18 10:55:59,390 - WARNING - Error scraping section https://www.narasi.tv/pages/politik: 403 Client Error: Forbidden for url: https://narasi.tv/pages/politik
+2025-12-18 10:55:59,390 - INFO - Scraping section: https://www.narasi.tv/pages/ekonomi
+2025-12-18 10:55:59,639 - WARNING - Error scraping section https://www.narasi.tv/pages/ekonomi: 403 Client Error: Forbidden for url: https://narasi.tv/pages/ekonomi
+2025-12-18 10:55:59,640 - INFO - Scraping section: https://www.narasi.tv/pages/teknologi
+2025-12-18 10:55:59,894 - WARNING - Error scraping section https://www.narasi.tv/pages/teknologi: 403 Client Error: Forbidden for url: https://narasi.tv/pages/teknologi
+2025-12-18 10:55:59,895 - INFO - Scraping section: https://www.narasi.tv/pages/entertainment
+2025-12-18 10:56:00,171 - WARNING - Error scraping section https://www.narasi.tv/pages/entertainment: 403 Client Error: Forbidden for url: https://narasi.tv/pages/entertainment
+2025-12-18 10:56:00,172 - INFO - [Narasi.tv] Scraping completed successfully
+2025-12-18 10:56:00,173 - INFO - Successfully scraped 0 articles from Narasi.tv
+2025-12-18 10:56:00,174 - WARNING - No articles found from narasi
+2025-12-18 10:56:00,175 - INFO - Scraping tribun...
+2025-12-18 10:56:00,175 - INFO - Scraping section: https://www.tribunnews.com/nasional
+2025-12-18 10:56:10,467 - INFO - Scraping section: https://www.tribunnews.com/regional
+2025-12-18 10:56:21,466 - INFO - Scraping section: https://www.tribunnews.com/ekonomi
+2025-12-18 10:56:22,309 - WARNING - Error scraping section https://www.tribunnews.com/ekonomi: 404 Client Error: Not Found for url: https://www.tribunnews.com/ekonomi
+2025-12-18 10:56:22,312 - INFO - Scraping section: https://www.tribunnews.com/techno
+2025-12-18 10:56:33,712 - INFO - Scraping section: https://www.tribunnews.com/sport
+2025-12-18 10:56:40,955 - INFO - Scraping section: https://www.tribunnews.com/entertainment
+2025-12-18 10:56:41,731 - WARNING - Error scraping section https://www.tribunnews.com/entertainment: 404 Client Error: Not Found for url: https://www.tribunnews.com/entertainment
+2025-12-18 10:56:41,732 - INFO - [Tribunnews.com] Scraping completed successfully
+2025-12-18 10:56:41,748 - INFO - Successfully scraped 3 articles from Tribunnews.com
+2025-12-18 10:56:41,760 - INFO - Successfully scraped 3 articles from tribun
+2025-12-18 10:56:41,761 - INFO - Scraping detik...
+2025-12-18 10:56:41,762 - INFO - Starting search for keyword: 'mimika timika'
+2025-12-18 10:56:41,763 - INFO - Scraping page 1
+2025-12-18 10:56:44,373 - INFO - Scraping page 2
+2025-12-18 10:56:47,639 - INFO - Scraping page 3
+2025-12-18 10:56:51,075 - INFO - Scraping page 4
+2025-12-18 10:56:54,268 - INFO - Scraping page 5
+2025-12-18 10:56:58,768 - INFO - Scraping page 6
+2025-12-18 10:57:03,215 - INFO - Scraping page 7
+2025-12-18 10:57:07,103 - INFO - Scraping page 8
+2025-12-18 10:57:10,518 - INFO - Scraping page 9
+2025-12-18 10:57:13,389 - INFO - Scraping page 10
+2025-12-18 10:57:16,316 - INFO - Scraping page 11
+2025-12-18 10:57:20,815 - INFO - Scraping page 12
+2025-12-18 10:57:25,695 - INFO - Scraping page 13
+2025-12-18 10:57:28,727 - INFO - Scraping page 14
+2025-12-18 10:57:31,980 - INFO - Scraping page 15
+2025-12-18 10:57:34,587 - INFO - Scraping page 16
+2025-12-18 10:57:38,022 - INFO - Scraping page 17
+2025-12-18 10:57:41,084 - INFO - Scraping page 18
+2025-12-18 10:57:44,911 - INFO - Scraping page 19
+2025-12-18 10:57:48,070 - INFO - Scraping page 20
+2025-12-18 10:57:50,911 - INFO - Scraping page 21
+2025-12-18 10:57:54,973 - INFO - Scraping page 22
+2025-12-18 10:57:58,017 - INFO - Scraping page 23
+2025-12-18 10:58:02,444 - INFO - Scraping page 24
+2025-12-18 10:58:06,241 - INFO - Scraping page 25
+2025-12-18 10:58:09,476 - INFO - Scraping page 26
+2025-12-18 10:58:12,959 - INFO - Scraping page 27
+2025-12-18 10:58:16,362 - INFO - Scraping page 28
+2025-12-18 10:58:20,066 - INFO - Scraping page 29
+2025-12-18 10:58:23,249 - INFO - Scraping page 30
+2025-12-18 10:58:26,819 - INFO - Scraping page 31
+2025-12-18 10:58:30,506 - INFO - Scraping page 32
+2025-12-18 10:58:33,877 - INFO - Scraping page 33
+2025-12-18 10:58:37,493 - INFO - Scraping page 34
+2025-12-18 10:58:41,116 - INFO - Scraping page 35
+2025-12-18 10:58:44,536 - INFO - Scraping page 36
+2025-12-18 10:58:48,879 - INFO - Scraping page 37
+2025-12-18 10:58:53,345 - INFO - Scraping page 38
+2025-12-18 10:58:57,041 - INFO - Scraping page 39
+2025-12-18 10:59:00,429 - INFO - Scraping page 40
+2025-12-18 10:59:03,439 - INFO - Scraping page 41
+2025-12-18 10:59:07,241 - INFO - Scraping page 42
+2025-12-18 10:59:10,933 - INFO - Scraping page 43
+2025-12-18 10:59:14,396 - INFO - Scraping page 44
+2025-12-18 10:59:16,970 - INFO - Scraping page 45
+2025-12-18 10:59:19,505 - INFO - Scraping page 46
+2025-12-18 10:59:23,016 - INFO - Scraping page 47
+2025-12-18 10:59:27,442 - INFO - Scraping page 48
+2025-12-18 10:59:30,292 - INFO - Scraping page 49
+2025-12-18 10:59:33,792 - INFO - Scraping page 50
+2025-12-18 10:59:37,023 - INFO - Scraping page 51
+2025-12-18 10:59:40,245 - INFO - Scraping page 52
+2025-12-18 10:59:43,851 - INFO - Scraping page 53
+2025-12-18 10:59:47,111 - INFO - Scraping page 54
+2025-12-18 10:59:51,372 - INFO - Scraping page 55
+2025-12-18 10:59:55,805 - INFO - Scraping page 56
+2025-12-18 10:59:58,939 - INFO - Scraping page 57
+2025-12-18 11:00:01,698 - INFO - Scraping page 58
+2025-12-18 11:00:04,346 - INFO - Scraping page 59
+2025-12-18 11:00:08,122 - INFO - Scraping page 60
+2025-12-18 11:00:12,443 - INFO - Scraping page 61
+2025-12-18 11:00:15,679 - INFO - Scraping page 62
+2025-12-18 11:00:19,252 - INFO - Scraping page 63
+2025-12-18 11:00:23,641 - INFO - Scraping page 64
+2025-12-18 11:00:28,032 - INFO - Scraping page 65
+2025-12-18 11:00:30,724 - INFO - Scraping page 66
+2025-12-18 11:00:34,187 - INFO - Scraping page 67
+2025-12-18 11:00:38,172 - INFO - Scraping page 68
+2025-12-18 11:00:41,933 - INFO - Scraping page 69
+2025-12-18 11:00:45,956 - INFO - Scraping page 70
+2025-12-18 11:00:48,728 - INFO - Scraping page 71
+2025-12-18 11:00:52,557 - INFO - Scraping page 72
+2025-12-18 11:00:55,185 - INFO - Scraping page 73
+2025-12-18 11:00:57,895 - INFO - Scraping page 74
+2025-12-18 11:01:01,122 - INFO - Scraping page 75
+2025-12-18 11:01:04,980 - INFO - Scraping page 76
+2025-12-18 11:01:08,227 - INFO - Scraping page 77
+2025-12-18 11:01:12,479 - INFO - Scraping page 78
+2025-12-18 11:01:16,419 - INFO - Scraping page 79
+2025-12-18 11:01:18,991 - INFO - Scraping page 80
+2025-12-18 11:01:21,973 - INFO - Scraping page 81
+2025-12-18 11:01:24,684 - INFO - Scraping page 82
+2025-12-18 11:01:28,329 - INFO - Scraping page 83
+2025-12-18 11:01:30,944 - INFO - Scraping page 84
+2025-12-18 11:01:35,269 - INFO - Scraping page 85
+2025-12-18 11:01:38,994 - INFO - Scraping page 86
+2025-12-18 11:01:41,648 - INFO - Scraping page 87
+2025-12-18 11:01:44,894 - INFO - Scraping page 88
+2025-12-18 11:01:47,758 - INFO - Scraping page 89
+2025-12-18 11:01:50,319 - INFO - Scraping page 90
+2025-12-18 11:01:54,398 - INFO - Scraping page 91
+2025-12-18 11:01:58,046 - INFO - Scraping page 92
+2025-12-18 11:02:01,375 - INFO - Scraping page 93
+2025-12-18 11:02:03,926 - INFO - Scraping page 94
+2025-12-18 11:02:07,809 - INFO - Scraping page 95
+2025-12-18 11:02:11,794 - INFO - Scraping page 96
+2025-12-18 11:02:15,647 - INFO - Scraping page 97
+2025-12-18 11:02:18,564 - INFO - Scraping page 98
+2025-12-18 11:02:21,595 - INFO - Scraping page 99
+2025-12-18 11:02:24,754 - INFO - Scraping page 100
+2025-12-18 11:02:31,953 - INFO - [Detik.com] Scraping completed successfully
+2025-12-18 11:02:31,953 - INFO - Successfully scraped 1011 articles with keyword 'mimika timika'
+2025-12-18 11:02:31,965 - INFO - Successfully scraped 1011 articles from detik
+2025-12-18 11:02:31,966 - INFO - Total unique articles: 1014
+2025-12-18 11:02:31,983 - INFO - Saved 1014 articles to data/news_20251218.json
+2025-12-18 11:02:31,983 - INFO - Results saved to data/news_20251218.json

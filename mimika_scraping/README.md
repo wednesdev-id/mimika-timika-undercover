@@ -35,10 +35,14 @@ For complete scraping functionality, use:
   - Tribun News
   - Detik.com
 
-- **Multiple Output Formats**:
-  - JSON (default) - structured format with metadata
-  - CSV - for spreadsheet analysis
-  - Excel - for data analysis in Excel
+- **Real-time API Endpoints**:
+  - ✅ Single-file API architecture (`api/index.py`)
+  - ✅ Direct JSON response without file storage
+  - ✅ Individual site scraping endpoints
+  - ✅ Combined all-sites endpoint
+  - ✅ CORS-enabled for frontend integration
+  - ✅ Real-time scraping on-demand
+  - ✅ 14 API endpoints in one file
 
 - **Web Interface**: Beautiful, responsive web viewer with:
   - 🔍 Search functionality
@@ -49,12 +53,15 @@ For complete scraping functionality, use:
 
 - **Advanced Features**:
   - ✅ Modular architecture - each site has its own scraper
+  - ✅ Single-file API for easier deployment
   - ✅ Automatic duplicate removal based on URLs
   - ✅ Built-in scheduler for automated daily scraping
   - ✅ Comprehensive logging system
   - ✅ CLI interface for flexible usage
   - ✅ Random delays to respect server rate limits
   - ✅ Error handling and recovery
+  - ✅ Serverless deployment ready (Vercel)
+  - ✅ Simplified Vercel routing (single function)
 
 ## 📋 Requirements
 
@@ -82,7 +89,67 @@ For complete scraping functionality, use:
 
 ## 📖 Usage
 
-### 1. Run Scraping
+### 1. API Endpoints (Vercel Deployment)
+
+**Real-time Scraping Endpoints:**
+```bash
+# Scrape all news sites
+GET /api/scrape/all
+
+# Scrape individual sites
+GET /api/scrape/detik
+GET /api/scrape/kompas
+GET /api/scrape/cnn
+GET /api/scrape/antara
+GET /api/scrape/narasi
+GET /api/scrape/tribun
+```
+
+**Data Access Endpoints:**
+```bash
+# Get main news data with filtering
+GET /api?search=keyword&source=detik&category=news&page=1&per_page=20
+
+# Get available sources
+GET /api/sources
+
+# Get available categories
+GET /api/categories
+
+# Get statistics
+GET /api/stats
+
+# API documentation
+GET /docs          # Swagger UI
+GET /redoc         # ReDoc
+```
+
+**API Response Format:**
+```json
+{
+  "status": "success",
+  "data": {
+    "metadata": {
+      "total_articles": 100,
+      "last_updated": "2025-12-18T10:30:00",
+      "sources": ["Detik.com", "Kompas.com"],
+      "categories": ["news", "techno"]
+    },
+    "articles": [
+      {
+        "title": "Judul Berita",
+        "url": "https://...",
+        "description": "Deskripsi berita...",
+        "date": "2025-12-18 10:00:00",
+        "category": "news",
+        "source": "Detik.com"
+      }
+    ]
+  }
+}
+```
+
+### 2. Local Scraping
 
 **Scrape all sources (JSON output by default):**
 ```bash
@@ -113,7 +180,7 @@ python main.py --list
 python main.py --scheduler
 ```
 
-### 2. Start Web Viewer
+### 3. Local Web Interface
 
 **Start the web interface:**
 ```bash
@@ -122,7 +189,32 @@ python web_viewer.py
 
 Then open your browser and go to: `http://localhost:5000`
 
-### 3. Environment Variables (Optional)
+### 4. Deployment
+
+**Vercel Deployment:**
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy to Vercel
+vercel --prod
+
+# Single function deployment - all routes handled by api/index.py
+# Access endpoints at:
+# https://your-app.vercel.app/api/scrape/all
+# https://your-app.vercel.app/docs
+# https://your-app.vercel.app/api/scrape/status
+```
+
+**Deployment Notes:**
+- **Single Function**: All 14 endpoints served by one `api/index.py` function (803 lines)
+- **Simplified Routing**: All requests (`/(.*)`) route to single function
+- **Optimized Build**: Streamlined for serverless deployment
+- **Reduced Cold Starts**: Single function architecture improves performance
+- **Python 3.9**: Configured environment in `vercel.json`
+- **CORS Enabled**: All endpoints support cross-origin requests
+
+### 5. Environment Variables (Optional)
 
 Create a `.env` file:
 
@@ -163,15 +255,15 @@ SCHEDULER_INTERVAL=60
 ## 📁 Project Structure
 
 ```
-Papua News/
-├── main.py              # Main scraper script
-├── web_viewer.py        # Flask web application
+mimika_scraping/
+├── main.py              # Main scraper script (local usage)
 ├── requirements.txt     # Python dependencies
+├── vercel.json          # Vercel deployment config (single function)
 ├── .env.example        # Environment variables template
-├── data/               # Output files (CSV, JSON, Excel)
+├── data/               # Local output files (CSV, JSON, Excel)
 ├── logs/               # Log files
-├── templates/          # HTML templates for web viewer
-│   └── index.html
+├── api/                # Vercel serverless functions
+│   └── index.py        # 🚀 ALL API ENDPOINTS (803 lines, 14 routes)
 ├── scrapers/           # Individual news site scrapers
 │   ├── detik_scraper.py
 │   ├── kompas_scraper.py
@@ -181,8 +273,25 @@ Papua News/
 │   └── tribun_scraper.py
 └── utils/              # Helper functions
     ├── helpers.py      # Data processing utilities
-    └── scheduler.py    # Task scheduling
+    └── scheduler.py    # Task scheduling (local)
 ```
+
+**API Endpoints in `api/index.py`:**
+- `GET /` - Main data endpoint
+- `GET /api` - Filtered articles with pagination
+- `GET /api/sources` - List available sources
+- `GET /api/categories` - List available categories
+- `GET /api/stats` - Statistics dashboard
+- `GET /api/refresh` - Refresh information
+- `GET /api/scrape/status` - API documentation
+- `GET /api/scrape/all` - **Scrape all 6 news sites**
+- `GET /api/scrape/detik` - **Scrape Detik.com**
+- `GET /api/scrape/kompas` - **Scrape Kompas.com**
+- `GET /api/scrape/cnn` - **Scrape CNN Indonesia**
+- `GET /api/scrape/antara` - **Scrape Antara News**
+- `GET /api/scrape/narasi` - **Scrape Narasi**
+- `GET /api/scrape/tribun` - **Scrape Tribun News**
+- `GET /health` - Health check
 
 ## 🎯 Web Interface Features
 
@@ -292,14 +401,91 @@ The application includes robust error handling:
 - Missing or malformed data
 - Rate limiting protection
 
+## 🔧 API Integration Examples
+
+### JavaScript/Frontend Integration
+```javascript
+// Fetch latest news from all sources
+async function fetchLatestNews() {
+  try {
+    const response = await fetch('https://your-app.vercel.app/api/scrape/all');
+    const data = await response.json();
+
+    if (data.status === 'success') {
+      console.log(`Found ${data.data.metadata.total_articles} articles`);
+      return data.data.articles;
+    }
+  } catch (error) {
+    console.error('Error fetching news:', error);
+  }
+}
+
+// Fetch from specific source
+async function fetchDetikNews() {
+  const response = await fetch('https://your-app.vercel.app/api/scrape/detik');
+  return await response.json();
+}
+```
+
+### Python Integration
+```python
+import requests
+
+# Fetch from all sources
+response = requests.get('https://your-app.vercel.app/api/scrape/all')
+data = response.json()
+
+if data['status'] == 'success':
+    articles = data['data']['articles']
+    print(f"Total articles: {len(articles)}")
+```
+
+### cURL Examples
+```bash
+# Scrape all sites
+curl https://your-app.vercel.app/api/scrape/all
+
+# Scrape specific site
+curl https://your-app.vercel.app/api/scrape/detik
+
+# Get API documentation
+curl https://your-app.vercel.app/api/scrape/status
+```
+
 ## Contributing
 
 1. Fork the repository
 2. Create a new scraper in the `scrapers/` directory
-3. Follow the existing pattern: implement a `scrape_<sitename>()` function
-4. Add the scraper to `main.py`
-5. Test thoroughly
-6. Submit a pull request
+3. Add the scraper to `api/index.py` following the existing pattern:
+   - Implement a `scrape_<sitename>()` function in the scraper file
+   - Add the scraper import in the API endpoints section
+   - Add the scraper to the `SCRAPERS` dictionary in `/api/scrape/all` endpoint
+   - Create a new endpoint `@app.get("/api/scrape/<sitename>")` following the pattern
+4. Test thoroughly
+5. Submit a pull request
+
+**Example for Adding New Scraper:**
+```python
+# In api/index.py - add import
+from scrapers.newsite_scraper import scrape_newsite
+
+# In scrape_all_sites function - add to SCRAPERS dict
+SCRAPERS = {
+    'kompas': scrape_kompas,
+    'cnn': scrape_cnn,
+    'antara': scrape_antara,
+    'narasi': scrape_narasi,
+    'tribun': scrape_tribun,
+    'detik': scrape_detik,
+    'newsite': scrape_newsite  # Add new scraper
+}
+
+# Add new endpoint
+@app.get("/api/scrape/newsite")
+async def scrape_newsite_endpoint():
+    """Scrape NewSite and return JSON response"""
+    # Follow existing pattern...
+```
 
 ## Best Practices
 
@@ -308,6 +494,8 @@ The application includes robust error handling:
 - ⚠️ Don't overload servers
 - ⚠️ Consider fair use policies
 - ⚠️ Monitor logs regularly
+- 🚀 For production use, implement caching and rate limiting
+- 🌐 Consider Vercel function timeouts (max 10 seconds for hobby tier)
 
 ## Troubleshooting
 
@@ -317,6 +505,8 @@ The application includes robust error handling:
 2. **Connection timeouts**: Increase timeout values or check internet connection
 3. **Rate limiting**: Increase delay values between requests
 4. **Missing dependencies**: Run `pip install -r requirements.txt`
+5. **Vercel function timeout**: Scraping may take longer than Vercel's timeout limits
+6. **CORS errors**: Ensure proper CORS headers in API responses
 
 ### Debug Mode
 
@@ -324,6 +514,34 @@ Enable debug logging by modifying `utils/helpers.py`:
 ```python
 logging.basicConfig(level=logging.DEBUG)
 ```
+
+### Performance Optimization
+
+For production deployment on Vercel:
+- **Single-file architecture**: All endpoints in one function reduces cold starts
+- **Function timeout awareness**: Monitor execution times (Vercel hobby tier: 10s, pro: 60s)
+- **Caching strategy**: Implement with external services (Redis, Upstash) for repeated requests
+- **Rate limiting**: Consider server limits and implement request throttling
+- **Error handling**: Built-in retry mechanisms for failed scrapes
+- **Monitoring**: Use Vercel Analytics to track function performance
+
+**Deployment Tips:**
+```bash
+# Check function size and performance
+vercel logs
+
+# Monitor specific endpoints
+curl -w "@curl-format.txt" https://your-app.vercel.app/api/scrape/detik
+
+# Use environment variables for production
+vercel env add SECRET_KEY
+```
+
+**Optimization Notes:**
+- Individual scrapers are faster than `/api/scrape/all` for single-source requests
+- Consider running scrapers in parallel for multiple sources
+- Large scraping jobs may need to be split across multiple functions
+- Memory usage increases with article count - monitor Vercel function limits
 
 ## License
 

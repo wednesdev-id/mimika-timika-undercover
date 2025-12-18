@@ -4,7 +4,6 @@ Kompas.com News Scraper
 
 import requests
 from bs4 import BeautifulSoup
-import pandas as pd
 import time
 import random
 import logging
@@ -14,7 +13,20 @@ from utils.helpers import clean_text, extract_date, log_site_status
 def scrape_kompas():
     """
     Scrape latest news from Kompas.com
-    Returns pandas.DataFrame with columns: title, date, url, description, category
+    Returns:
+        dict: A dictionary with the following structure:
+        {
+            'status': 'success' | 'error',
+            'data': {
+                'metadata': {
+                    'total_articles': number,
+                    'last_updated': datetime.isoformat(),
+                    'sources': ['Kompas.com'],
+                    'categories': sorted(list of categories)
+                },
+                'articles': list of article dicts
+            }
+        } | {'message': 'error message', 'timestamp': datetime.isoformat()}
     """
     articles = []
     base_url = "https://www.kompas.com"
@@ -108,23 +120,51 @@ def scrape_kompas():
 
     except Exception as e:
         log_site_status("Kompas.com", "ERROR", str(e))
-        return pd.DataFrame()
+        return {
+            'status': 'error',
+            'message': str(e),
+            'timestamp': datetime.now().isoformat()
+        }
 
-    # Convert to DataFrame
-    df = pd.DataFrame(articles)
+    # Remove duplicates based on URL
+    seen_urls = set()
+    unique_articles = []
+    for article in articles:
+        if article['url'] not in seen_urls:
+            seen_urls.add(article['url'])
+            unique_articles.append(article)
 
-    # Remove duplicates
-    if 'url' in df.columns:
-        df = df.drop_duplicates(subset=['url'], keep='first')
+    # Extract categories
+    categories = sorted(list(set(article['category'] for article in unique_articles)))
 
-    logging.info(f"Successfully scraped {len(df)} articles from Kompas.com")
-    return df
+    # Create response
+    response = {
+        'status': 'success',
+        'data': {
+            'metadata': {
+                'total_articles': len(unique_articles),
+                'last_updated': datetime.now().isoformat(),
+                'sources': ['Kompas.com'],
+                'categories': categories
+            },
+            'articles': unique_articles
+        }
+    }
+
+    logging.info(f"Successfully scraped {len(unique_articles)} articles from Kompas.com")
+    return response
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    df = scrape_kompas()
-    if not df.empty:
-        print(f"Scraped {len(df)} articles:")
-        print(df[['title', 'date', 'category']].head())
+    result = scrape_kompas()
+    if result['status'] == 'success':
+        articles = result['data']['articles']
+        metadata = result['data']['metadata']
+        print(f"Scraped {metadata['total_articles']} articles from {', '.join(metadata['sources'])}")
+        print(f"Categories: {', '.join(metadata['categories'])}")
+        print(f"Last updated: {metadata['last_updated']}")
+        print("\nLatest articles:")
+        for article in articles[:5]:  # Show first 5 articles
+            print(f"- {article['title']} ({article['category']}) - {article['date']}")
     else:
-        print("No articles scraped")
+        print(f"Error: {result['message']}")

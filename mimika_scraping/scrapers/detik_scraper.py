@@ -5,7 +5,6 @@ Detik.com News Scraper
 from django import urls
 import requests
 from bs4 import BeautifulSoup
-import pandas as pd
 import time
 import random
 import logging
@@ -15,7 +14,14 @@ from utils.helpers import clean_text, extract_date, log_site_status
 def scrape_detik():
     """
     Scrape latest news from Detik.com with search keyword "mimika timika"
-    Returns pandas.DataFrame with columns: title, date, url, description, category
+    Returns dict with response format consistent with API endpoints:
+    {
+        'status': 'success' | 'error',
+        'data': {
+            'metadata': {...},
+            'articles': [...]
+        } | 'message': 'error message'
+    }
     """
     articles = []
     base_url = "https://www.detik.com"
@@ -128,20 +134,59 @@ def scrape_detik():
 
     except Exception as e:
         log_site_status("Detik.com", "ERROR", str(e))
-        return pd.DataFrame()
+        return {
+            'status': 'error',
+            'message': f'Detik scraping failed: {str(e)}',
+            'timestamp': datetime.now().isoformat()
+        }
 
-    # Convert to DataFrame and remove duplicates
-    df = pd.DataFrame(articles)
-    if 'url' in df.columns:
-        df = df.drop_duplicates(subset=['url'], keep='first')
+    # Remove duplicates
+    seen_urls = set()
+    unique_articles = []
+    for article in articles:
+        if article.get('url') not in seen_urls:
+            seen_urls.add(article.get('url'))
+            unique_articles.append(article)
 
-    return df
+    # Prepare response data
+    if not unique_articles:
+        return {
+            'status': 'success',
+            'data': {
+                'metadata': {
+                    'total_articles': 0,
+                    'last_updated': datetime.now().isoformat(),
+                    'sources': ['Detik.com'],
+                    'categories': []
+                },
+                'articles': []
+            }
+        }
+
+    categories = list(set(article.get('category', 'news') for article in unique_articles))
+
+    response_data = {
+        'status': 'success',
+        'data': {
+            'metadata': {
+                'total_articles': len(unique_articles),
+                'last_updated': datetime.now().isoformat(),
+                'sources': ['Detik.com'],
+                'categories': sorted(categories)
+            },
+            'articles': unique_articles
+        }
+    }
+
+    return response_data
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    df = scrape_detik()
-    if not df.empty:
-        print(f"Scraped {len(df)} articles:")
-        print(df[['title', 'date', 'category']].head())
+    result = scrape_detik()
+    if result['status'] == 'success':
+        articles = result['data']['articles']
+        print(f"Scraped {len(articles)} articles:")
+        for article in articles[:5]:  # Show first 5 articles
+            print(f"- {article.get('title', 'N/A')} ({article.get('category', 'N/A')})")
     else:
-        print("No articles scraped")
+        print(f"Error: {result.get('message', 'Unknown error')}")

@@ -4,7 +4,6 @@ Tribunnews.com News Scraper
 
 import requests
 from bs4 import BeautifulSoup
-import pandas as pd
 import time
 import random
 import logging
@@ -14,7 +13,14 @@ from utils.helpers import clean_text, extract_date, log_site_status
 def scrape_tribun():
     """
     Scrape latest news from Tribunnews.com
-    Returns pandas.DataFrame with columns: title, date, url, description, category
+    Returns dict with response format consistent with API endpoints:
+    {
+        'status': 'success' | 'error',
+        'data': {
+            'metadata': {...},
+            'articles': [...]
+        } | 'message': 'error message'
+    }
     """
     articles = []
     base_url = "https://www.tribunnews.com"
@@ -192,23 +198,60 @@ def scrape_tribun():
 
     except Exception as e:
         log_site_status("Tribunnews.com", "ERROR", str(e))
-        return pd.DataFrame()
-
-    # Convert to DataFrame
-    df = pd.DataFrame(articles)
+        return {
+            'status': 'error',
+            'message': f'Tribun scraping failed: {str(e)}',
+            'timestamp': datetime.now().isoformat()
+        }
 
     # Remove duplicates
-    if 'url' in df.columns:
-        df = df.drop_duplicates(subset=['url'], keep='first')
+    seen_urls = set()
+    unique_articles = []
+    for article in articles:
+        if article.get('url') not in seen_urls:
+            seen_urls.add(article.get('url'))
+            unique_articles.append(article)
 
-    logging.info(f"Successfully scraped {len(df)} articles from Tribunnews.com")
-    return df
+    # Prepare response data
+    if not unique_articles:
+        return {
+            'status': 'success',
+            'data': {
+                'metadata': {
+                    'total_articles': 0,
+                    'last_updated': datetime.now().isoformat(),
+                    'sources': ['Tribunnews.com'],
+                    'categories': []
+                },
+                'articles': []
+            }
+        }
+
+    categories = list(set(article.get('category', 'news') for article in unique_articles))
+
+    response_data = {
+        'status': 'success',
+        'data': {
+            'metadata': {
+                'total_articles': len(unique_articles),
+                'last_updated': datetime.now().isoformat(),
+                'sources': ['Tribunnews.com'],
+                'categories': sorted(categories)
+            },
+            'articles': unique_articles
+        }
+    }
+
+    logging.info(f"Successfully scraped {len(unique_articles)} articles from Tribunnews.com")
+    return response_data
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    df = scrape_tribun()
-    if not df.empty:
-        print(f"Scraped {len(df)} articles:")
-        print(df[['title', 'date', 'category']].head())
+    result = scrape_tribun()
+    if result['status'] == 'success':
+        articles = result['data']['articles']
+        print(f"Scraped {len(articles)} articles:")
+        for article in articles[:5]:  # Show first 5 articles
+            print(f"- {article.get('title', 'N/A')} ({article.get('category', 'N/A')})")
     else:
-        print("No articles scraped")
+        print(f"Error: {result.get('message', 'Unknown error')}")

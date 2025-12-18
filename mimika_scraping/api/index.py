@@ -214,17 +214,581 @@ async def get_stats():
 async def refresh_data():
     """Trigger data refresh (placeholder for Vercel)"""
     return {
-        "message": "Data refresh functionality requires a backend service. Consider using Railway, Render, or PythonAnywhere for full functionality.",
-        "status": "limited_on_vercel",
-        "timestamp": datetime.now().isoformat(),
-        "alternatives": [
-            "Railway.app",
-            "Render.com",
-            "PythonAnywhere.com",
-            "Heroku"
-        ]
+        "message": "Use direct scraping endpoints instead: /api/scrape/all or /api/scrape/{site}",
+        "available_endpoints": {
+            "all": "/api/scrape/all",
+            "detik": "/api/scrape/detik",
+            "kompas": "/api/scrape/kompas",
+            "cnn": "/api/scrape/cnn",
+            "antara": "/api/scrape/antara",
+            "narasi": "/api/scrape/narasi",
+            "tribun": "/api/scrape/tribun"
+        },
+        "status": "use_direct_endpoints",
+        "timestamp": datetime.now().isoformat()
     }
 
+@app.get("/api/scrape/status")
+async def scrape_status():
+    """Get information about available scraping endpoints"""
+    return {
+        "endpoints": {
+            "all_sites": "/api/scrape/all - Scrape all news sites",
+            "individual_sites": {
+                "detik": "/api/scrape/detik",
+                "kompas": "/api/scrape/kompas",
+                "cnn": "/api/scrape/cnn",
+                "antara": "/api/scrape/antara",
+                "narasi": "/api/scrape/narasi",
+                "tribun": "/api/scrape/tribun"
+            }
+        },
+        "usage": {
+            "method": "GET",
+            "returns": "JSON response with articles",
+            "caching": "Real-time scraping (no file storage)",
+            "rate_limiting": "Consider server limits for production use"
+        },
+        "data_format": {
+            "structure": {
+                "status": "success|error",
+                "data": {
+                    "metadata": {
+                        "total_articles": "number",
+                        "last_updated": "ISO timestamp",
+                        "sources": ["array of source names"],
+                        "categories": ["array of categories"]
+                    },
+                    "articles": ["array of article objects"]
+                },
+                "site_results": "individual site performance (all endpoint only)"
+            }
+        },
+        "article_structure": {
+            "title": "Article title",
+            "url": "Article URL",
+            "description": "Article description",
+            "date": "YYYY-MM-DD HH:MM:SS",
+            "category": "News category",
+            "source": "Source website"
+        }
+    }
+
+
+# ============= SCRAPER ENDPOINTS =============
+
+@app.get("/api/scrape/all")
+async def scrape_all_sites():
+    """Scrape all news sites and return JSON response"""
+
+    # Enable CORS
+    headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+    }
+
+    try:
+        # Import all scrapers
+        from scrapers.kompas_scraper import scrape_kompas
+        from scrapers.cnn_scraper import scrape_cnn
+        from scrapers.antara_scraper import scrape_antara
+        from scrapers.narasi_scraper import scrape_narasi
+        from scrapers.tribun_scraper import scrape_tribun
+        from scrapers.detik_scraper import scrape_detik
+
+        SCRAPERS = {
+            'kompas': scrape_kompas,
+            'cnn': scrape_cnn,
+            'antara': scrape_antara,
+            'narasi': scrape_narasi,
+            'tribun': scrape_tribun,
+            'detik': scrape_detik
+        }
+
+        all_articles = []
+        sources_found = []
+        categories_found = set()
+        site_results = {}
+
+        # Run all scrapers
+        for site_name, scraper_func in SCRAPERS.items():
+            try:
+                print(f"Scraping {site_name}...")
+                df = scraper_func()
+
+                if not df.empty:
+                    articles = df.to_dict('records')
+                    all_articles.extend(articles)
+                    sources_found.append(site_name.title())
+
+                    # Collect categories
+                    for article in articles:
+                        category = article.get('category', 'news')
+                        categories_found.add(category)
+
+                    site_results[site_name] = {
+                        'status': 'success',
+                        'count': len(articles)
+                    }
+                else:
+                    site_results[site_name] = {
+                        'status': 'no_articles',
+                        'count': 0
+                    }
+
+            except Exception as e:
+                print(f"Error scraping {site_name}: {str(e)}")
+                site_results[site_name] = {
+                    'status': 'error',
+                    'error': str(e),
+                    'count': 0
+                }
+
+        # Remove duplicates based on URL
+        unique_articles = []
+        seen_urls = set()
+
+        for article in all_articles:
+            url = article.get('url', '')
+            if url and url not in seen_urls:
+                seen_urls.add(url)
+                unique_articles.append(article)
+
+        response_data = {
+            'status': 'success',
+            'data': {
+                'metadata': {
+                    'total_articles': len(unique_articles),
+                    'last_updated': datetime.now().isoformat(),
+                    'sources': sources_found,
+                    'categories': sorted(list(categories_found))
+                },
+                'articles': unique_articles
+            },
+            'site_results': site_results
+        }
+
+        return JSONResponse(
+            content=response_data,
+            headers=headers,
+            status_code=200
+        )
+
+    except Exception as e:
+        error_response = {
+            'status': 'error',
+            'message': f'Scraping failed: {str(e)}',
+            'timestamp': datetime.now().isoformat()
+        }
+
+        return JSONResponse(
+            content=error_response,
+            headers=headers,
+            status_code=500
+        )
+
+@app.get("/api/scrape/detik")
+async def scrape_detik_endpoint():
+    """Scrape Detik.com and return JSON response"""
+
+    headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+    }
+
+    try:
+        from scrapers.detik_scraper import scrape_detik
+
+        df = scrape_detik()
+
+        if df.empty:
+            response_data = {
+                'status': 'success',
+                'message': 'No articles found',
+                'data': {
+                    'metadata': {
+                        'total_articles': 0,
+                        'last_updated': datetime.now().isoformat(),
+                        'sources': ['Detik.com'],
+                        'categories': []
+                    },
+                    'articles': []
+                }
+            }
+        else:
+            # Convert DataFrame to dict
+            articles = df.to_dict('records')
+
+            # Get unique categories
+            categories = list(set(article.get('category', 'news') for article in articles))
+
+            response_data = {
+                'status': 'success',
+                'data': {
+                    'metadata': {
+                        'total_articles': len(articles),
+                        'last_updated': datetime.now().isoformat(),
+                        'sources': ['Detik.com'],
+                        'categories': sorted(categories)
+                    },
+                    'articles': articles
+                }
+            }
+
+        return JSONResponse(
+            content=response_data,
+            headers=headers,
+            status_code=200
+        )
+
+    except Exception as e:
+        error_response = {
+            'status': 'error',
+            'message': f'Detik scraping failed: {str(e)}',
+            'timestamp': datetime.now().isoformat()
+        }
+
+        return JSONResponse(
+            content=error_response,
+            headers=headers,
+            status_code=500
+        )
+
+@app.get("/api/scrape/kompas")
+async def scrape_kompas_endpoint():
+    """Scrape Kompas.com and return JSON response"""
+
+    headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+    }
+
+    try:
+        from scrapers.kompas_scraper import scrape_kompas
+
+        df = scrape_kompas()
+
+        if df.empty:
+            response_data = {
+                'status': 'success',
+                'message': 'No articles found',
+                'data': {
+                    'metadata': {
+                        'total_articles': 0,
+                        'last_updated': datetime.now().isoformat(),
+                        'sources': ['Kompas.com'],
+                        'categories': []
+                    },
+                    'articles': []
+                }
+            }
+        else:
+            articles = df.to_dict('records')
+            categories = list(set(article.get('category', 'news') for article in articles))
+
+            response_data = {
+                'status': 'success',
+                'data': {
+                    'metadata': {
+                        'total_articles': len(articles),
+                        'last_updated': datetime.now().isoformat(),
+                        'sources': ['Kompas.com'],
+                        'categories': sorted(categories)
+                    },
+                    'articles': articles
+                }
+            }
+
+        return JSONResponse(
+            content=response_data,
+            headers=headers,
+            status_code=200
+        )
+
+    except Exception as e:
+        error_response = {
+            'status': 'error',
+            'message': f'Kompas scraping failed: {str(e)}',
+            'timestamp': datetime.now().isoformat()
+        }
+
+        return JSONResponse(
+            content=error_response,
+            headers=headers,
+            status_code=500
+        )
+
+@app.get("/api/scrape/cnn")
+async def scrape_cnn_endpoint():
+    """Scrape CNN Indonesia and return JSON response"""
+
+    headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+    }
+
+    try:
+        from scrapers.cnn_scraper import scrape_cnn
+
+        df = scrape_cnn()
+
+        if df.empty:
+            response_data = {
+                'status': 'success',
+                'message': 'No articles found',
+                'data': {
+                    'metadata': {
+                        'total_articles': 0,
+                        'last_updated': datetime.now().isoformat(),
+                        'sources': ['CNN Indonesia'],
+                        'categories': []
+                    },
+                    'articles': []
+                }
+            }
+        else:
+            articles = df.to_dict('records')
+            categories = list(set(article.get('category', 'news') for article in articles))
+
+            response_data = {
+                'status': 'success',
+                'data': {
+                    'metadata': {
+                        'total_articles': len(articles),
+                        'last_updated': datetime.now().isoformat(),
+                        'sources': ['CNN Indonesia'],
+                        'categories': sorted(categories)
+                    },
+                    'articles': articles
+                }
+            }
+
+        return JSONResponse(
+            content=response_data,
+            headers=headers,
+            status_code=200
+        )
+
+    except Exception as e:
+        error_response = {
+            'status': 'error',
+            'message': f'CNN scraping failed: {str(e)}',
+            'timestamp': datetime.now().isoformat()
+        }
+
+        return JSONResponse(
+            content=error_response,
+            headers=headers,
+            status_code=500
+        )
+
+@app.get("/api/scrape/antara")
+async def scrape_antara_endpoint():
+    """Scrape Antara News and return JSON response"""
+
+    headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+    }
+
+    try:
+        from scrapers.antara_scraper import scrape_antara
+
+        df = scrape_antara()
+
+        if df.empty:
+            response_data = {
+                'status': 'success',
+                'message': 'No articles found',
+                'data': {
+                    'metadata': {
+                        'total_articles': 0,
+                        'last_updated': datetime.now().isoformat(),
+                        'sources': ['Antara News'],
+                        'categories': []
+                    },
+                    'articles': []
+                }
+            }
+        else:
+            articles = df.to_dict('records')
+            categories = list(set(article.get('category', 'news') for article in articles))
+
+            response_data = {
+                'status': 'success',
+                'data': {
+                    'metadata': {
+                        'total_articles': len(articles),
+                        'last_updated': datetime.now().isoformat(),
+                        'sources': ['Antara News'],
+                        'categories': sorted(categories)
+                    },
+                    'articles': articles
+                }
+            }
+
+        return JSONResponse(
+            content=response_data,
+            headers=headers,
+            status_code=200
+        )
+
+    except Exception as e:
+        error_response = {
+            'status': 'error',
+            'message': f'Antara scraping failed: {str(e)}',
+            'timestamp': datetime.now().isoformat()
+        }
+
+        return JSONResponse(
+            content=error_response,
+            headers=headers,
+            status_code=500
+        )
+
+@app.get("/api/scrape/narasi")
+async def scrape_narasi_endpoint():
+    """Scrape Narasi and return JSON response"""
+
+    headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+    }
+
+    try:
+        from scrapers.narasi_scraper import scrape_narasi
+
+        df = scrape_narasi()
+
+        if df.empty:
+            response_data = {
+                'status': 'success',
+                'message': 'No articles found',
+                'data': {
+                    'metadata': {
+                        'total_articles': 0,
+                        'last_updated': datetime.now().isoformat(),
+                        'sources': ['Narasi'],
+                        'categories': []
+                    },
+                    'articles': []
+                }
+            }
+        else:
+            articles = df.to_dict('records')
+            categories = list(set(article.get('category', 'news') for article in articles))
+
+            response_data = {
+                'status': 'success',
+                'data': {
+                    'metadata': {
+                        'total_articles': len(articles),
+                        'last_updated': datetime.now().isoformat(),
+                        'sources': ['Narasi'],
+                        'categories': sorted(categories)
+                    },
+                    'articles': articles
+                }
+            }
+
+        return JSONResponse(
+            content=response_data,
+            headers=headers,
+            status_code=200
+        )
+
+    except Exception as e:
+        error_response = {
+            'status': 'error',
+            'message': f'Narasi scraping failed: {str(e)}',
+            'timestamp': datetime.now().isoformat()
+        }
+
+        return JSONResponse(
+            content=error_response,
+            headers=headers,
+            status_code=500
+        )
+
+@app.get("/api/scrape/tribun")
+async def scrape_tribun_endpoint():
+    """Scrape Tribun News and return JSON response"""
+
+    headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+    }
+
+    try:
+        from scrapers.tribun_scraper import scrape_tribun
+
+        df = scrape_tribun()
+
+        if df.empty:
+            response_data = {
+                'status': 'success',
+                'message': 'No articles found',
+                'data': {
+                    'metadata': {
+                        'total_articles': 0,
+                        'last_updated': datetime.now().isoformat(),
+                        'sources': ['Tribun News'],
+                        'categories': []
+                    },
+                    'articles': []
+                }
+            }
+        else:
+            articles = df.to_dict('records')
+            categories = list(set(article.get('category', 'news') for article in articles))
+
+            response_data = {
+                'status': 'success',
+                'data': {
+                    'metadata': {
+                        'total_articles': len(articles),
+                        'last_updated': datetime.now().isoformat(),
+                        'sources': ['Tribun News'],
+                        'categories': sorted(categories)
+                    },
+                    'articles': articles
+                }
+            }
+
+        return JSONResponse(
+            content=response_data,
+            headers=headers,
+            status_code=200
+        )
+
+    except Exception as e:
+        error_response = {
+            'status': 'error',
+            'message': f'Tribun scraping failed: {str(e)}',
+            'timestamp': datetime.now().isoformat()
+        }
+
+        return JSONResponse(
+            content=error_response,
+            headers=headers,
+            status_code=500
+        )
+
+# ============= HEALTH CHECK =============
 
 @app.get("/health")
 async def health_check():
