@@ -16,7 +16,39 @@ except ImportError:
     # Fallback for older Python versions
     from backports.zoneinfo import ZoneInfo
 
-from utils.helpers import clean_text, extract_date, log_site_status, remove_duplicates
+# Add parent directory to path for imports when running standalone  
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+try:
+    from utils.helpers import clean_text, extract_date, log_site_status, remove_duplicates
+except ImportError:
+    # Fallback implementations for standalone testing
+    def clean_text(text):
+        if not text:
+            return ""
+        text = re.sub(r'\s+', ' ', text.strip())
+        text = re.sub(r'<[^>]+>', '', text)
+        return text
+    
+    def extract_date(date_text):
+        return datetime.now()
+    
+    def log_site_status(site, status, error=None):
+        if status == "OK":
+            logging.info(f"[{site}] Scraping completed successfully")
+        else:
+            logging.error(f"[{site}] Scraping failed: {error}")
+            
+    def remove_duplicates(articles):
+        seen = set()
+        unique = []
+        for a in articles:
+            if a['url'] not in seen:
+                seen.add(a['url'])
+                unique.append(a)
+        return unique
+
+import re
 
 def scrape_detik():
     """
@@ -146,13 +178,8 @@ def scrape_detik():
         }
 
     # Remove duplicates
-    seen_urls = set()
-    unique_articles = []
-    for article in articles:
-        if article.get('url') not in seen_urls:
-            seen_urls.add(article.get('url'))
-            unique_articles.append(article)
-
+    unique_articles = remove_duplicates(articles)
+    
     # Prepare response data
     if not unique_articles:
         return {
@@ -186,12 +213,7 @@ def scrape_detik():
     return response_data
 
 if __name__ == "__main__":
+    import json
     logging.basicConfig(level=logging.INFO)
     result = scrape_detik()
-    if result['status'] == 'success':
-        articles = result['data']['articles']
-        print(f"Scraped {len(articles)} articles:")
-        for article in articles[:5]:
-            print(f"- {article.get('title', 'N/A')} ({article.get('category', 'N/A')})")
-    else:
-        print(f"Error: {result.get('message', 'Unknown error')}")
+    print(json.dumps(result, indent=2))

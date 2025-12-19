@@ -271,7 +271,7 @@ async def scrape_status():
     """Get scraper API documentation and status"""
 
     documentation = {
-        "title": "📰 Indonesian News Scraper API",
+        "title": "Indonesian News Scraper API",
         "version": "2.0.0",
         "description": "Real-time scraping endpoints using integrated main.py logic",
         "architecture": "Single-file API with centralized scraper functions",

@@ -36,6 +36,15 @@ except ImportError:
             logging.info(f"[{site}] Scraping completed successfully")
         else:
             logging.error(f"[{site}] Scraping failed: {error}")
+            
+    def remove_duplicates(articles):
+        seen = set()
+        unique = []
+        for a in articles:
+            if a['url'] not in seen:
+                seen.add(a['url'])
+                unique.append(a)
+        return unique
 
 def scrape_kompas():
     """
@@ -77,14 +86,32 @@ def scrape_kompas():
                 
                 soup = BeautifulSoup(response.text, 'html.parser')
                 
-                # Kompas search uses Google Custom Search Engine which often renders via JS
-                # But sometimes it provides GS results in HTML
-                article_items = soup.find_all('div', class_='gs-result')
+                # Based on user's screenshot, the structure is:
+                # div class="articleList -list "
+                #   div class="articleItem"
+                #     a class="article-link"
+                #       div class="articleItem-box"
+                #         h2 class="articleTitle"
+                #       div class="articlePost"
+                #         div class="articlePost-date"
+                #       div class="articleLead"
+                #         p (description)
+
+                article_list_container = soup.find('div', class_='articleList')
+                if not article_list_container:
+                    # Alternative selector if the first one fails
+                    article_list_container = soup.find('section', class_='sectionBox')
                 
-                if not article_items and page == 1:
-                    # Fallback for different search layouts
-                    article_items = soup.find_all('div', class_='articleList')
+                if not article_list_container:
+                    logging.info(f"No article list container found on page {page}")
+                    break
+                    
+                article_items = article_list_container.find_all('div', class_='articleItem')
                 
+                if not article_items:
+                    # Try direct article find if div.articleItem is not used identically everywhere
+                    article_items = article_list_container.find_all('article', class_='articleList')
+
                 if not article_items:
                     logging.info(f"No more articles found on page {page}")
                     break
@@ -92,20 +119,31 @@ def scrape_kompas():
                 found_on_page = 0
                 for item in article_items:
                     try:
-                        title_elem = item.find('a', class_='gs-title') or item.find('h2')
+                        # Find the link first to get the URL
+                        link_elem = item.find('a', class_='article-link') or item.find('a')
+                        if not link_elem:
+                            continue
+                            
+                        url = link_elem.get('href')
+                        if not url:
+                            continue
+                            
+                        # Title
+                        title_elem = item.find('h2', class_='articleTitle') or item.find('h2')
                         if not title_elem:
                             continue
-                        
                         title = clean_text(title_elem.get_text())
-                        url = title_elem.get('href') or (title_elem.find('a')['href'] if title_elem.find('a') else "")
                         
-                        if not title or not url:
-                            continue
-
-                        desc_elem = item.find('div', class_='gs-snippet') or item.find('div', class_='articleLead')
-                        description = clean_text(desc_elem.get_text()) if desc_elem else ""
+                        # Date
+                        date_elem = item.find('div', class_='articlePost-date')
+                        date_str = clean_text(date_elem.get_text()) if date_elem else datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                         
-                        date_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                        # Description
+                        desc_elem = item.find('div', class_='articleLead')
+                        description = ""
+                        if desc_elem:
+                            p_elem = desc_elem.find('p')
+                            description = clean_text(p_elem.get_text()) if p_elem else clean_text(desc_elem.get_text())
                         
                         # Categorization
                         category = "news"
@@ -124,6 +162,7 @@ def scrape_kompas():
                         found_on_page += 1
                         
                     except Exception as e:
+                        logging.debug(f"Error parsing item: {str(e)}")
                         continue
                 
                 if found_on_page == 0:
@@ -136,7 +175,7 @@ def scrape_kompas():
                 page += 1
                 
                 # Safety break for non-Vercel
-                if not is_vercel and page > 100:
+                if not is_vercel and page > 50:
                     break
             
             except Exception as e:
