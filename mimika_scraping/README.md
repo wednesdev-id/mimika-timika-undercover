@@ -1,6 +1,17 @@
 # 📰 Indonesian News Scraper & Web Viewer
 
-A comprehensive Indonesian news scraper that collects articles from major news sources and displays them in a beautiful web interface.
+A comprehensive Indonesian news scraper with **integrated flow architecture** that collects articles from major news sources using centralized main.py logic for both CLI and API interfaces.
+
+## 🚀 Key Features
+
+- **🔄 Integrated Flow Architecture**: Single source of truth in `main.py` serving both CLI and API
+- **📡 Real-time API Endpoints**: 14 endpoints with direct JSON response (no file storage)
+- **💻 CLI Interface**: Traditional file-based scraping with multiple output formats
+- **🌐 Single-File API**: All endpoints in `api/index.py` (472 lines)
+- **🔧 Modular Scrapers**: 6 individual news site scrapers with centralized logic
+- **📊 Static Data Viewer**: Beautiful web interface for browsing cached news
+- **🚀 Production Ready**: Optimized for Vercel serverless deployment
+- **🎯 Zero Duplication**: No code duplication between CLI and API interfaces
 
 ## 🚀 Deployment Options
 
@@ -199,20 +210,54 @@ npm i -g vercel
 # Deploy to Vercel
 vercel --prod
 
-# Single function deployment - all routes handled by api/index.py
+# Integrated architecture deployment:
+# - Single function: api/index.py (472 lines, 14 endpoints)
+# - Centralized scraping: main.py shared between CLI and API
+# - All routes handled by api/index.py with main.py integration
 # Access endpoints at:
 # https://your-app.vercel.app/api/scrape/all
 # https://your-app.vercel.app/docs
 # https://your-app.vercel.app/api/scrape/status
 ```
 
-**Deployment Notes:**
-- **Single Function**: All 14 endpoints served by one `api/index.py` function (803 lines)
-- **Simplified Routing**: All requests (`/(.*)`) route to single function
-- **Optimized Build**: Streamlined for serverless deployment
-- **Reduced Cold Starts**: Single function architecture improves performance
-- **Python 3.9**: Configured environment in `vercel.json`
+**Deployment Architecture:**
+```
+Vercel Serverless Function
+├── api/index.py (472 lines)
+│   ├── FastAPI application
+│   ├── get_scrape_response() helper
+│   ├── 14 API endpoints
+│   └── Imports main.py functions
+└── main.py (Central Scraper Logic)
+    ├── run_all_scrapers(return_json=True)
+    ├── run_specific_scraper(site, return_json=True)
+    ├── Shared with CLI usage
+    └── Individual scrapers in scrapers/
+```
+
+**Deployment Benefits:**
+- **Integrated Architecture**: CLI and API share the same scraping logic
+- **Single Function**: All 14 endpoints served by one serverless function
+- **Reduced Cold Starts**: Optimized single-file deployment
+- **No Code Duplication**: main.py serves both CLI and API interfaces
+- **Consistent Behavior**: Same scraping logic for local and production
+- **Easy Maintenance**: Update scraping logic in main.py only
+- **Python 3.9 Environment**: Configured in `vercel.json`
 - **CORS Enabled**: All endpoints support cross-origin requests
+- **Direct JSON Response**: No file storage for API endpoints
+
+**Local vs Production:**
+```bash
+# Local Development (CLI - saves to files)
+python main.py --site detik --format json
+# Output: data/news_detik_20251218.json
+
+# Production API (real-time JSON response)
+curl https://your-app.vercel.app/api/scrape/detik
+# Output: Direct JSON response (no files)
+
+# Same underlying logic from main.py!
+```
 
 ### 5. Environment Variables (Optional)
 
@@ -456,20 +501,24 @@ curl https://your-app.vercel.app/api/scrape/status
 
 1. Fork the repository
 2. Create a new scraper in the `scrapers/` directory
-3. Add the scraper to `api/index.py` following the existing pattern:
+3. Add the scraper to `main.py` following the integrated pattern:
    - Implement a `scrape_<sitename>()` function in the scraper file
-   - Add the scraper import in the API endpoints section
-   - Add the scraper to the `SCRAPERS` dictionary in `/api/scrape/all` endpoint
-   - Create a new endpoint `@app.get("/api/scrape/<sitename>")` following the pattern
-4. Test thoroughly
-5. Submit a pull request
+   - Add the scraper import to the `SCRAPERS` dictionary in `main.py`
+   - Add the scraper to the available sites list in API documentation
+4. Add the scraper endpoint to `api/index.py`:
+   - Create a new endpoint using the `get_scrape_response()` helper
+   - Follow the existing single-line pattern
+5. Test thoroughly locally and on Vercel
+6. Submit a pull request
 
 **Example for Adding New Scraper:**
+
+**Step 1: Add to main.py**
 ```python
-# In api/index.py - add import
+# Add import at the top with other scrapers
 from scrapers.newsite_scraper import scrape_newsite
 
-# In scrape_all_sites function - add to SCRAPERS dict
+# Add to SCRAPERS dictionary
 SCRAPERS = {
     'kompas': scrape_kompas,
     'cnn': scrape_cnn,
@@ -479,13 +528,170 @@ SCRAPERS = {
     'detik': scrape_detik,
     'newsite': scrape_newsite  # Add new scraper
 }
+```
 
-# Add new endpoint
+**Step 2: Add endpoint to api/index.py**
+```python
 @app.get("/api/scrape/newsite")
 async def scrape_newsite_endpoint():
-    """Scrape NewSite and return JSON response"""
-    # Follow existing pattern...
+    """Scrape NewSite and return JSON response using main.py logic"""
+    return get_scrape_response(site_name='newsite')
 ```
+
+**Step 3: Update API documentation**
+- Add to sources list in `/api/sources` endpoint
+- Add to documentation in `/api/scrape/status` endpoint
+
+## Architecture Overview
+
+### Integrated Flow Architecture
+
+This project uses an **integrated flow architecture** where `main.py` serves as the central scraper logic for both CLI and API usage. This approach eliminates code duplication and provides consistent data structure across all interfaces.
+
+**Flow Components:**
+```
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   CLI Usage     │    │   main.py        │    │   API Usage     │
+│                 │    │ (Central Logic)  │    │                 │
+│ python main.py  │◄──►│                  │◄──►│ /api/scrape/*   │
+│ --site detik    │    │ - run_all_       │    │ endpoints       │
+│ --format json   │    │   scrapers()     │    │                 │
+│                 │    │ - run_specific_  │    │ JSON Response   │
+│ Save to file    │    │   scraper()      │    │ (no file)       │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+         │                       │                       │
+         ▼                       ▼                       ▼
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│ File Storage    │    │   Individual     │    │ Direct JSON     │
+│ (CSV/JSON/Excel)│    │   Scrapers       │    │ Response        │
+│                 │    │   scrapers/      │    │                 │
+│ data/ folder    │    │   directory      │    │ Real-time data  │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+```
+
+**Advantages of Integrated Architecture:**
+- ✅ **Single Source of Truth**: All scraping logic centralized in `main.py`
+- ✅ **No Code Duplication**: CLI and API share the same core functions
+- ✅ **Consistent Data Structure**: Same response format across all interfaces
+- ✅ **Easy Maintenance**: Update scraping logic in one place only
+- ✅ **Backward Compatible**: CLI usage unchanged, API uses same logic
+- ✅ **Direct JSON Response**: No file storage needed for API endpoints
+- ✅ **Centralized Error Handling**: Comprehensive error management
+- ✅ **Performance Tracking**: Site-specific execution metrics
+
+**Main.py Architecture:**
+```python
+# main.py - Central scraper logic
+├── Imports & Configuration
+├── SCRAPERS Dictionary (6 news sites)
+├── run_all_scrapers(return_json=False)
+│   ├── CLI Mode: Save to file (default)
+│   └── API Mode: Return JSON (return_json=True)
+├── run_specific_scraper(site_name, return_json=False)
+│   ├── CLI Mode: Save individual site to file
+│   └── API Mode: Return individual site JSON
+└── Helper Functions (logging, file operations, etc.)
+```
+
+**API Architecture (Single-File Design):**
+```python
+# api/index.py - 472 lines, 14 endpoints
+├── Imports & FastAPI Setup
+├── Data Models & CORS Configuration
+├── Helper Function: get_scrape_response(site_name=None)
+│   ├── Imports from main.py
+│   ├── Handles both all-sites and individual scraping
+│   ├── Returns JSONResponse with proper headers
+│   └── Centralized error handling
+├── Core API Endpoints (7 endpoints)
+│   ├── GET / - Static data with filtering
+│   ├── GET /api - Filtered articles
+│   ├── GET /api/sources - Available sources
+│   ├── GET /api/categories - Article categories
+│   ├── GET /api/stats - Statistics
+│   ├── GET /api/refresh - Refresh info
+│   └── GET /health - Health check
+└── Real-time Scraping Endpoints (7 endpoints)
+    ├── GET /api/scrape/status - API documentation
+    ├── GET /api/scrape/all - All sites via main.py
+    ├── GET /api/scrape/detik - Detik.com via main.py
+    ├── GET /api/scrape/kompas - Kompas.com via main.py
+    ├── GET /api/scrape/cnn - CNN Indonesia via main.py
+    ├── GET /api/scrape/antara - Antara News via main.py
+    ├── GET /api/scrape/narasi - Narasi via main.py
+    └── GET /api/scrape/tribun - Tribun News via main.py
+```
+
+**Request Flow:**
+```
+User Request → Vercel Router → api/index.py → get_scrape_response() → main.py → JSON Response
+```
+
+**Flow Examples:**
+
+**API Request:**
+```
+GET /api/scrape/detik
+└── api/index.py: scrape_detik_endpoint()
+    └── get_scrape_response('detik')
+        └── main.py: run_specific_scraper('detik', return_json=True)
+            └── detik_scraper.py: scrape_detik()
+                └── JSON Response (no file storage)
+```
+
+**CLI Request:**
+```
+python main.py --site detik --format json
+└── main.py: run_specific_scraper('detik', return_json=False)
+    └── detik_scraper.py: scrape_detik()
+        └── Save to data/news_detik_YYYYMMDD.json
+```
+
+This integrated approach ensures that both CLI and API interfaces use the exact same scraping logic, making maintenance easier and ensuring consistency across all usage patterns.
+
+### Integrated Flow Usage
+
+**Dual Interface Design:**
+The scraper supports both CLI and API interfaces with the same underlying logic:
+
+#### CLI Interface (File Output)
+```bash
+# Traditional usage - saves to files
+python main.py                           # All sites, default format
+python main.py --site detik              # Individual site
+python main.py --format csv              # CSV output
+python main.py --format excel            # Excel output
+python main.py --site kompas --format json  # Individual site + format
+```
+
+#### API Interface (Direct JSON Response)
+```bash
+# Real-time scraping - no files
+curl https://your-app.vercel.app/api/scrape/all
+curl https://your-app.vercel.app/api/scrape/detik
+curl https://your-app.vercel.app/api/scrape/kompas
+```
+
+#### Programmatic Usage
+```python
+# Get JSON response directly (no files)
+from main import run_all_scrapers, run_specific_scraper
+
+# Scrape all sites
+all_data = run_all_scrapers(return_json=True)
+print(f"Total articles: {all_data['data']['metadata']['total_articles']}")
+
+# Scrape individual site
+detik_data = run_specific_scraper('detik', return_json=True)
+articles = detik_data['data']['articles']
+```
+
+**Key Benefits of Integrated Design:**
+- **Consistent Results**: Same data structure for CLI and API
+- **No Duplication**: Single codebase for both interfaces
+- **Flexible Output**: Files for batch processing, JSON for real-time
+- **Easy Testing**: Test scraping logic independently
+- **Unified Maintenance**: One place to update scraping logic
 
 ## Best Practices
 

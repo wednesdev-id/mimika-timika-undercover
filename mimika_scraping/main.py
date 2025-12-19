@@ -37,14 +37,26 @@ SCRAPERS = {
     'detik': scrape_detik
 }
 
-def run_all_scrapers():
-    """Run all available scrapers and combine results"""
+def run_all_scrapers(return_json=False):
+    """Run all available scrapers and combine results
+
+    Args:
+        return_json (bool): If True, return JSON response instead of saving to file
+
+    Returns:
+        dict: JSON response if return_json=True
+        str: Filename if return_json=False and articles found
+        None: If no articles found and return_json=False
+    """
     logger = setup_logging()
     logger.info("=" * 60)
     logger.info("Starting news scraping from all sources")
     logger.info("=" * 60)
 
     all_articles = []
+    sources_found = []
+    categories_found = set()
+    site_results = {}
 
     for site_name, scraper_func in SCRAPERS.items():
         logger.info(f"Scraping {site_name}...")
@@ -53,18 +65,44 @@ def run_all_scrapers():
             if not df.empty:
                 articles = df.to_dict('records')
                 all_articles.extend(articles)
+                sources_found.append(site_name.title())
+
+                # Collect categories
+                for article in articles:
+                    category = article.get('category', 'news')
+                    categories_found.add(category)
+
                 logger.info(f"Successfully scraped {len(articles)} articles from {site_name}")
+                site_results[site_name] = {'status': 'success', 'count': len(articles)}
             else:
                 logger.warning(f"No articles found from {site_name}")
+                site_results[site_name] = {'status': 'no_articles', 'count': 0}
         except Exception as e:
             logger.error(f"Error scraping {site_name}: {str(e)}")
+            site_results[site_name] = {'status': 'error', 'error': str(e), 'count': 0}
             continue
 
     # Remove duplicates
     unique_articles = remove_duplicates(all_articles)
     logger.info(f"Total unique articles: {len(unique_articles)}")
 
-    # Save results
+    # Return JSON response if requested
+    if return_json:
+        return {
+            'status': 'success',
+            'data': {
+                'metadata': {
+                    'total_articles': len(unique_articles),
+                    'last_updated': datetime.now().isoformat(),
+                    'sources': sources_found,
+                    'categories': sorted(list(categories_found))
+                },
+                'articles': unique_articles
+            },
+            'site_results': site_results
+        }
+
+    # Save results to file (original behavior)
     if unique_articles:
         # Get output format from environment or default to JSON
         output_format = os.getenv('OUTPUT_FORMAT', 'json').lower()
@@ -82,13 +120,31 @@ def run_all_scrapers():
         logger.warning("No articles to save")
         return None
 
-def run_specific_scraper(site_name):
-    """Run scraper for specific site"""
+def run_specific_scraper(site_name, return_json=False):
+    """Run scraper for specific site
+
+    Args:
+        site_name (str): Name of the site to scrape
+        return_json (bool): If True, return JSON response instead of saving to file
+
+    Returns:
+        dict: JSON response if return_json=True
+        str: Filename if return_json=False and articles found
+        None: If no articles found or error
+    """
     logger = setup_logging()
 
     if site_name not in SCRAPERS:
-        logger.error(f"Unknown site: {site_name}")
+        error_msg = f"Unknown site: {site_name}"
+        logger.error(error_msg)
         logger.info(f"Available sites: {', '.join(SCRAPERS.keys())}")
+
+        if return_json:
+            return {
+                'status': 'error',
+                'message': error_msg,
+                'available_sites': list(SCRAPERS.keys())
+            }
         return None
 
     logger.info(f"Scraping {site_name}...")
@@ -97,7 +153,23 @@ def run_specific_scraper(site_name):
         if not df.empty:
             articles = df.to_dict('records')
 
-            # Save results
+            # Return JSON response if requested
+            if return_json:
+                categories = list(set(article.get('category', 'news') for article in articles))
+                return {
+                    'status': 'success',
+                    'data': {
+                        'metadata': {
+                            'total_articles': len(articles),
+                            'last_updated': datetime.now().isoformat(),
+                            'sources': [site_name.title()],
+                            'categories': sorted(categories)
+                        },
+                        'articles': articles
+                    }
+                }
+
+            # Save results to file (original behavior)
             output_format = os.getenv('OUTPUT_FORMAT', 'json').lower()
             today = datetime.now().strftime('%Y%m%d')
 
@@ -114,10 +186,34 @@ def run_specific_scraper(site_name):
             logger.info(f"Results saved to {filename}")
             return filename
         else:
-            logger.warning(f"No articles found from {site_name}")
+            warning_msg = f"No articles found from {site_name}"
+            logger.warning(warning_msg)
+
+            if return_json:
+                return {
+                    'status': 'success',
+                    'message': warning_msg,
+                    'data': {
+                        'metadata': {
+                            'total_articles': 0,
+                            'last_updated': datetime.now().isoformat(),
+                            'sources': [site_name.title()],
+                            'categories': []
+                        },
+                        'articles': []
+                    }
+                }
             return None
     except Exception as e:
-        logger.error(f"Error scraping {site_name}: {str(e)}")
+        error_msg = f"Error scraping {site_name}: {str(e)}"
+        logger.error(error_msg)
+
+        if return_json:
+            return {
+                'status': 'error',
+                'message': error_msg,
+                'timestamp': datetime.now().isoformat()
+            }
         return None
 
 def run_scheduler():
