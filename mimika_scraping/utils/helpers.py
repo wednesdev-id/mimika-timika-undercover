@@ -12,13 +12,21 @@ import os
 
 def setup_logging():
     """Setup logging configuration"""
+    handlers = [logging.StreamHandler()]
+    
+    # Try to add file handler, but don't fail if filesystem is read-only (e.g., Vercel)
+    try:
+        os.makedirs('logs', exist_ok=True)
+        handlers.append(logging.FileHandler('logs/scrape_log.txt'))
+    except (OSError, PermissionError):
+        # Serverless environments like Vercel have read-only filesystems
+        # Just use console logging
+        pass
+    
     logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler('logs/scrape_log.txt'),
-            logging.StreamHandler()
-        ]
+        handlers=handlers
     )
     return logging.getLogger(__name__)
 
