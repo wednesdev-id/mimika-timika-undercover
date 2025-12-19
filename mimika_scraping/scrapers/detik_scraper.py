@@ -7,8 +7,16 @@ from bs4 import BeautifulSoup
 import time
 import random
 import logging
+import os
+import sys
 from datetime import datetime
-from utils.helpers import clean_text, extract_date, log_site_status
+try:
+    from zoneinfo import ZoneInfo
+except ImportError:
+    # Fallback for older Python versions
+    from backports.zoneinfo import ZoneInfo
+
+from utils.helpers import clean_text, extract_date, log_site_status, remove_duplicates
 
 def scrape_detik():
     """
@@ -20,6 +28,13 @@ def scrape_detik():
     max_pages = 100
 
     try:
+        # Check if running on Vercel to avoid timeouts
+        is_vercel = os.environ.get('VERCEL') == '1' or os.environ.get('VERCEL_ENV') is not None
+        actual_max_pages = 2 if is_vercel else max_pages
+        
+        if is_vercel:
+            logging.info(f"Vercel detected - limiting scrape to {actual_max_pages} pages to avoid timeout")
+
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
         }
@@ -28,7 +43,7 @@ def scrape_detik():
 
         # Collect HTML from all pages
         html_pages = []
-        for page in range(1, max_pages + 1):
+        for page in range(1, actual_max_pages + 1):
             search_url = f"https://www.detik.com/search/searchall?query={keyword.replace(' ', '%20')}&page={page}&result_type=latest"
 
             try:
@@ -36,7 +51,9 @@ def scrape_detik():
                 response = requests.get(search_url, headers=headers, timeout=10)
                 response.raise_for_status()
                 html_pages.append(response.text)
-                time.sleep(random.uniform(2, 4))
+                
+                # Shorter delay on Vercel to beat the clock
+                time.sleep(random.uniform(0.5, 1.5) if is_vercel else random.uniform(2, 4))
             except Exception as e:
                 logging.warning(f"Error scraping page {page}: {str(e)}")
                 continue
@@ -81,12 +98,10 @@ def scrape_detik():
                         if date_elem and date_elem.find('span') and date_elem.find('span').get('d-time'):
                             try:
                                 time_timestamp = int(date_elem.find('span')['d-time'])
-                                from datetime import datetime
-                                from zoneinfo import ZoneInfo
                                 time_datetime = datetime.fromtimestamp(time_timestamp, tz=ZoneInfo("Asia/Jakarta"))
                                 date_str = time_datetime.strftime('%Y-%m-%d %H:%M:%S')
                                 datetime_obj = time_datetime
-                            except:
+                            except Exception:
                                 date_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                                 datetime_obj = datetime.now()
                         else:

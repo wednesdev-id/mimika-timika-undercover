@@ -30,6 +30,9 @@ def scrape_tribun():
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
         }
 
+        # Check for Vercel to avoid timeouts
+        is_vercel = os.environ.get('VERCEL') == '1' or os.environ.get('VERCEL_ENV') is not None
+        
         # Scrape from multiple sections
         sections = [
             'https://www.tribunnews.com/nasional',
@@ -39,6 +42,13 @@ def scrape_tribun():
             'https://www.tribunnews.com/sport',
             'https://www.tribunnews.com/entertainment'
         ]
+        
+        if is_vercel:
+            logging.info("Vercel detected - limiting scrape to 1 section and 5 articles")
+            sections = sections[:1]
+            max_per_section = 5
+        else:
+            max_per_section = 10
 
         for section_url in sections:
             try:
@@ -74,7 +84,7 @@ def scrape_tribun():
                             seen_urls.add(href)
                             filtered_links.append(link)
 
-                for link in filtered_links[:10]:  # Limit to 10 articles per section
+                for link in filtered_links[:max_per_section]:  # Limit to 5 if on Vercel, 10 otherwise
                     try:
                         article_url = link.get('href')
                         if not article_url:

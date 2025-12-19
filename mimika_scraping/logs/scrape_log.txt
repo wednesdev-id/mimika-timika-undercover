@@ -943,3 +943,142 @@
 2025-12-19 11:41:13,951 - WARNING - No articles found on page 47
 2025-12-19 11:41:13,953 - INFO - [Kompas.com] Scraping completed successfully
 2025-12-19 11:41:13,954 - INFO - Successfully scraped 918 articles with keyword 'mimika timika'
+2025-12-19 11:58:11,253 - INFO - Scraping detik...
+2025-12-19 11:58:11,253 - ERROR - [Detik.com] Scraping failed: name 'os' is not defined
+2025-12-19 11:58:11,259 - ERROR - Error scraping detik: cannot access local variable 'datetime' where it is not associated with a value
+2025-12-19 12:00:31,840 - INFO - Scraping detik...
+2025-12-19 12:00:31,840 - INFO - Starting search for keyword: 'mimika timika'
+2025-12-19 12:00:31,840 - INFO - Scraping page 1
+2025-12-19 12:00:35,436 - INFO - Scraping page 2
+2025-12-19 12:00:39,091 - INFO - Scraping page 3
+2025-12-19 12:00:43,568 - INFO - Scraping page 4
+2025-12-19 12:00:46,788 - INFO - Scraping page 5
+2025-12-19 12:00:49,691 - INFO - Scraping kompas...
+2025-12-19 12:00:49,691 - INFO - Starting search for keyword: 'mimika timika'
+2025-12-19 12:00:49,692 - INFO - Scraping page 1
+2025-12-19 12:00:50,057 - INFO - Scraping page 6
+2025-12-19 12:00:50,860 - INFO - [Kompas.com] Scraping completed successfully
+2025-12-19 12:00:50,860 - ERROR - Error scraping kompas: name 'remove_duplicates' is not defined
+2025-12-19 12:00:54,108 - INFO - Scraping page 7
+2025-12-19 12:00:57,565 - INFO - Scraping page 8
+2025-12-19 12:01:00,645 - INFO - Scraping page 9
+2025-12-19 12:01:03,606 - INFO - Scraping page 10
+2025-12-19 12:01:07,803 - INFO - Scraping page 11
+2025-12-19 12:01:12,130 - INFO - Scraping page 12
+2025-12-19 12:01:15,417 - INFO - Scraping page 13
+2025-12-19 12:01:19,835 - INFO - Scraping page 14
+2025-12-19 12:01:24,004 - INFO - Scraping page 15
+2025-12-19 12:01:27,457 - INFO - Scraping page 16
+2025-12-19 12:01:31,065 - INFO - Scraping page 17
+2025-12-19 12:01:34,027 - INFO - Scraping page 18
+2025-12-19 12:01:37,880 - INFO - Scraping page 19
+2025-12-19 12:01:41,487 - INFO - Scraping page 20
+2025-12-19 12:01:44,872 - INFO - Scraping page 21
+2025-12-19 12:01:48,000 - INFO - Scraping page 22
+2025-12-19 12:01:52,514 - INFO - Scraping page 23
+2025-12-19 12:01:55,046 - INFO - Scraping page 24
+2025-12-19 12:01:58,852 - INFO - Scraping page 25
+2025-12-19 12:02:01,960 - INFO - Scraping page 26
+2025-12-19 12:02:05,620 - INFO - Scraping page 27
+2025-12-19 12:02:09,021 - INFO - Scraping page 28
+2025-12-19 12:02:12,225 - INFO - Scraping page 29
+2025-12-19 12:02:15,273 - INFO - Scraping page 30
+2025-12-19 12:02:19,288 - INFO - Scraping page 31
+2025-12-19 12:02:23,082 - INFO - Scraping page 32
+2025-12-19 12:02:25,861 - INFO - Scraping page 33
+2025-12-19 12:02:30,156 - INFO - Scraping page 34
+2025-12-19 12:02:33,557 - INFO - Scraping page 35
+2025-12-19 12:02:37,350 - INFO - Scraping page 36
+2025-12-19 12:02:41,577 - INFO - Scraping page 37
+2025-12-19 12:02:44,445 - INFO - Scraping page 38
+2025-12-19 12:02:48,000 - INFO - Scraping page 39
+2025-12-19 12:02:51,439 - INFO - Scraping page 40
+2025-12-19 12:02:54,878 - INFO - Scraping page 41
+2025-12-19 12:02:58,563 - INFO - Scraping page 42
+2025-12-19 12:03:02,968 - INFO - Scraping page 43
+2025-12-19 12:03:05,718 - INFO - Scraping page 44
+2025-12-19 12:03:09,904 - INFO - Scraping page 45
+2025-12-19 12:03:13,507 - INFO - Scraping page 46
+2025-12-19 12:03:17,271 - INFO - Scraping page 47
+2025-12-19 12:03:20,085 - INFO - Scraping page 48
+2025-12-19 12:03:22,828 - INFO - Scraping kompas...
+2025-12-19 12:03:22,828 - INFO - Starting search for keyword: 'mimika timika'
+2025-12-19 12:03:22,828 - INFO - Scraping page 1
+2025-12-19 12:03:23,139 - INFO - [Kompas.com] Scraping completed successfully
+2025-12-19 12:03:23,886 - INFO - Scraping page 49
+2025-12-19 12:03:27,314 - INFO - Scraping page 50
+2025-12-19 12:03:29,889 - INFO - Scraping page 51
+2025-12-19 12:03:32,804 - INFO - Scraping page 52
+2025-12-19 12:03:36,542 - INFO - Scraping page 53
+2025-12-19 12:03:40,423 - INFO - Scraping page 54
+2025-12-19 12:03:43,167 - INFO - Scraping page 55
+2025-12-19 12:03:45,880 - INFO - Scraping page 56
+2025-12-19 12:03:48,666 - INFO - Scraping page 57
+2025-12-19 12:03:52,124 - INFO - Scraping page 58
+2025-12-19 12:03:55,492 - INFO - Scraping page 59
+2025-12-19 12:03:59,550 - INFO - Scraping page 60
+2025-12-19 12:04:02,679 - INFO - Scraping page 61
+2025-12-19 12:04:05,503 - INFO - Scraping page 62
+2025-12-19 12:04:09,789 - INFO - Scraping page 63
+2025-12-19 12:04:14,025 - INFO - Scraping page 64
+2025-12-19 12:04:18,423 - INFO - Scraping page 65
+2025-12-19 12:04:21,438 - INFO - Scraping page 66
+2025-12-19 12:04:24,643 - INFO - Scraping page 67
+2025-12-19 12:04:28,490 - INFO - Scraping page 68
+2025-12-19 12:04:31,643 - INFO - Scraping page 69
+2025-12-19 12:04:34,423 - INFO - Scraping page 70
+2025-12-19 12:04:37,847 - INFO - Scraping page 71
+2025-12-19 12:04:40,882 - INFO - Scraping page 72
+2025-12-19 12:04:44,202 - INFO - Scraping page 73
+2025-12-19 12:04:47,308 - INFO - Scraping page 74
+2025-12-19 12:04:51,637 - INFO - Scraping page 75
+2025-12-19 12:04:55,596 - INFO - Scraping page 76
+2025-12-19 12:04:58,366 - INFO - Scraping page 77
+2025-12-19 12:05:01,115 - INFO - Scraping page 78
+2025-12-19 12:05:04,404 - INFO - Scraping page 79
+2025-12-19 12:05:08,256 - INFO - Scraping page 80
+2025-12-19 12:05:11,800 - INFO - Scraping page 81
+2025-12-19 12:05:13,200 - INFO - Scraping detik...
+2025-12-19 12:05:13,201 - INFO - Starting search for keyword: 'mimika timika'
+2025-12-19 12:05:13,201 - INFO - Scraping page 1
+2025-12-19 12:05:14,824 - INFO - Scraping page 82
+2025-12-19 12:05:17,665 - INFO - Scraping page 2
+2025-12-19 12:05:17,982 - INFO - Scraping page 83
+2025-12-19 12:05:20,880 - INFO - Scraping page 84
+2025-12-19 12:05:21,428 - INFO - Scraping page 3
+2025-12-19 12:05:23,601 - INFO - Scraping page 85
+2025-12-19 12:05:25,865 - INFO - Scraping page 4
+2025-12-19 12:05:26,157 - INFO - Scraping page 86
+2025-12-19 12:05:29,041 - INFO - Scraping page 5
+2025-12-19 12:05:30,375 - INFO - Scraping page 87
+2025-12-19 12:05:32,691 - INFO - Scraping page 6
+2025-12-19 12:05:34,845 - INFO - Scraping page 88
+2025-12-19 12:05:35,207 - INFO - Scraping page 7
+2025-12-19 12:05:38,313 - INFO - Scraping page 8
+2025-12-19 12:05:39,069 - INFO - Scraping page 89
+2025-12-19 12:05:41,869 - INFO - Scraping page 90
+2025-12-19 12:05:42,060 - INFO - Scraping page 9
+2025-12-19 12:05:44,576 - INFO - Scraping page 10
+2025-12-19 12:05:45,102 - INFO - Scraping page 91
+2025-12-19 12:05:47,185 - INFO - Scraping page 11
+2025-12-19 12:05:48,057 - INFO - Scraping page 92
+2025-12-19 12:05:50,813 - INFO - Scraping page 93
+2025-12-19 12:05:51,359 - INFO - Scraping page 12
+2025-12-19 12:05:54,709 - INFO - Scraping page 13
+2025-12-19 12:05:55,243 - INFO - Scraping page 94
+2025-12-19 12:05:58,255 - INFO - Scraping page 14
+2025-12-19 12:05:59,107 - INFO - Scraping page 95
+2025-12-19 12:06:02,409 - INFO - Scraping page 15
+2025-12-19 12:06:02,438 - INFO - Scraping page 96
+2025-12-19 12:06:06,062 - INFO - Scraping page 97
+2025-12-19 12:06:06,182 - INFO - Scraping page 16
+2025-12-19 12:06:09,620 - INFO - Scraping page 17
+2025-12-19 12:06:09,858 - INFO - Scraping page 98
+2025-12-19 12:06:12,403 - INFO - Scraping page 18
+2025-12-19 12:06:14,139 - INFO - Scraping page 99
+2025-12-19 12:06:15,975 - INFO - Scraping page 19
+2025-12-19 12:06:18,005 - INFO - Scraping page 100
+2025-12-19 12:06:19,507 - INFO - Scraping page 20
+2025-12-19 12:06:22,883 - INFO - Scraping page 21
+2025-12-19 12:06:24,335 - INFO - [Detik.com] Scraping completed successfully
+2025-12-19 12:06:24,335 - INFO - Successfully scraped 1011 articles with keyword 'mimika timika'
