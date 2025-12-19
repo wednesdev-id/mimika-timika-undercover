@@ -2,7 +2,6 @@
 Detik.com News Scraper
 """
 
-from django import urls
 import requests
 from bs4 import BeautifulSoup
 import time

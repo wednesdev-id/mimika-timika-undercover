@@ -464,9 +464,6 @@ async def root_redirect():
 
 # ============= VERCEL HANDLER =============
 
-def handler(request):
-    """Vercel serverless function handler"""
-    return app(request.scope, request.receive, request.send)
-
-# Export for Vercel
-handler.aws = handler
+# Vercel automatically detects and serves the 'app' variable
+# No additional handler needed for FastAPI with @vercel/python
+# The app is already properly exported as the module-level 'app' variable
