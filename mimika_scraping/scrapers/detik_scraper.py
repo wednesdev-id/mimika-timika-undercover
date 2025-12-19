@@ -13,17 +13,9 @@ from utils.helpers import clean_text, extract_date, log_site_status
 def scrape_detik():
     """
     Scrape latest news from Detik.com with search keyword "mimika timika"
-    Returns dict with response format consistent with API endpoints:
-    {
-        'status': 'success' | 'error',
-        'data': {
-            'metadata': {...},
-            'articles': [...]
-        } | 'message': 'error message'
-    }
+    Returns dict with response format consistent with API endpoints
     """
     articles = []
-    base_url = "https://www.detik.com"
     keyword = "mimika timika"
     max_pages = 100
 
@@ -54,22 +46,21 @@ def scrape_detik():
         for html_content in html_pages:
             soup = BeautifulSoup(html_content, 'html.parser')
 
-            # Use the same structure as test_scrape.py
             main = soup.find('div', class_="container-fluid")
             if not main:
                 continue
 
-            articles = main.find('div', class_="column-6")
-            if not articles:
+            articles_container = main.find('div', class_="column-6")
+            if not articles_container:
                 continue
 
-            article = articles.find_all('div', class_="list-content")
-            if not article:
+            article_list = articles_container.find_all('div', class_="list-content")
+            if not article_list:
                 continue
 
-            for links in article:
-                links = links.find_all('article', class_="list-content__item")
-                for link in links:
+            for links in article_list:
+                article_items = links.find_all('article', class_="list-content__item")
+                for link in article_items:
                     try:
                         # Extract title
                         title_elem = link.find('h3', class_="media__title")
@@ -102,7 +93,7 @@ def scrape_detik():
                             date_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                             datetime_obj = datetime.now()
 
-                        # Set default category (removed complex logic)
+                        # Set default category
                         category = "news"
 
                         data = {
@@ -185,7 +176,7 @@ if __name__ == "__main__":
     if result['status'] == 'success':
         articles = result['data']['articles']
         print(f"Scraped {len(articles)} articles:")
-        for article in articles[:5]:  # Show first 5 articles
+        for article in articles[:5]:
             print(f"- {article.get('title', 'N/A')} ({article.get('category', 'N/A')})")
     else:
         print(f"Error: {result.get('message', 'Unknown error')}")

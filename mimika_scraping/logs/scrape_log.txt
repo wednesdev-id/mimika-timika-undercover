@@ -594,3 +594,352 @@
 2025-12-18 11:02:31,966 - INFO - Total unique articles: 1014
 2025-12-18 11:02:31,983 - INFO - Saved 1014 articles to data/news_20251218.json
 2025-12-18 11:02:31,983 - INFO - Results saved to data/news_20251218.json
+2025-12-19 10:46:41,960 - INFO - Scraping kompas...
+2025-12-19 10:46:42,263 - INFO - Starting search for keyword: 'mimika timika'
+2025-12-19 10:46:42,263 - INFO - Scraping page 1
+2025-12-19 10:46:43,138 - INFO - Found 20 articles on page 1
+2025-12-19 10:46:45,204 - INFO - Scraping page 2
+2025-12-19 10:46:45,488 - INFO - Found 20 articles on page 2
+2025-12-19 10:46:48,718 - INFO - Scraping page 3
+2025-12-19 10:46:48,980 - INFO - Found 20 articles on page 3
+2025-12-19 10:46:52,211 - INFO - Scraping page 4
+2025-12-19 10:46:52,533 - INFO - Found 20 articles on page 4
+2025-12-19 10:46:55,202 - INFO - Scraping page 5
+2025-12-19 10:46:55,503 - INFO - Found 20 articles on page 5
+2025-12-19 10:46:57,940 - INFO - Scraping page 6
+2025-12-19 10:46:58,363 - INFO - Found 20 articles on page 6
+2025-12-19 10:47:01,851 - INFO - Scraping page 7
+2025-12-19 10:47:02,152 - INFO - Found 20 articles on page 7
+2025-12-19 10:47:05,510 - INFO - Scraping page 8
+2025-12-19 10:47:05,796 - INFO - Found 20 articles on page 8
+2025-12-19 10:47:08,790 - INFO - Scraping page 9
+2025-12-19 10:47:09,097 - INFO - Found 20 articles on page 9
+2025-12-19 10:47:12,551 - INFO - Scraping page 10
+2025-12-19 10:47:12,854 - INFO - Found 20 articles on page 10
+2025-12-19 10:47:15,063 - INFO - [Kompas.com] Scraping completed successfully
+2025-12-19 10:47:15,063 - INFO - Successfully scraped 200 articles with keyword 'mimika timika'
+2025-12-19 10:47:15,065 - ERROR - Error scraping kompas: 'dict' object has no attribute 'empty'
+2025-12-19 11:02:45,634 - INFO - Scraping kompas...
+2025-12-19 11:02:45,634 - INFO - Starting search for keyword: 'mimika timika'
+2025-12-19 11:02:45,634 - INFO - Scraping page 1
+2025-12-19 11:02:45,997 - INFO - Found 20 articles on page 1
+2025-12-19 11:02:49,663 - INFO - Scraping page 2
+2025-12-19 11:02:49,948 - INFO - Found 20 articles on page 2
+2025-12-19 11:02:53,817 - INFO - Scraping page 3
+2025-12-19 11:02:54,158 - INFO - Found 20 articles on page 3
+2025-12-19 11:02:56,938 - INFO - Scraping page 4
+2025-12-19 11:02:57,210 - INFO - Found 20 articles on page 4
+2025-12-19 11:02:59,948 - INFO - Scraping page 5
+2025-12-19 11:03:00,212 - INFO - Found 20 articles on page 5
+2025-12-19 11:03:02,900 - INFO - Scraping page 6
+2025-12-19 11:03:03,183 - INFO - Found 20 articles on page 6
+2025-12-19 11:03:06,596 - INFO - Scraping page 7
+2025-12-19 11:03:06,879 - INFO - Found 20 articles on page 7
+2025-12-19 11:03:10,312 - INFO - Scraping page 8
+2025-12-19 11:03:10,593 - INFO - Found 20 articles on page 8
+2025-12-19 11:03:13,045 - INFO - Scraping page 9
+2025-12-19 11:03:13,329 - INFO - Found 20 articles on page 9
+2025-12-19 11:03:16,648 - INFO - Scraping page 10
+2025-12-19 11:03:16,909 - INFO - Found 20 articles on page 10
+2025-12-19 11:03:19,118 - INFO - [Kompas.com] Scraping completed successfully
+2025-12-19 11:03:19,118 - INFO - Successfully scraped 200 articles with keyword 'mimika timika'
+2025-12-19 11:03:19,130 - INFO - Saved 200 articles to data/news_kompas_20251219.json
+2025-12-19 11:03:19,130 - INFO - Results saved to data/news_kompas_20251219.json
+2025-12-19 11:06:23,902 - INFO - Scraping kompas...
+2025-12-19 11:06:23,902 - INFO - Starting search for keyword: 'mimika timika' - scraping ALL pages until no more results
+2025-12-19 11:06:23,902 - INFO - Scraping page 1
+2025-12-19 11:06:24,144 - INFO - Found 20 articles on page 1
+2025-12-19 11:06:26,381 - INFO - Scraping page 2
+2025-12-19 11:06:26,551 - INFO - Found 20 articles on page 2
+2025-12-19 11:06:30,208 - INFO - Scraping page 3
+2025-12-19 11:06:30,407 - INFO - Found 20 articles on page 3
+2025-12-19 11:06:33,910 - INFO - Scraping page 4
+2025-12-19 11:06:34,106 - INFO - Found 20 articles on page 4
+2025-12-19 11:06:36,413 - INFO - Scraping page 5
+2025-12-19 11:06:36,571 - INFO - Found 20 articles on page 5
+2025-12-19 11:06:40,300 - INFO - Scraping page 6
+2025-12-19 11:06:40,476 - INFO - Found 20 articles on page 6
+2025-12-19 11:06:43,560 - INFO - Scraping page 7
+2025-12-19 11:06:43,727 - INFO - Found 20 articles on page 7
+2025-12-19 11:06:47,505 - INFO - Scraping page 8
+2025-12-19 11:06:47,690 - INFO - Found 20 articles on page 8
+2025-12-19 11:06:50,529 - INFO - Scraping page 9
+2025-12-19 11:06:50,713 - INFO - Found 20 articles on page 9
+2025-12-19 11:06:54,426 - INFO - Scraping page 10
+2025-12-19 11:06:54,595 - INFO - Found 20 articles on page 10
+2025-12-19 11:06:58,187 - INFO - Scraping page 11
+2025-12-19 11:06:58,453 - INFO - Found 20 articles on page 11
+2025-12-19 11:07:01,503 - INFO - Scraping page 12
+2025-12-19 11:07:01,839 - INFO - Found 20 articles on page 12
+2025-12-19 11:07:04,567 - INFO - Scraping page 13
+2025-12-19 11:07:04,931 - INFO - Found 20 articles on page 13
+2025-12-19 11:07:07,384 - INFO - Scraping page 14
+2025-12-19 11:07:07,803 - INFO - Found 20 articles on page 14
+2025-12-19 11:07:10,744 - INFO - Scraping page 15
+2025-12-19 11:07:11,035 - INFO - Found 20 articles on page 15
+2025-12-19 11:07:13,264 - INFO - Scraping page 16
+2025-12-19 11:07:13,577 - INFO - Found 20 articles on page 16
+2025-12-19 11:07:15,627 - INFO - Scraping page 17
+2025-12-19 11:07:15,945 - INFO - Found 20 articles on page 17
+2025-12-19 11:07:19,259 - INFO - Scraping page 18
+2025-12-19 11:07:19,522 - INFO - Found 20 articles on page 18
+2025-12-19 11:07:23,250 - INFO - Scraping page 19
+2025-12-19 11:07:23,545 - INFO - Found 20 articles on page 19
+2025-12-19 11:07:25,851 - INFO - Scraping page 20
+2025-12-19 11:07:26,158 - INFO - Found 20 articles on page 20
+2025-12-19 11:07:29,628 - INFO - Scraping page 21
+2025-12-19 11:07:29,919 - INFO - Found 20 articles on page 21
+2025-12-19 11:07:32,756 - INFO - Scraping page 22
+2025-12-19 11:07:33,032 - INFO - Found 20 articles on page 22
+2025-12-19 11:07:36,861 - INFO - Scraping page 23
+2025-12-19 11:07:37,138 - INFO - Found 20 articles on page 23
+2025-12-19 11:07:40,561 - INFO - Scraping page 24
+2025-12-19 11:07:40,839 - INFO - Found 20 articles on page 24
+2025-12-19 11:07:43,368 - INFO - Scraping page 25
+2025-12-19 11:07:43,624 - INFO - Found 20 articles on page 25
+2025-12-19 11:07:45,940 - INFO - Scraping page 26
+2025-12-19 11:07:46,277 - INFO - Found 20 articles on page 26
+2025-12-19 11:07:50,218 - INFO - Scraping page 27
+2025-12-19 11:07:50,502 - INFO - Found 20 articles on page 27
+2025-12-19 11:07:53,285 - INFO - Scraping page 28
+2025-12-19 11:07:53,547 - INFO - Found 20 articles on page 28
+2025-12-19 11:07:55,963 - INFO - Scraping page 29
+2025-12-19 11:07:56,247 - INFO - Found 20 articles on page 29
+2025-12-19 11:07:58,752 - INFO - Scraping page 30
+2025-12-19 11:07:59,021 - INFO - Found 20 articles on page 30
+2025-12-19 11:08:02,804 - INFO - Scraping page 31
+2025-12-19 11:08:03,097 - INFO - Found 20 articles on page 31
+2025-12-19 11:08:06,314 - INFO - Scraping page 32
+2025-12-19 11:08:06,601 - INFO - Found 20 articles on page 32
+2025-12-19 11:08:09,823 - INFO - Scraping page 33
+2025-12-19 11:08:10,149 - INFO - Found 20 articles on page 33
+2025-12-19 11:08:13,729 - INFO - Scraping page 34
+2025-12-19 11:08:14,060 - INFO - Found 20 articles on page 34
+2025-12-19 11:08:17,766 - INFO - Scraping page 35
+2025-12-19 11:08:18,040 - INFO - Found 20 articles on page 35
+2025-12-19 11:08:20,828 - INFO - Scraping page 36
+2025-12-19 11:08:21,087 - INFO - Found 20 articles on page 36
+2025-12-19 11:08:25,005 - INFO - Scraping page 37
+2025-12-19 11:08:25,380 - INFO - Found 20 articles on page 37
+2025-12-19 11:08:27,687 - INFO - Scraping page 38
+2025-12-19 11:08:28,010 - INFO - Found 20 articles on page 38
+2025-12-19 11:08:31,177 - INFO - Scraping page 39
+2025-12-19 11:08:31,599 - INFO - Found 20 articles on page 39
+2025-12-19 11:08:34,690 - INFO - Scraping page 40
+2025-12-19 11:08:34,988 - INFO - Found 20 articles on page 40
+2025-12-19 11:08:37,107 - INFO - Scraping page 41
+2025-12-19 11:08:37,438 - INFO - Found 20 articles on page 41
+2025-12-19 11:08:40,657 - INFO - Scraping page 42
+2025-12-19 11:08:41,053 - INFO - Found 20 articles on page 42
+2025-12-19 11:08:43,092 - INFO - Scraping page 43
+2025-12-19 11:08:43,344 - INFO - Found 20 articles on page 43
+2025-12-19 11:08:47,077 - INFO - Scraping page 44
+2025-12-19 11:08:47,344 - INFO - Found 20 articles on page 44
+2025-12-19 11:08:49,455 - INFO - Scraping page 45
+2025-12-19 11:08:49,724 - INFO - Found 20 articles on page 45
+2025-12-19 11:08:51,751 - INFO - Scraping page 46
+2025-12-19 11:08:52,025 - INFO - Found 18 articles on page 46
+2025-12-19 11:08:54,313 - INFO - Scraping page 47
+2025-12-19 11:08:54,599 - WARNING - No articles found on page 47
+2025-12-19 11:08:54,600 - INFO - [Kompas.com] Scraping completed successfully
+2025-12-19 11:08:54,600 - INFO - Successfully scraped 918 articles with keyword 'mimika timika'
+2025-12-19 11:08:54,619 - INFO - Saved 918 articles to data/news_kompas_20251219.json
+2025-12-19 11:08:54,619 - INFO - Results saved to data/news_kompas_20251219.json
+2025-12-19 11:17:35,255 - INFO - Scraping kompas...
+2025-12-19 11:17:35,255 - INFO - Starting search for keyword: 'mimika timika' - scraping ALL pages until no more results
+2025-12-19 11:17:35,255 - INFO - Scraping page 1
+2025-12-19 11:17:35,655 - INFO - Found 20 articles on page 1
+2025-12-19 11:17:38,899 - INFO - Scraping page 2
+2025-12-19 11:17:39,229 - INFO - Found 20 articles on page 2
+2025-12-19 11:17:42,718 - INFO - Scraping page 3
+2025-12-19 11:17:43,055 - INFO - Found 20 articles on page 3
+2025-12-19 11:17:45,464 - INFO - Scraping page 4
+2025-12-19 11:17:46,080 - INFO - Found 20 articles on page 4
+2025-12-19 11:17:49,079 - INFO - Scraping page 5
+2025-12-19 11:17:49,384 - INFO - Found 20 articles on page 5
+2025-12-19 11:17:51,840 - INFO - Scraping page 6
+2025-12-19 11:17:52,148 - INFO - Found 20 articles on page 6
+2025-12-19 11:17:55,612 - INFO - Scraping page 7
+2025-12-19 11:17:55,937 - INFO - Found 20 articles on page 7
+2025-12-19 11:17:58,331 - INFO - Scraping page 8
+2025-12-19 11:17:58,645 - INFO - Found 20 articles on page 8
+2025-12-19 11:18:01,328 - INFO - Scraping page 9
+2025-12-19 11:18:01,699 - INFO - Found 20 articles on page 9
+2025-12-19 11:18:04,568 - INFO - Scraping page 10
+2025-12-19 11:18:04,976 - INFO - Found 20 articles on page 10
+2025-12-19 11:18:07,675 - INFO - Scraping page 11
+2025-12-19 11:18:08,101 - INFO - Found 20 articles on page 11
+2025-12-19 11:18:11,616 - INFO - Scraping page 12
+2025-12-19 11:18:11,981 - INFO - Found 20 articles on page 12
+2025-12-19 11:18:14,705 - INFO - Scraping page 13
+2025-12-19 11:18:15,025 - INFO - Found 20 articles on page 13
+2025-12-19 11:18:18,228 - INFO - Scraping page 14
+2025-12-19 11:18:18,595 - INFO - Found 20 articles on page 14
+2025-12-19 11:18:22,061 - INFO - Scraping page 15
+2025-12-19 11:18:22,404 - INFO - Found 20 articles on page 15
+2025-12-19 11:18:25,218 - INFO - Scraping page 16
+2025-12-19 11:18:25,593 - INFO - Found 20 articles on page 16
+2025-12-19 11:18:27,680 - INFO - Scraping page 17
+2025-12-19 11:18:28,006 - INFO - Found 20 articles on page 17
+2025-12-19 11:18:31,752 - INFO - Scraping page 18
+2025-12-19 11:18:32,092 - INFO - Found 20 articles on page 18
+2025-12-19 11:18:34,336 - INFO - Scraping page 19
+2025-12-19 11:18:34,700 - INFO - Found 20 articles on page 19
+2025-12-19 11:18:38,089 - INFO - Scraping page 20
+2025-12-19 11:18:38,431 - INFO - Found 20 articles on page 20
+2025-12-19 11:18:41,558 - INFO - Scraping page 21
+2025-12-19 11:18:41,864 - INFO - Found 20 articles on page 21
+2025-12-19 11:18:45,539 - INFO - Scraping page 22
+2025-12-19 11:18:45,872 - INFO - Found 20 articles on page 22
+2025-12-19 11:18:48,432 - INFO - Scraping page 23
+2025-12-19 11:18:48,791 - INFO - Found 20 articles on page 23
+2025-12-19 11:18:52,252 - INFO - Scraping page 24
+2025-12-19 11:18:52,561 - INFO - Found 20 articles on page 24
+2025-12-19 11:18:56,538 - INFO - Scraping page 25
+2025-12-19 11:18:56,846 - INFO - Found 20 articles on page 25
+2025-12-19 11:18:59,648 - INFO - Scraping page 26
+2025-12-19 11:19:00,003 - INFO - Found 20 articles on page 26
+2025-12-19 11:19:02,810 - INFO - Scraping page 27
+2025-12-19 11:19:03,173 - INFO - Found 20 articles on page 27
+2025-12-19 11:19:07,157 - INFO - Scraping page 28
+2025-12-19 11:19:07,532 - INFO - Found 20 articles on page 28
+2025-12-19 11:19:11,135 - INFO - Scraping page 29
+2025-12-19 11:19:11,483 - INFO - Found 20 articles on page 29
+2025-12-19 11:19:14,391 - INFO - Scraping page 30
+2025-12-19 11:19:14,833 - INFO - Found 20 articles on page 30
+2025-12-19 11:19:17,960 - INFO - Scraping page 31
+2025-12-19 11:19:18,402 - INFO - Found 20 articles on page 31
+2025-12-19 11:19:21,893 - INFO - Scraping page 32
+2025-12-19 11:19:22,381 - INFO - Found 20 articles on page 32
+2025-12-19 11:19:24,662 - INFO - Scraping page 33
+2025-12-19 11:19:25,058 - INFO - Found 20 articles on page 33
+2025-12-19 11:19:27,701 - INFO - Scraping page 34
+2025-12-19 11:19:28,033 - INFO - Found 20 articles on page 34
+2025-12-19 11:19:31,019 - INFO - Scraping page 35
+2025-12-19 11:19:31,551 - INFO - Found 20 articles on page 35
+2025-12-19 11:19:33,811 - INFO - Scraping page 36
+2025-12-19 11:19:34,141 - INFO - Found 20 articles on page 36
+2025-12-19 11:19:36,945 - INFO - Scraping page 37
+2025-12-19 11:19:37,272 - INFO - Found 20 articles on page 37
+2025-12-19 11:19:40,323 - INFO - Scraping page 38
+2025-12-19 11:19:40,666 - INFO - Found 20 articles on page 38
+2025-12-19 11:19:44,281 - INFO - Scraping page 39
+2025-12-19 11:19:44,604 - INFO - Found 20 articles on page 39
+2025-12-19 11:19:48,554 - INFO - Scraping page 40
+2025-12-19 11:19:48,893 - INFO - Found 20 articles on page 40
+2025-12-19 11:19:52,469 - INFO - Scraping page 41
+2025-12-19 11:19:52,811 - INFO - Found 20 articles on page 41
+2025-12-19 11:19:54,840 - INFO - Scraping page 42
+2025-12-19 11:19:55,331 - INFO - Found 20 articles on page 42
+2025-12-19 11:19:58,095 - INFO - Scraping page 43
+2025-12-19 11:19:58,392 - INFO - Found 20 articles on page 43
+2025-12-19 11:20:01,991 - INFO - Scraping page 44
+2025-12-19 11:20:02,362 - INFO - Found 20 articles on page 44
+2025-12-19 11:20:06,124 - INFO - Scraping page 45
+2025-12-19 11:20:06,466 - INFO - Found 20 articles on page 45
+2025-12-19 11:20:09,250 - INFO - Scraping page 46
+2025-12-19 11:20:09,605 - INFO - Found 18 articles on page 46
+2025-12-19 11:20:11,940 - INFO - Scraping page 47
+2025-12-19 11:20:12,244 - WARNING - No articles found on page 47
+2025-12-19 11:20:12,246 - INFO - [Kompas.com] Scraping completed successfully
+2025-12-19 11:20:12,246 - INFO - Successfully scraped 918 articles with keyword 'mimika timika'
+2025-12-19 11:20:12,326 - INFO - Saved 918 articles to data/news_kompas_20251219.json
+2025-12-19 11:20:12,327 - INFO - Results saved to data/news_kompas_20251219.json
+2025-12-19 11:38:36,008 - INFO - Scraping kompas...
+2025-12-19 11:38:36,008 - INFO - Starting search for keyword: 'mimika timika' - scraping ALL pages until no more results
+2025-12-19 11:38:36,008 - INFO - Scraping page 1
+2025-12-19 11:38:36,598 - INFO - Found 20 articles on page 1
+2025-12-19 11:38:39,064 - INFO - Scraping page 2
+2025-12-19 11:38:39,443 - INFO - Found 20 articles on page 2
+2025-12-19 11:38:41,905 - INFO - Scraping page 3
+2025-12-19 11:38:42,194 - INFO - Found 20 articles on page 3
+2025-12-19 11:38:44,758 - INFO - Scraping page 4
+2025-12-19 11:38:45,240 - INFO - Found 20 articles on page 4
+2025-12-19 11:38:47,932 - INFO - Scraping page 5
+2025-12-19 11:38:48,247 - INFO - Found 20 articles on page 5
+2025-12-19 11:38:51,902 - INFO - Scraping page 6
+2025-12-19 11:38:52,469 - INFO - Found 20 articles on page 6
+2025-12-19 11:38:55,836 - INFO - Scraping page 7
+2025-12-19 11:38:56,175 - INFO - Found 20 articles on page 7
+2025-12-19 11:38:59,622 - INFO - Scraping page 8
+2025-12-19 11:38:59,947 - INFO - Found 20 articles on page 8
+2025-12-19 11:39:03,897 - INFO - Scraping page 9
+2025-12-19 11:39:04,373 - INFO - Found 20 articles on page 9
+2025-12-19 11:39:08,107 - INFO - Scraping page 10
+2025-12-19 11:39:08,412 - INFO - Found 20 articles on page 10
+2025-12-19 11:39:12,408 - INFO - Scraping page 11
+2025-12-19 11:39:12,752 - INFO - Found 20 articles on page 11
+2025-12-19 11:39:16,257 - INFO - Scraping page 12
+2025-12-19 11:39:16,594 - INFO - Found 20 articles on page 12
+2025-12-19 11:39:19,222 - INFO - Scraping page 13
+2025-12-19 11:39:19,634 - INFO - Found 20 articles on page 13
+2025-12-19 11:39:21,710 - INFO - Scraping page 14
+2025-12-19 11:39:22,354 - INFO - Found 20 articles on page 14
+2025-12-19 11:39:25,451 - INFO - Scraping page 15
+2025-12-19 11:39:25,818 - INFO - Found 20 articles on page 15
+2025-12-19 11:39:28,214 - INFO - Scraping page 16
+2025-12-19 11:39:28,484 - INFO - Found 20 articles on page 16
+2025-12-19 11:39:32,245 - INFO - Scraping page 17
+2025-12-19 11:39:32,607 - INFO - Found 20 articles on page 17
+2025-12-19 11:39:35,713 - INFO - Scraping page 18
+2025-12-19 11:39:36,043 - INFO - Found 20 articles on page 18
+2025-12-19 11:39:39,627 - INFO - Scraping page 19
+2025-12-19 11:39:39,944 - INFO - Found 20 articles on page 19
+2025-12-19 11:39:42,829 - INFO - Scraping page 20
+2025-12-19 11:39:43,103 - INFO - Found 20 articles on page 20
+2025-12-19 11:39:45,388 - INFO - Scraping page 21
+2025-12-19 11:39:45,722 - INFO - Found 20 articles on page 21
+2025-12-19 11:39:49,524 - INFO - Scraping page 22
+2025-12-19 11:39:49,989 - INFO - Found 20 articles on page 22
+2025-12-19 11:39:52,545 - INFO - Scraping page 23
+2025-12-19 11:39:52,865 - INFO - Found 20 articles on page 23
+2025-12-19 11:39:54,974 - INFO - Scraping page 24
+2025-12-19 11:39:55,254 - INFO - Found 20 articles on page 24
+2025-12-19 11:39:58,625 - INFO - Scraping page 25
+2025-12-19 11:39:59,270 - INFO - Found 20 articles on page 25
+2025-12-19 11:40:02,142 - INFO - Scraping page 26
+2025-12-19 11:40:02,839 - INFO - Found 20 articles on page 26
+2025-12-19 11:40:05,297 - INFO - Scraping page 27
+2025-12-19 11:40:05,570 - INFO - Found 20 articles on page 27
+2025-12-19 11:40:07,869 - INFO - Scraping page 28
+2025-12-19 11:40:08,203 - INFO - Found 20 articles on page 28
+2025-12-19 11:40:10,345 - INFO - Scraping page 29
+2025-12-19 11:40:10,682 - INFO - Found 20 articles on page 29
+2025-12-19 11:40:14,667 - INFO - Scraping page 30
+2025-12-19 11:40:14,942 - INFO - Found 20 articles on page 30
+2025-12-19 11:40:17,517 - INFO - Scraping page 31
+2025-12-19 11:40:17,807 - INFO - Found 20 articles on page 31
+2025-12-19 11:40:20,538 - INFO - Scraping page 32
+2025-12-19 11:40:20,885 - INFO - Found 20 articles on page 32
+2025-12-19 11:40:24,667 - INFO - Scraping page 33
+2025-12-19 11:40:24,958 - INFO - Found 20 articles on page 33
+2025-12-19 11:40:27,944 - INFO - Scraping page 34
+2025-12-19 11:40:28,356 - INFO - Found 20 articles on page 34
+2025-12-19 11:40:31,732 - INFO - Scraping page 35
+2025-12-19 11:40:32,035 - INFO - Found 20 articles on page 35
+2025-12-19 11:40:35,674 - INFO - Scraping page 36
+2025-12-19 11:40:35,934 - INFO - Found 20 articles on page 36
+2025-12-19 11:40:38,616 - INFO - Scraping page 37
+2025-12-19 11:40:38,903 - INFO - Found 20 articles on page 37
+2025-12-19 11:40:41,988 - INFO - Scraping page 38
+2025-12-19 11:40:42,280 - INFO - Found 20 articles on page 38
+2025-12-19 11:40:45,085 - INFO - Scraping page 39
+2025-12-19 11:40:45,346 - INFO - Found 20 articles on page 39
+2025-12-19 11:40:49,334 - INFO - Scraping page 40
+2025-12-19 11:40:49,608 - INFO - Found 20 articles on page 40
+2025-12-19 11:40:52,172 - INFO - Scraping page 41
+2025-12-19 11:40:52,456 - INFO - Found 20 articles on page 41
+2025-12-19 11:40:55,757 - INFO - Scraping page 42
+2025-12-19 11:40:56,279 - INFO - Found 20 articles on page 42
+2025-12-19 11:41:00,062 - INFO - Scraping page 43
+2025-12-19 11:41:00,352 - INFO - Found 20 articles on page 43
+2025-12-19 11:41:02,731 - INFO - Scraping page 44
+2025-12-19 11:41:03,126 - INFO - Found 20 articles on page 44
+2025-12-19 11:41:05,784 - INFO - Scraping page 45
+2025-12-19 11:41:06,212 - INFO - Found 20 articles on page 45
+2025-12-19 11:41:10,063 - INFO - Scraping page 46
+2025-12-19 11:41:10,655 - INFO - Found 18 articles on page 46
+2025-12-19 11:41:13,666 - INFO - Scraping page 47
+2025-12-19 11:41:13,951 - WARNING - No articles found on page 47
+2025-12-19 11:41:13,953 - INFO - [Kompas.com] Scraping completed successfully
+2025-12-19 11:41:13,954 - INFO - Successfully scraped 918 articles with keyword 'mimika timika'

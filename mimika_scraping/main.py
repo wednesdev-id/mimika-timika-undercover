@@ -61,9 +61,20 @@ def run_all_scrapers(return_json=False):
     for site_name, scraper_func in SCRAPERS.items():
         logger.info(f"Scraping {site_name}...")
         try:
-            df = scraper_func()
-            if not df.empty:
-                articles = df.to_dict('records')
+            result = scraper_func()
+            articles = []
+            
+            # Handle dict response
+            if isinstance(result, dict):
+                if result.get('status') == 'success' and result.get('data'):
+                    articles = result['data'].get('articles', [])
+            
+            # Handle DataFrame response
+            elif hasattr(result, 'empty'):
+                if not result.empty:
+                    articles = result.to_dict('records')
+            
+            if articles:
                 all_articles.extend(articles)
                 sources_found.append(site_name.title())
 
@@ -101,24 +112,9 @@ def run_all_scrapers(return_json=False):
             },
             'site_results': site_results
         }
-
-    # Save results to file (original behavior)
-    if unique_articles:
-        # Get output format from environment or default to JSON
-        output_format = os.getenv('OUTPUT_FORMAT', 'json').lower()
-
-        if output_format == 'excel':
-            filename = save_to_excel(unique_articles)
-        elif output_format == 'csv':
-            filename = save_to_csv(unique_articles)
-        else:  # json
-            filename = save_to_json(unique_articles)
-
-        logger.info(f"Results saved to {filename}")
-        return filename
-    else:
-        logger.warning("No articles to save")
-        return None
+    
+    # If not returning JSON (CLI mode), just return the articles
+    return unique_articles if unique_articles else []
 
 def run_specific_scraper(site_name, return_json=False):
     """Run scraper for specific site
@@ -149,12 +145,24 @@ def run_specific_scraper(site_name, return_json=False):
 
     logger.info(f"Scraping {site_name}...")
     try:
-        df = SCRAPERS[site_name]()
-        if not df.empty:
-            articles = df.to_dict('records')
-
-            # Return JSON response if requested
+        result = SCRAPERS[site_name]()
+        
+        # Handle dict response (new format)
+        if isinstance(result, dict):
+            # If return_json is True, return as-is
             if return_json:
+                return result
+            
+            # Always return result directly without saving to file
+            return result
+        
+        # Handle DataFrame response (legacy scrapers)
+        elif hasattr(result, 'empty'):
+            df = result
+            if not df.empty:
+                articles = df.to_dict('records')
+
+                # Always return data structure directly
                 categories = list(set(article.get('category', 'news') for article in articles))
                 return {
                     'status': 'success',
@@ -168,28 +176,10 @@ def run_specific_scraper(site_name, return_json=False):
                         'articles': articles
                     }
                 }
+            else:
+                warning_msg = f"No articles found from {site_name}"
+                logger.warning(warning_msg)
 
-            # Save results to file (original behavior)
-            output_format = os.getenv('OUTPUT_FORMAT', 'json').lower()
-            today = datetime.now().strftime('%Y%m%d')
-
-            if output_format == 'excel':
-                filename = f'data/news_{site_name}_{today}.xlsx'
-                save_to_excel(articles, filename)
-            elif output_format == 'csv':
-                filename = f'data/news_{site_name}_{today}.csv'
-                save_to_csv(articles, filename)
-            else:  # json
-                filename = f'data/news_{site_name}_{today}.json'
-                save_to_json(articles, filename)
-
-            logger.info(f"Results saved to {filename}")
-            return filename
-        else:
-            warning_msg = f"No articles found from {site_name}"
-            logger.warning(warning_msg)
-
-            if return_json:
                 return {
                     'status': 'success',
                     'message': warning_msg,
@@ -203,7 +193,6 @@ def run_specific_scraper(site_name, return_json=False):
                         'articles': []
                     }
                 }
-            return None
     except Exception as e:
         error_msg = f"Error scraping {site_name}: {str(e)}"
         logger.error(error_msg)
@@ -260,17 +249,18 @@ def main():
     if args.scheduler:
         run_scheduler()
     elif args.site:
-        filename = run_specific_scraper(args.site)
-        if filename:
-            print(f"Scraping completed. Results saved to: {filename}")
+        result = run_specific_scraper(args.site, return_json=True)
+        if result:
+            print(json.dumps(result, indent=2))
         else:
-            print("Scraping failed or no articles found")
+            print(json.dumps({"status": "error", "message": "Scraping failed"}, indent=2))
     else:
-        filename = run_all_scrapers()
-        if filename:
-            print(f"Scraping completed. Results saved to: {filename}")
+        # Default: scrape all
+        result = run_all_scrapers(return_json=True)
+        if result:
+            print(json.dumps(result, indent=2))
         else:
-            print("Scraping failed or no articles found")
+            print(json.dumps({"status": "no_articles", "message": "No articles found"}, indent=2))
 
 if __name__ == "__main__":
     main()

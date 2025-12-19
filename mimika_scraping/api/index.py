@@ -95,27 +95,6 @@ def get_scrape_response(site_name=None):
             status_code=500
         )
 
-def load_static_data():
-    """Load static data for demo purposes"""
-    try:
-        json_path = Path(__file__).parent.parent / "data" / "news_20251218.json"
-        if json_path.exists():
-            with open(json_path, 'r', encoding='utf-8') as f:
-                return json.load(f)
-    except Exception as e:
-        print(f"Error loading static data: {e}")
-
-    # Return empty structure if no data found
-    return {
-        "metadata": {
-            "total_articles": 0,
-            "last_updated": datetime.now().isoformat(),
-            "sources": ["Detik.com", "Kompas.com"],
-            "categories": ["news", "hukum", "politik"]
-        },
-        "articles": []
-    }
-
 # ============= MAIN ENDPOINTS =============
 
 @app.get("/", response_model=ArticleResponse)
@@ -129,8 +108,15 @@ async def get_news_data(
     """Get news data with filtering and pagination"""
 
     try:
-        # Load static data
-        data = load_static_data()
+        # Trigger real-time scrape instead of loading static data
+        from main import run_all_scrapers
+        result_data = run_all_scrapers(return_json=True)
+        
+        if result_data.get('status') == 'success':
+            data = result_data.get('data', {})
+        else:
+            data = {"metadata": {}, "articles": []}
+            
         articles = data.get('articles', [])
 
         # Apply filters
@@ -207,8 +193,10 @@ async def get_sources():
 
 @app.get("/api/categories")
 async def get_categories():
-    """Get list of available categories"""
-    data = load_static_data()
+    """Get list of available categories (Requires live scrape)"""
+    from main import run_all_scrapers
+    result_data = run_all_scrapers(return_json=True)
+    data = result_data.get('data', {})
     articles = data.get('articles', [])
 
     # Extract unique categories
@@ -226,8 +214,10 @@ async def get_categories():
 
 @app.get("/api/stats")
 async def get_stats():
-    """Get statistics about the news data"""
-    data = load_static_data()
+    """Get statistics about the news data (Requires live scrape)"""
+    from main import run_all_scrapers
+    result_data = run_all_scrapers(return_json=True)
+    data = result_data.get('data', {})
     metadata = data.get('metadata', {})
     articles = data.get('articles', [])
 
@@ -464,6 +454,9 @@ async def root_redirect():
 
 # ============= VERCEL HANDLER =============
 
-# Vercel automatically detects and serves the 'app' variable
-# No additional handler needed for FastAPI with @vercel/python
-# The app is already properly exported as the module-level 'app' variable
+def handler(request):
+    """Vercel serverless function handler"""
+    return app(request.scope, request.receive, request.send)
+
+# Export for Vercel
+handler.aws = handler

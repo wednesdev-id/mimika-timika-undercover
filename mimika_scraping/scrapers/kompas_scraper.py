@@ -1,5 +1,6 @@
 """
 Kompas.com News Scraper
+Scrapes Kompas search results for "mimika timika" keyword
 """
 
 import requests
@@ -7,164 +8,247 @@ from bs4 import BeautifulSoup
 import time
 import random
 import logging
+import sys
+import os
 from datetime import datetime
-from utils.helpers import clean_text, extract_date, log_site_status
+import re
+
+# Add parent directory to path for imports when running standalone  
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+try:
+    from utils.helpers import clean_text, extract_date, log_site_status
+except ImportError:
+    # Fallback implementations for standalone testing
+    def clean_text(text):
+        if not text:
+            return ""
+        text = re.sub(r'\s+', ' ', text.strip())
+        text = re.sub(r'<[^>]+>', '', text)
+        return text
+    
+    def extract_date(date_text):
+        return datetime.now()
+    
+    def log_site_status(site, status, error=None):
+        if status == "OK":
+            logging.info(f"[{site}] Scraping completed successfully")
+        else:
+            logging.error(f"[{site}] Scraping failed: {error}")
 
 def scrape_kompas():
     """
-    Scrape latest news from Kompas.com
+    Scrape news from Kompas.com search with keyword "mimika timika"
+    
     Returns:
-        dict: A dictionary with the following structure:
+        dict: Response format:
         {
             'status': 'success' | 'error',
             'data': {
                 'metadata': {
-                    'total_articles': number,
-                    'last_updated': datetime.isoformat(),
+                    'total_articles': int,
+                    'last_updated': ISO timestamp,
                     'sources': ['Kompas.com'],
-                    'categories': sorted(list of categories)
+                    'categories': list
                 },
-                'articles': list of article dicts
+                'articles': list of dicts
             }
-        } | {'message': 'error message', 'timestamp': datetime.isoformat()}
+        }
     """
     articles = []
-    base_url = "https://www.kompas.com"
-
+    keyword = "mimika timika"
+    # No page limit - scrape until no more articles found
+    
     try:
-        # Get latest news page
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.5",
+            "Referer": "https://www.kompas.com/",
+            "Connection": "keep-alive",
         }
-
-        # Scrape from multiple sections
-        sections = [
-            'https://www.kompas.com/news',
-            'https://www.kompas.com/nasional',
-            'https://www.kompas.com/ekonomi',
-            'https://www.kompas.com/bola',
-            'https://www.kompas.com/tekno',
-            'https://www.kompas.com/otomotif'
-        ]
-
-        for section_url in sections:
+        
+        logging.info(f"Starting search for keyword: '{keyword}' - scraping ALL pages until no more results")
+        
+        # Kompas search URL with keyword - Continue until no more articles
+        page = 1
+        while True:
+            search_url = f"https://search.kompas.com/search?q={keyword.replace(' ', '+')}&page={page}&sort=latest&site_id=all&last_date=all"
+            
             try:
-                logging.info(f"Scraping section: {section_url}")
-                response = requests.get(section_url, headers=headers, timeout=10)
+                logging.info(f"Scraping page {page}")
+                response = requests.get(search_url, headers=headers, timeout=15)
                 response.raise_for_status()
-                soup = BeautifulSoup(response.content, 'html.parser')
-
-                # Find article links - Kompas uses specific CSS classes
-                article_links = soup.find_all('a', class_='article__link')
-
-                for link in article_links[:10]:  # Limit to 10 articles per section
+                
+                # Parse HTML
+                soup = BeautifulSoup(response.text, 'html.parser')
+                
+                # Find article list container - based on screenshot HTML structure
+                # The container is <div class="articleList -list">
+                article_list = soup.find('div', class_='articleList')
+                
+                if not article_list:
+                    logging.warning(f"No article list found on page {page}")
+                    break
+                
+                # Find all article items
+                article_items = article_list.find_all('div', class_='articleItem')
+                
+                if not article_items:
+                    logging.warning(f"No articles found on page {page}")
+                    break
+                
+                logging.info(f"Found {len(article_items)} articles on page {page}")
+                
+                for item in article_items:
                     try:
-                        article_url = link.get('href')
-                        if not article_url or not article_url.startswith('http'):
+                        # Extract article link - <a class="article-link" href="...">
+                        link_elem = item.find('a', class_='article-link')
+                        if not link_elem:
                             continue
-
-                        # Get article details
-                        article_response = requests.get(article_url, headers=headers, timeout=10)
-                        article_response.raise_for_status()
-                        article_soup = BeautifulSoup(article_response.content, 'html.parser')
-
-                        # Extract title
-                        title_elem = article_soup.find('h1', class_='read__title')
-                        title = clean_text(title_elem.get_text()) if title_elem else ""
-
-                        # Extract date
-                        date_elem = article_soup.find('div', class_='read__time')
-                        date_text = date_elem.get_text() if date_elem else ""
-                        date = extract_date(date_text)
-
-                        # Extract description
-                        desc_elem = article_soup.find('div', class_='read__content')
+                        
+                        url = link_elem.get('href', '')
+                        if not url:
+                            continue
+                        
+                        # Extract title - <h2 class="articleTitle">
+                        title_elem = item.find('h2', class_='articleTitle')
+                        if not title_elem:
+                            continue
+                        title = clean_text(title_elem.get_text())
+                        
+                        # Extract description - <div class="articleLead"><p>
+                        desc_elem = item.find('div', class_='articleLead')
                         description = ""
                         if desc_elem:
-                            # Get first paragraph as description
-                            first_p = desc_elem.find('p')
-                            if first_p:
-                                description = clean_text(first_p.get_text())
-                                # Limit description length
-                                if len(description) > 200:
-                                    description = description[:200] + "..."
-
-                        # Extract category from URL path
-                        category = article_url.split('/')[3] if len(article_url.split('/')) > 3 else "news"
-
-                        if title and article_url:
-                            articles.append({
-                                'title': title,
-                                'date': date.strftime('%Y-%m-%d %H:%M:%S'),
-                                'url': article_url,
-                                'description': description,
-                                'category': category,
-                                'source': 'Kompas.com'
-                            })
-
-                        # Random delay to be respectful
-                        time.sleep(random.uniform(1, 2))
-
+                            p_elem = desc_elem.find('p')
+                            if p_elem:
+                                description = clean_text(p_elem.get_text())
+                        
+                        # Extract date - <div class="articlePost-date">
+                        date_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                        datetime_obj = datetime.now()
+                        
+                        date_elem = item.find('div', class_='articlePost-date')
+                        if date_elem:
+                            date_text = clean_text(date_elem.get_text())
+                            # Parse date like "13 December 2025"
+                            try:
+                                # Try to parse the date
+                                from dateutil import parser
+                                parsed_date = parser.parse(date_text)
+                                date_str = parsed_date.strftime('%Y-%m-%d %H:%M:%S')
+                                datetime_obj = parsed_date
+                            except:
+                                # If parsing fails, use current time
+                                pass
+                        
+                        # Extract category from URL
+                        category = "news"
+                        if url:
+                            url_parts = url.split('/')
+                            if len(url_parts) > 3:
+                                potential_category = url_parts[3]
+                                # Kompas categories
+                                if potential_category in ['aktivitas', 'global', 'nasional', 'megapolitan', 'ekonomi', 'tekno', 'otomotif', 'bola', 'entertainment', 'properti', 'travel', 'lifestyle', 'kolom']:
+                                    category = potential_category
+                        
+                        if title and url:
+                            data = {
+                                "title": title,
+                                "url": url,
+                                "description": description,
+                                "date": date_str,
+                                "category": category,
+                                "source": "Kompas.com",
+                                "datetime_obj": datetime_obj
+                            }
+                            articles.append(data)
+                    
                     except Exception as e:
-                        logging.warning(f"Error scraping article {article_url}: {str(e)}")
+                        logging.warning(f"Error parsing article: {str(e)}")
                         continue
-
-                # Delay between sections
-                time.sleep(random.uniform(2, 3))
-
+                
+                # Random delay between pages
+                time.sleep(random.uniform(2, 4))
+                
+                # Increment page counter
+                page += 1
+            
             except Exception as e:
-                logging.warning(f"Error scraping section {section_url}: {str(e)}")
+                logging.warning(f"Error scraping page {page}: {str(e)}")
+                # On error, try next page
+                page += 1
                 continue
-
+        
+        # Sort by datetime (newest first)
+        articles.sort(key=lambda x: x.get("datetime_obj", datetime.now()), reverse=True)
+        
+        # Remove datetime_obj from final data
+        for item in articles:
+            if "datetime_obj" in item:
+                del item["datetime_obj"]
+        
         log_site_status("Kompas.com", "OK")
-
+        logging.info(f"Successfully scraped {len(articles)} articles with keyword '{keyword}'")
+    
     except Exception as e:
         log_site_status("Kompas.com", "ERROR", str(e))
         return {
             'status': 'error',
-            'message': str(e),
+            'message': f'Kompas scraping failed: {str(e)}',
             'timestamp': datetime.now().isoformat()
         }
-
-    # Remove duplicates based on URL
+    
+    # Remove duplicates
     seen_urls = set()
     unique_articles = []
     for article in articles:
-        if article['url'] not in seen_urls:
-            seen_urls.add(article['url'])
+        if article.get('url') not in seen_urls:
+            seen_urls.add(article.get('url'))
             unique_articles.append(article)
-
-    # Extract categories
-    categories = sorted(list(set(article['category'] for article in unique_articles)))
-
-    # Create response
-    response = {
+    
+    # Prepare response
+    if not unique_articles:
+        return {
+            'status': 'success',
+            'data': {
+                'metadata': {
+                    'total_articles': 0,
+                    'last_updated': datetime.now().isoformat(),
+                    'sources': ['Kompas.com'],
+                    'categories': []
+                },
+                'articles': []
+            }
+        }
+    
+    categories = list(set(article.get('category', 'news') for article in unique_articles))
+    
+    response_data = {
         'status': 'success',
         'data': {
             'metadata': {
                 'total_articles': len(unique_articles),
                 'last_updated': datetime.now().isoformat(),
                 'sources': ['Kompas.com'],
-                'categories': categories
+                'categories': sorted(categories)
             },
             'articles': unique_articles
         }
     }
-
-    logging.info(f"Successfully scraped {len(unique_articles)} articles from Kompas.com")
-    return response
+    
+    return response_data
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     result = scrape_kompas()
     if result['status'] == 'success':
         articles = result['data']['articles']
-        metadata = result['data']['metadata']
-        print(f"Scraped {metadata['total_articles']} articles from {', '.join(metadata['sources'])}")
-        print(f"Categories: {', '.join(metadata['categories'])}")
-        print(f"Last updated: {metadata['last_updated']}")
-        print("\nLatest articles:")
-        for article in articles[:5]:  # Show first 5 articles
-            print(f"- {article['title']} ({article['category']}) - {article['date']}")
+        print(f"\nScraped {len(articles)} articles from Kompas.com:")
+        for article in articles[:10]:  # Show first 10 articles
+            print(f"\n- {article.get('title', 'N/A')}")
+            print(f"  Category: {article.get('category', 'N/A')}")
+            print(f"  URL: {article.get('url', 'N/A')[:80]}...")
     else:
-        print(f"Error: {result['message']}")
+        print(f"Error: {result.get('message', 'Unknown error')}")
