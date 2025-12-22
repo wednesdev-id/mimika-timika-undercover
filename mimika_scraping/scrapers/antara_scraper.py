@@ -1,137 +1,303 @@
-"""
-Antara News Agency Scraper
-"""
-
 import requests
 from bs4 import BeautifulSoup
 import time
 import random
 import logging
+import sys
+import os
 from datetime import datetime
-from utils.helpers import clean_text, extract_date, log_site_status
+import re
+import json
+
+# Add parent directory to path for imports when running standalone
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+try:
+    from utils.helpers import clean_text, extract_date, log_site_status, remove_duplicates
+except ImportError:
+    # Fallback implementations for standalone testing
+    def clean_text(text):
+        if not text:
+            return ""
+        text = re.sub(r'\s+', ' ', text.strip())
+        text = re.sub(r'<[^>]+>', '', text)
+        return text
+
+    def extract_date(date_text):
+        # Try to extract date from various formats
+        try:
+            # Handle format like "10 Desember 2024" or "10 Desember 2024 20:15 WIB"
+            if "WIB" in date_text:
+                date_part = date_text.replace("WIB", "").strip()
+            else:
+                date_part = date_text.strip()
+
+            # Convert Indonesian month names
+            months = {
+                'Januari': '01', 'Februari': '02', 'Maret': '03', 'April': '04',
+                'Mei': '05', 'Juni': '06', 'Juli': '07', 'Agustus': '08',
+                'September': '09', 'Oktober': '10', 'November': '11', 'Desember': '12'
+            }
+            for id_month, num_month in months.items():
+                if id_month in date_part:
+                    date_part = date_part.replace(id_month, num_month)
+                    break
+
+            # Try different date formats
+            formats = [
+                '%d %m %Y %H:%M',
+                '%d %m %Y',
+                '%d/%m/%Y',
+                '%d-%m-%Y'
+            ]
+            for fmt in formats:
+                try:
+                    return datetime.strptime(date_part, fmt)
+                except:
+                    continue
+        except:
+            pass
+        return datetime.now()
+
+    def log_site_status(site, status, error=None):
+        if status == "OK":
+            logging.info(f"[{site}] Scraping completed successfully")
+        else:
+            logging.error(f"[{site}] Scraping failed: {error}")
+
+    def remove_duplicates(articles):
+        seen = set()
+        unique = []
+        for a in articles:
+            if a['url'] not in seen:
+                seen.add(a['url'])
+                unique.append(a)
+        return unique
 
 def scrape_antara():
     """
-    Scrape latest news from Antara News
-    Returns:
-        dict: A dictionary with the following structure:
-        {
-            'status': 'success' | 'error',
-            'data': {
-                'metadata': {
-                    'total_articles': number,
-                    'last_updated': datetime.isoformat(),
-                    'sources': ['Antara News'],
-                    'categories': sorted(list of categories)
-                },
-                'articles': list of article dicts
-            }
-        } | {'message': 'error message', 'timestamp': datetime.isoformat()}
+    Scrape news from Antara.com search with keyword "mimika"
+    Returns dict with success status and article data
     """
     articles = []
-    base_url = "https://www.antaranews.com"
+    search_keywords = ["mimika"]
 
     try:
+        # Simple headers without compression
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+            "Accept-Language": "id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7",
+            "Referer": "https://www.antaranews.com/",
+            "Connection": "keep-alive",
+            "Upgrade-Insecure-Requests": "1",
         }
 
-        # Check for Vercel to avoid timeouts
+        # Check if running on Vercel to avoid timeouts
         is_vercel = os.environ.get('VERCEL') == '1' or os.environ.get('VERCEL_ENV') is not None
-        
-        # Scrape from multiple sections
-        sections = [
-            'https://www.antaranews.com/berita',
-            'https://www.antaranews.com/politik',
-            'https://www.antaranews.com/ekonomi',
-            'https://www.antaranews.com/teknologi',
-            'https://www.antaranews.com/olahraga',
-            'https://www.antaranews.com/hiburan'
-        ]
-        
+
         if is_vercel:
-            logging.info("Vercel detected - limiting scrape to 1 section and 5 articles")
-            sections = sections[:1]
-            max_per_section = 5
-        else:
-            max_per_section = 10
+            logging.info("Vercel detected - limiting scrape to 2 pages per keyword to avoid 10s timeout")
 
-        for section_url in sections:
-            try:
-                logging.info(f"Scraping section: {section_url}")
-                response = requests.get(section_url, headers=headers, timeout=10)
-                response.raise_for_status()
-                soup = BeautifulSoup(response.content, 'html.parser')
+        for keyword in search_keywords:
+            logging.info(f"Starting search for keyword: '{keyword}'")
 
-                # Find article links - Antara uses specific CSS classes
-                article_links = soup.find_all('a', class_='article-title')
+            page = 1
+            while True:
+                # Check for page limit if on Vercel
+                if is_vercel and page > 2:
+                    logging.info("Vercel page limit reached. Stopping scrape.")
+                    break
 
-                for link in article_links[:max_per_section]:  # Limit based on environment
-                    try:
-                        article_url = link.get('href')
-                        if not article_url:
-                            continue
+                search_url = f"https://www.antaranews.com/search?q={keyword}&page={page}"
 
-                        # Make sure URL is absolute
-                        if article_url.startswith('/'):
-                            article_url = base_url + article_url
+                try:
+                    logging.info(f"Scraping {keyword} page {page}")
+                    # Add retry logic for connection issues
+                    max_retries = 3
+                    for attempt in range(max_retries):
+                        try:
+                            response = requests.get(search_url, headers=headers, timeout=20)
+                            response.raise_for_status()
+                            break  # Success, exit retry loop
+                        except (requests.exceptions.ConnectionError,
+                                requests.exceptions.Timeout,
+                                ConnectionError,
+                                TimeoutError) as e:
+                            if attempt == max_retries - 1:
+                                raise  # Re-raise if max retries reached
+                            logging.warning(f"Connection error on attempt {attempt + 1}/{max_retries}, retrying...")
+                            time.sleep(5 * (attempt + 1))  # Exponential backoff
 
-                        # Get article details
-                        article_response = requests.get(article_url, headers=headers, timeout=10)
-                        article_response.raise_for_status()
-                        article_soup = BeautifulSoup(article_response.content, 'html.parser')
+                    soup = BeautifulSoup(response.text, 'html.parser')
 
-                        # Extract title
-                        title_elem = article_soup.find('h1', class_='post-title')
-                        title = clean_text(title_elem.get_text()) if title_elem else ""
+                    # Find the main article container
+                    article_section = soup.find("div", class_="wrapper__list__article")
+                    if not article_section:
+                        logging.info(f"No article section found for {keyword} page {page}")
+                        break
 
-                        # Alternative title selector
-                        if not title:
-                            title_elem = article_soup.find('h1')
-                            title = clean_text(title_elem.get_text()) if title_elem else ""
+                    # Find all article cards based on actual HTML structure
+                    articles_cards = article_section.find_all("div", class_="card__post card__post-list card__post__transition mt-30")
 
-                        # Extract date
-                        date_elem = article_soup.find('div', class_='post-date')
-                        date_text = date_elem.get_text() if date_elem else ""
-                        date = extract_date(date_text)
+                    if not articles_cards:
+                        logging.info(f"No articles found for {keyword} page {page}")
+                        break
 
-                        # Extract description
-                        desc_elem = article_soup.find('div', class_='post-content')
-                        description = ""
-                        if desc_elem:
-                            # Get first paragraph as description
-                            first_p = desc_elem.find('p')
-                            if first_p:
-                                description = clean_text(first_p.get_text())
-                                if len(description) > 200:
-                                    description = description[:200] + "..."
+                    found_on_page = 0
+                    for article in articles_cards:
+                        try:
+                            # Extract from row structure
+                            row = article.find("div", class_="row")
+                            if not row:
+                                continue
 
-                        # Extract category from URL path
-                        category = article_url.split('/')[3] if len(article_url.split('/')) > 3 else "news"
+                            # Extract from col-md-5 (image column)
+                            img_col = row.find("div", class_="col-md-5")
+                            if not img_col:
+                                continue
 
-                        if title and article_url:
+                            # Extract link and image
+                            link_elem = img_col.find("a")
+                            if not link_elem:
+                                continue
+
+                            href = link_elem.get('href', '')
+                            if not href:
+                                continue
+
+                            # Make URL absolute
+                            if href.startswith('/'):
+                                url = f"https://www.antaranews.com{href}"
+                            else:
+                                url = href
+
+                            # Extract image URL
+                            img_url = ""
+                            picture_elem = img_col.find("picture")
+                            if picture_elem:
+                                img_elem = picture_elem.find("img")
+                                if img_elem:
+                                    img_url = img_elem.get('data-src', '') or img_elem.get('src', '')
+
+                            # Extract from col-md-7 (content column)
+                            detail_col = row.find("div", class_="col-md-7")
+                            if not detail_col:
+                                continue
+
+                            # Extract title
+                            title_elem = detail_col.find("h2", class_="h5")
+                            if not title_elem:
+                                continue
+
+                            title = clean_text(title_elem.get_text())
+
+                            # Extract date
+                            date_str = ""
+                            date_elem = detail_col.find("span", class_="text-dark text-capitalize")
+                            if date_elem:
+                                date_text = clean_text(date_elem.get_text())
+                                if date_text:
+                                    try:
+                                        date_obj = extract_date(date_text)
+                                        date_str = date_obj.strftime('%Y-%m-%d %H:%M:%S')
+                                    except:
+                                        date_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+                            # Extract description
+                            description = ""
+                            desc_elem = detail_col.find("p")
+                            if desc_elem:
+                                description = clean_text(desc_elem.get_text())
+
+                            # Extract date from URL pattern if not found in text
+                            if not date_str:
+                                url_parts = url.split('/')
+                                if len(url_parts) >= 5:
+                                    article_id = url_parts[-1]
+                                    if len(article_id) >= 8 and article_id[:8].isdigit():
+                                        try:
+                                            year = article_id[:4]
+                                            month = article_id[4:6]
+                                            day = article_id[6:8]
+                                            date_str = f"{year}-{month}-{day} 12:00:00"
+                                        except:
+                                            pass
+
+                            # Category extraction from URL
+                            category = "news"
+                            if "/politik/" in url: category = "politik"
+                            elif "/ekonomi/" in url: category = "ekonomi"
+                            elif "/olahraga/" in url: category = "olahraga"
+                            elif "/tekno/" in url: category = "teknologi"
+                            elif "/hiburan/" in url: category = "hiburan"
+                            elif "/gaya-hidup/" in url: category = "gayahidup"
+
+                            # Add article
                             articles.append({
                                 'title': title,
-                                'date': date.strftime('%Y-%m-%d %H:%M:%S'),
-                                'url': article_url,
+                                'url': url,
                                 'description': description,
+                                'date': date_str if date_str else datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                                 'category': category,
-                                'source': 'Antara News'
+                                'source': 'Antara News',
+                                'image_url': img_url,
+                                'search_keyword': keyword
                             })
+                            found_on_page += 1
 
-                        # Random delay
-                        time.sleep(random.uniform(1, 2))
+                        except Exception as e:
+                            logging.debug(f"Error parsing article: {str(e)}")
+                            continue
 
-                    except Exception as e:
-                        logging.warning(f"Error scraping article {article_url}: {str(e)}")
-                        continue
+                    if found_on_page == 0:
+                        logging.info(f"No valid articles found for {keyword} page {page}")
+                        break
 
-                # Delay between sections
-                time.sleep(random.uniform(2, 3))
+                    logging.info(f"Found {found_on_page} articles for '{keyword}' on page {page}")
 
-            except Exception as e:
-                logging.warning(f"Error scraping section {section_url}: {str(e)}")
-                continue
+                    # Check if we should continue to next page
+                    # Look for pagination to see if there's a next page
+                    pagination = soup.find("div", class_="pagination")
+                    if pagination:
+                        # Look for "Next" link or check if current page is the last
+                        next_links = pagination.find_all("a", href=True)
+                        has_next = any("page=" + str(page + 1) in link.get('href', '') for link in next_links)
+                        if not has_next:
+                            logging.info(f"No more pages found for '{keyword}' (reached page {page})")
+                            break
+                    else:
+                        # Alternative: look for page navigation links
+                        page_links = soup.find_all("a", href=re.compile(rf"page={page + 1}"))
+                        if not page_links:
+                            # Try to find link to next page
+                            current_page_link = soup.find("a", string=str(page), class_="active")
+                            if current_page_link:
+                                next_sibling = current_page_link.find_next_sibling("a")
+                                if not next_sibling:
+                                    logging.info(f"No more pages found for '{keyword}' (reached page {page})")
+                                    break
+                            else:
+                                # If no pagination found, assume only one page
+                                if page > 1:
+                                    logging.info(f"No pagination found, stopping at page {page}")
+                                    break
+
+                    # Delay between requests - increased to avoid rate limiting
+                    time.sleep(random.uniform(1.5, 3.0) if is_vercel else random.uniform(3, 6))
+                    page += 1
+
+                    # Safety break for non-Vercel (limit to reasonable number of pages)
+                    if not is_vercel and page > 10:
+                        logging.info(f"Page limit reached for keyword '{keyword}' (limited to prevent rate limiting)")
+                        break
+
+                except Exception as e:
+                    logging.warning(f"Error scraping {keyword} page {page}: {str(e)}")
+                    break
+
+            # Small delay between different keywords
+            time.sleep(random.uniform(1, 2))
 
         log_site_status("Antara News", "OK")
 
@@ -139,49 +305,29 @@ def scrape_antara():
         log_site_status("Antara News", "ERROR", str(e))
         return {
             'status': 'error',
-            'message': str(e),
+            'message': f'Antara scraping failed: {str(e)}',
             'timestamp': datetime.now().isoformat()
         }
 
-    # Remove duplicates based on URL
-    seen_urls = set()
-    unique_articles = []
-    for article in articles:
-        if article['url'] not in seen_urls:
-            seen_urls.add(article['url'])
-            unique_articles.append(article)
+    # Final cleanup and deduplication
+    unique_articles = remove_duplicates(articles)
+    categories = sorted(list(set(a.get('category', 'news') for a in unique_articles)))
 
-    # Extract categories
-    categories = sorted(list(set(article['category'] for article in unique_articles)))
-
-    # Create response
-    response = {
+    return {
         'status': 'success',
         'data': {
             'metadata': {
                 'total_articles': len(unique_articles),
                 'last_updated': datetime.now().isoformat(),
                 'sources': ['Antara News'],
-                'categories': categories
+                'categories': categories,
+                'search_keywords': search_keywords
             },
             'articles': unique_articles
         }
     }
 
-    logging.info(f"Successfully scraped {len(unique_articles)} articles from Antara News")
-    return response
-
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     result = scrape_antara()
-    if result['status'] == 'success':
-        articles = result['data']['articles']
-        metadata = result['data']['metadata']
-        print(f"Scraped {metadata['total_articles']} articles from {', '.join(metadata['sources'])}")
-        print(f"Categories: {', '.join(metadata['categories'])}")
-        print(f"Last updated: {metadata['last_updated']}")
-        print("\nLatest articles:")
-        for article in articles[:5]:  # Show first 5 articles
-            print(f"- {article['title']} ({article['category']}) - {article['date']}")
-    else:
-        print(f"Error: {result['message']}")
+    print(json.dumps(result, indent=2))

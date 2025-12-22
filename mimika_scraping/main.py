@@ -17,8 +17,8 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from scrapers.kompas_scraper import scrape_kompas
 from scrapers.cnn_scraper import scrape_cnn
 from scrapers.antara_scraper import scrape_antara
-from scrapers.narasi_scraper import scrape_narasi
-from scrapers.tribun_scraper import scrape_tribun
+from scrapers.tempo_scraper import scrape_tempo
+from scrapers.kumparan_scraper import scrape_kumparan
 from scrapers.detik_scraper import scrape_detik
 
 from utils.helpers import setup_logging, remove_duplicates
@@ -29,8 +29,8 @@ SCRAPERS = {
     'kompas': scrape_kompas,
     'cnn': scrape_cnn,
     'antara': scrape_antara,
-    'narasi': scrape_narasi,
-    'tribun': scrape_tribun
+    'tempo': scrape_tempo,
+    'kumparan': scrape_kumparan
 }
 
 def run_all_scrapers(return_json=True):

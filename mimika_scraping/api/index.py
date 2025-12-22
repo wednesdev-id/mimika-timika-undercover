@@ -26,7 +26,7 @@ import pandas as pd
 
 app = FastAPI(
     title="📰 Indonesian News Scraper API",
-    description="API untuk scraping berita dari 6 situs berita utama Indonesia menggunakan single-file architecture",
+    description="API untuk scraping berita dari situs berita utama Indonesia menggunakan single-file architecture",
     version="2.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
@@ -185,8 +185,8 @@ async def get_sources():
                 {"id": "kompas", "name": "Kompas.com", "url": "https://www.kompas.com"},
                 {"id": "cnn", "name": "CNN Indonesia", "url": "https://www.cnnindonesia.com"},
                 {"id": "antara", "name": "Antara News", "url": "https://www.antaranews.com"},
-                {"id": "narasi", "name": "Narasi", "url": "https://www.narasi.tv"},
-                {"id": "tribun", "name": "Tribun News", "url": "https://www.tribunnews.com"}
+                {"id": "tempo", "name": "Tempo", "url": "https://www.tempo.co"},
+                {"id": "kumparan", "name": "Kumparan", "url": "https://www.kumparan.com"}
             ]
         }
     }
@@ -258,8 +258,8 @@ async def refresh_info():
                 "/api/scrape/kompas",
                 "/api/scrape/cnn",
                 "/api/scrape/antara",
-                "/api/scrape/narasi",
-                "/api/scrape/tribun"
+                "/api/scrape/tempo",
+                "/api/scrape/kumparan"
             ]
         }
     }
@@ -279,7 +279,7 @@ async def scrape_status():
             "real_time_scraping": {
                 "/api/scrape/all": {
                     "method": "GET",
-                    "description": "Scrape all 6 news sites and return combined results",
+                    "description": "Scrape all news sites and return combined results",
                     "response": "JSON with all articles, metadata, and site-specific results"
                 },
                 "/api/scrape/detik": {
@@ -302,15 +302,15 @@ async def scrape_status():
                     "description": "Scrape Antara News only",
                     "response": "JSON with Antara News articles and metadata"
                 },
-                "/api/scrape/narasi": {
+                "/api/scrape/tempo": {
                     "method": "GET",
-                    "description": "Scrape Narasi only",
-                    "response": "JSON with Narasi articles and metadata"
+                    "description": "Scrape Tempo only",
+                    "response": "JSON with Tempo articles and metadata"
                 },
-                "/api/scrape/tribun": {
+                "/api/scrape/kumparan": {
                     "method": "GET",
-                    "description": "Scrape Tribun News only",
-                    "response": "JSON with Tribun News articles and metadata"
+                    "description": "Scrape Kumparan only",
+                    "response": "JSON with Kumparan articles and metadata"
                 }
             }
         },
@@ -402,15 +402,15 @@ async def scrape_antara_endpoint():
     """Scrape Antara News and return JSON response using main.py logic"""
     return get_scrape_response(site_name='antara')
 
-@app.get("/api/scrape/narasi")
-async def scrape_narasi_endpoint():
-    """Scrape Narasi and return JSON response using main.py logic"""
-    return get_scrape_response(site_name='narasi')
+@app.get("/api/scrape/tempo")
+async def scrape_tempo_endpoint():
+    """Scrape Tempo and return JSON response using main.py logic"""
+    return get_scrape_response(site_name='tempo')
 
-@app.get("/api/scrape/tribun")
-async def scrape_tribun_endpoint():
-    """Scrape Tribun News and return JSON response using main.py logic"""
-    return get_scrape_response(site_name='tribun')
+@app.get("/api/scrape/kumparan")
+async def scrape_kumparan_endpoint():
+    """Scrape Kumparan and return JSON response using main.py logic"""
+    return get_scrape_response(site_name='kumparan')
 
 # ============= UTILITY ENDPOINTS =============
 
@@ -445,8 +445,8 @@ async def root_redirect():
                 "kompas": "/api/scrape/kompas",
                 "cnn": "/api/scrape/cnn",
                 "antara": "/api/scrape/antara",
-                "narasi": "/api/scrape/narasi",
-                "tribun": "/api/scrape/tribun"
+                "tempo": "/api/scrape/tempo",
+                "kumparan": "/api/scrape/kumparan"
             }
         },
         headers={'Access-Control-Allow-Origin': '*'}
