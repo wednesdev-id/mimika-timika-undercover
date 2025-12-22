@@ -62,10 +62,12 @@ def scrape_detik():
     try:
         # Check if running on Vercel to avoid timeouts
         is_vercel = os.environ.get('VERCEL') == '1' or os.environ.get('VERCEL_ENV') is not None
-        actual_max_pages = 2 if is_vercel else max_pages
-        
+        actual_max_pages = 2 if is_vercel else 5  # Always limit to prevent timeout
+
         if is_vercel:
             logging.info(f"Vercel detected - limiting scrape to {actual_max_pages} pages to avoid timeout")
+        else:
+            logging.info(f"Local environment - limiting scrape to {actual_max_pages} pages to prevent timeout")
 
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
