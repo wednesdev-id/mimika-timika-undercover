@@ -17,17 +17,17 @@ const Index = () => {
       article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       article.summary.toLowerCase().includes(searchQuery.toLowerCase()) ||
       article.category.toLowerCase().includes(searchQuery.toLowerCase());
-    
+
     const matchesCategory =
       selectedCategory === "Semua" || article.category === selectedCategory;
-    
+
     return matchesSearch && matchesCategory;
   });
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      
+
       {/* Hero Section */}
       <section className="relative h-[300px] md:h-[400px] overflow-hidden">
         <img
@@ -39,7 +39,7 @@ const Index = () => {
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-card px-4">
             <h2 className="text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg">
-              Portal Berita Timika & Mimika
+              Portal Berita Mimika
             </h2>
             <p className="text-lg md:text-xl drop-shadow-md">
               Informasi Terkini dari Tanah Papua
