@@ -18,7 +18,7 @@ import json
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 try:
-    from utils.helpers import clean_text, extract_date, log_site_status, remove_duplicates
+    from ..utils.helpers import clean_text, extract_date, log_site_status, remove_duplicates
 except ImportError:
     # Fallback implementations for standalone testing
     def clean_text(text):
@@ -46,13 +46,13 @@ except ImportError:
                 unique.append(a)
         return unique
 
-def scrape_kompas():
+def scrape_kompas(keyword="mimika timika"):
     """
-    Scrape news from Kompas.com search with keyword "mimika timika"
+    Scrape news from Kompas.com search with keyword
     Returns dict with success status and article data
     """
     articles = []
-    keyword = "mimika timika"
+    # keyword param used directly
     
     try:
         headers = {

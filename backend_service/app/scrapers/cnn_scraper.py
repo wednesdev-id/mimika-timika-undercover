@@ -18,7 +18,7 @@ import json
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 try:
-    from utils.helpers import clean_text, extract_date, log_site_status, remove_duplicates
+    from ..utils.helpers import clean_text, extract_date, log_site_status, remove_duplicates
 except ImportError:
     # Fallback implementations for standalone testing
     def clean_text(text):
@@ -46,9 +46,9 @@ except ImportError:
                 unique.append(a)
         return unique
 
-def scrape_cnn():
+def scrape_cnn(keyword="mimika"):
     """
-    Simplified CNN Indonesia scraper
+    Simplified CNN Indonesia scraper with keyword search
     Returns dict with success status and minimal article data
     """
     articles = []
@@ -65,9 +65,7 @@ def scrape_cnn():
 
         # Try to get latest news from CNN Indonesia
         urls_to_try = [
-            "https://www.cnnindonesia.com/nasional",
-            "https://www.cnnindonesia.com/",
-            "https://www.cnnindonesia.com/ekonomi"
+            f"https://www.cnnindonesia.com/search/?query={keyword}"
         ]
 
         articles_found = 0

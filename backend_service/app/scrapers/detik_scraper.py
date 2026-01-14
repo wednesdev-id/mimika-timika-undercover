@@ -20,7 +20,7 @@ except ImportError:
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 try:
-    from utils.helpers import clean_text, extract_date, log_site_status, remove_duplicates
+    from ..utils.helpers import clean_text, extract_date, log_site_status, remove_duplicates
 except ImportError:
     # Fallback implementations for standalone testing
     def clean_text(text):
@@ -50,13 +50,14 @@ except ImportError:
 
 import re
 
-def scrape_detik():
+def scrape_detik(keyword="mimika timika"):
     """
-    Scrape latest news from Detik.com with search keyword "mimika timika"
+    Scrape latest news from Detik.com with search keyword
     Returns dict with response format consistent with API endpoints
     """
     articles = []
-    keyword = "mimika timika"
+    # keyword param used directly
+
     max_pages = 100
 
     try:

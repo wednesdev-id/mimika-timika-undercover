@@ -13,7 +13,7 @@ import json
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 try:
-    from utils.helpers import clean_text, extract_date, log_site_status, remove_duplicates
+    from ..utils.helpers import clean_text, extract_date, log_site_status, remove_duplicates
 except ImportError:
     # Fallback implementations for standalone testing
     def clean_text(text):
@@ -74,13 +74,13 @@ except ImportError:
                 unique.append(a)
         return unique
 
-def scrape_antara():
+def scrape_antara(keyword="mimika"):
     """
-    Scrape news from Antara.com search with keyword "mimika"
+    Scrape news from Antara.com search with keyword
     Returns dict with success status and article data
     """
     articles = []
-    search_keywords = ["mimika"]
+    search_keywords = [keyword]
 
     try:
         # Simple headers without compression

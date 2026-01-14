@@ -77,7 +77,7 @@ def scrape_kumparan():
                 break
 
             try:
-                logging.info(f"Trying Kumparan URL: {url}")
+                logging.info(f"[Kumparan] Trying Kumparan URL: {url}")
                 response = requests.get(url, headers=headers, timeout=10)
                 response.raise_for_status()
 
@@ -145,17 +145,17 @@ def scrape_kumparan():
                         })
 
                         articles_found += 1
-                        logging.info(f"Found article: {title[:50]}...")
+                        logging.info(f"[Kumparan] Found article: {title[:50]}...")
 
                 # Small delay between URLs
                 time.sleep(1)
 
             except Exception as e:
-                logging.warning(f"Error scraping {url}: {str(e)}")
+                logging.warning(f"[Kumparan] Error scraping {url}: {str(e)}")
                 continue
 
         log_site_status("Kumparan", "OK")
-        logging.info(f"Successfully collected {len(articles)} articles from Kumparan")
+        logging.info(f"[Kumparan] Successfully collected {len(articles)} articles from Kumparan")
 
     except Exception as e:
         log_site_status("Kumparan", "ERROR", str(e))

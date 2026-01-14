@@ -78,7 +78,7 @@ def scrape_tempo():
                 break
 
             try:
-                logging.info(f"Trying Tempo URL: {url}")
+                logging.info(f"[Tempo] Trying Tempo URL: {url}")
                 response = requests.get(url, headers=headers, timeout=10)
                 response.raise_for_status()
 
@@ -146,17 +146,17 @@ def scrape_tempo():
                         })
 
                         articles_found += 1
-                        logging.info(f"Found article: {title[:50]}...")
+                        logging.info(f"[Tempo] Found article: {title[:50]}...")
 
                 # Small delay between URLs
                 time.sleep(1)
 
             except Exception as e:
-                logging.warning(f"Error scraping {url}: {str(e)}")
+                logging.warning(f"[Tempo] Error scraping {url}: {str(e)}")
                 continue
 
         log_site_status("Tempo", "OK")
-        logging.info(f"Successfully collected {len(articles)} articles from Tempo")
+        logging.info(f"[Tempo] Successfully collected {len(articles)} articles from Tempo")
 
     except Exception as e:
         log_site_status("Tempo", "ERROR", str(e))

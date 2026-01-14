@@ -1,6 +1,6 @@
 """
-CNN Indonesia News Scraper
-Simplified scraper for CNN Indonesia news
+Tempo.co News Scraper
+Simplified scraper for Tempo.co news
 """
 
 import requests
@@ -18,7 +18,7 @@ import json
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 try:
-    from utils.helpers import clean_text, extract_date, log_site_status, remove_duplicates
+    from ..utils.helpers import clean_text, extract_date, log_site_status, remove_duplicates
 except ImportError:
     # Fallback implementations for standalone testing
     def clean_text(text):
@@ -46,9 +46,9 @@ except ImportError:
                 unique.append(a)
         return unique
 
-def scrape_cnn():
+def scrape_tempo(keyword="mimika"):
     """
-    Simplified CNN Indonesia scraper
+    Simplified Tempo.co scraper with keyword search
     Returns dict with success status and minimal article data
     """
     articles = []
@@ -59,15 +59,13 @@ def scrape_cnn():
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
             "Accept-Language": "id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7",
-            "Referer": "https://www.cnnindonesia.com/",
+            "Referer": "https://www.tempo.co/",
             "Connection": "keep-alive",
         }
 
-        # Try to get latest news from CNN Indonesia
+        # Try to get latest news from Tempo
         urls_to_try = [
-            "https://www.cnnindonesia.com/nasional",
-            "https://www.cnnindonesia.com/",
-            "https://www.cnnindonesia.com/ekonomi"
+            f"https://www.tempo.co/search?q={keyword}"
         ]
 
         articles_found = 0
@@ -78,7 +76,7 @@ def scrape_cnn():
                 break
 
             try:
-                logging.info(f"[CNN Indonesia] Trying CNN URL: {url}")
+                logging.info(f"[Tempo] Trying Tempo URL: {url}")
                 response = requests.get(url, headers=headers, timeout=10)
                 response.raise_for_status()
 
@@ -93,15 +91,17 @@ def scrape_cnn():
 
                     href = link.get('href', '')
 
-                    # Check if it's a CNN article
-                    if 'cnnindonesia.com' in href and '/berita/' in href:
+                    # Check if it's a Tempo article
+                    if 'tempo.co' in href and ('/berita/' in href or '/read/' in href or '/view/' in href):
                         # Skip if already processed
                         if any(article['url'] == href for article in articles):
                             continue
 
                         # Make URL absolute
                         if href.startswith('/'):
-                            href = f"https://www.cnnindonesia.com{href}"
+                            href = f"https://www.tempo.co{href}"
+                        elif not href.startswith('http'):
+                            continue
 
                         # Get title from link or nearby elements
                         title = ""
@@ -119,7 +119,7 @@ def scrape_cnn():
                         description = ""
                         parent = link.parent
                         if parent:
-                            desc_elem = parent.find('p') or parent.find('div', class_=re.compile(r'desc|summary|excerpt'))
+                            desc_elem = parent.find('p') or parent.find('div', class_=re.compile(r'desc|summary|excerpt|teaser'))
                             if desc_elem:
                                 description = clean_text(desc_elem.get_text())
 
@@ -127,10 +127,12 @@ def scrape_cnn():
                         category = "news"
                         if '/nasional/' in href:
                             category = "nasional"
-                        elif '/ekonomi/' in href:
+                        elif '/bisnis/' in href or '/ekonomi/' in href:
                             category = "ekonomi"
-                        elif '/olahraga/' in href:
+                        elif '/olahraga/' in href or '/sport/' in href:
                             category = "olahraga"
+                        elif '/metropolitan/' in href:
+                            category = "metropolitan"
 
                         articles.append({
                             'title': title,
@@ -138,27 +140,27 @@ def scrape_cnn():
                             'description': description,
                             'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                             'category': category,
-                            'source': 'CNN Indonesia'
+                            'source': 'Tempo'
                         })
 
                         articles_found += 1
-                        logging.info(f"[CNN Indonesia] Found article: {title[:50]}...")
+                        logging.info(f"[Tempo] Found article: {title[:50]}...")
 
                 # Small delay between URLs
                 time.sleep(1)
 
             except Exception as e:
-                logging.warning(f"[CNN Indonesia] Error scraping {url}: {str(e)}")
+                logging.warning(f"[Tempo] Error scraping {url}: {str(e)}")
                 continue
 
-        log_site_status("CNN Indonesia", "OK")
-        logging.info(f"[CNN Indonesia] Successfully collected {len(articles)} articles from CNN Indonesia")
+        log_site_status("Tempo", "OK")
+        logging.info(f"[Tempo] Successfully collected {len(articles)} articles from Tempo")
 
     except Exception as e:
-        log_site_status("CNN Indonesia", "ERROR", str(e))
+        log_site_status("Tempo", "ERROR", str(e))
         return {
             'status': 'error',
-            'message': f'CNN Indonesia scraping failed: {str(e)}',
+            'message': f'Tempo scraping failed: {str(e)}',
             'timestamp': datetime.now().isoformat()
         }
 
@@ -172,7 +174,7 @@ def scrape_cnn():
             'metadata': {
                 'total_articles': len(unique_articles),
                 'last_updated': datetime.now().isoformat(),
-                'sources': ['CNN Indonesia'],
+                'sources': ['Tempo'],
                 'categories': categories,
                 'note': 'Simplified scraper - limited results'
             },
@@ -182,5 +184,5 @@ def scrape_cnn():
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    result = scrape_cnn()
+    result = scrape_tempo()
     print(json.dumps(result, indent=2))

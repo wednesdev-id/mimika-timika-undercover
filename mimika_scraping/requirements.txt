@@ -1,4 +1,3 @@
-# Core dependencies for Vercel deployment with direct JSON response
 fastapi>=0.95.0,<0.120.0
 requests>=2.25.0,<3.0.0
 beautifulsoup4>=4.12.0
@@ -8,17 +7,4 @@ python-multipart>=0.0.6
 jinja2>=3.0.0,<4.0.0
 lxml>=4.9.0
 python-dateutil>=2.8.0
-
-# Note: For serverless deployment on Vercel:
-# - uvicorn is not needed (handled by Vercel runtime)
-# - openpyxl, schedule removed for smaller package size (can be uncommented if needed)
-# - For full backend functionality with persistent storage, consider Railway, Render, or PythonAnywhere
-
-# Uncomment these if you need them in production:
-# openpyxl>=3.0.10          # For Excel export functionality
-# schedule>=1.2.0            # For local scheduler functionality
-# redis>=4.0.0               # For caching (optional)
-
-# For dynamic sites with JavaScript (optional):
-# selenium>=4.8.0
-# webdriver-manager>=3.8.0
+tzdata
