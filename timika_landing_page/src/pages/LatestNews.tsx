@@ -4,7 +4,8 @@ import { useSearchParams } from "react-router-dom";
 import Header from "@/components/Header";
 import NewsCard from "@/components/NewsCard";
 import Footer from "@/components/Footer";
-import { newsArticles } from "@/data/newsData";
+import { fetchNews, NewsArticle } from "@/services/api";
+import { siteConfig } from "@/config/site";
 
 const months: { [key: string]: number } = {
     "Januari": 0, "Februari": 1, "Maret": 2, "April": 3, "Mei": 4, "Juni": 5,
@@ -25,19 +26,30 @@ const parseDate = (dateStr: string) => {
 const LatestNews = () => {
     const [searchParams] = useSearchParams();
     const categoryParam = searchParams.get("category");
+    const [news, setNews] = useState<NewsArticle[]>([]);
+    const [loading, setLoading] = useState(true);
 
-    const sortedNews = [...newsArticles].sort((a, b) => {
+    useEffect(() => {
+        const loadNews = async () => {
+            setLoading(true);
+            try {
+                // Fetch for timika region
+                const data = await fetchNews(siteConfig.region, categoryParam || undefined);
+                setNews(data);
+            } catch (error) {
+                console.error("Failed to load news", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadNews();
+    }, [categoryParam]);
+
+    const sortedNews = [...news].sort((a, b) => {
         return parseDate(b.date).getTime() - parseDate(a.date).getTime();
     });
 
-    const filteredNews = categoryParam
-        ? sortedNews.filter(article => {
-            // Simple mapping to match mixed case or partial categories if needed
-            // For now, strict match or includes
-            return article.category.toLowerCase().includes(categoryParam.toLowerCase()) ||
-                categoryParam.toLowerCase().includes(article.category.toLowerCase());
-        })
-        : sortedNews;
+    const filteredNews = sortedNews;
 
     return (
         <div className="min-h-screen flex flex-col">

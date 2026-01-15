@@ -1,21 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import SearchBar from "@/components/SearchBar";
 import CategoryFilter from "@/components/CategoryFilter";
 import NewsCard from "@/components/NewsCard";
 import PopularNews from "@/components/PopularNews";
 import Footer from "@/components/Footer";
-import { newsArticles } from "@/data/newsData";
+import { fetchNews, NewsArticle } from "@/services/api";
+import { siteConfig } from "@/config/site";
 import heroImage from "@/assets/hero-papua.jpg";
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Semua");
+  const [news, setNews] = useState<NewsArticle[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredNews = newsArticles.filter((article) => {
+  useEffect(() => {
+    const loadNews = async () => {
+      setLoading(true);
+      try {
+        const data = await fetchNews(siteConfig.region);
+        setNews(data);
+      } catch (error) {
+        console.error("Failed to load news", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadNews();
+  }, []);
+
+  const filteredNews = news.filter((article) => {
     const matchesSearch =
       article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      article.summary.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (article.summary || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
       article.category.toLowerCase().includes(searchQuery.toLowerCase());
 
     const matchesCategory =
