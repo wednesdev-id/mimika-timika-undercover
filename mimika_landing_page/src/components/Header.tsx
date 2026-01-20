@@ -1,8 +1,6 @@
-import { Search } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import CategoryPopup from "./CategoryPopup";
-import logo from "@/assets/logo-mimika.png";
 
 const Header = () => {
   const [isCategoryPopupOpen, setIsCategoryPopupOpen] = useState(false);
@@ -14,7 +12,7 @@ const Header = () => {
           <div className="flex items-center justify-between py-4">
             <Link to="/" className="flex items-center gap-3 group">
               <img
-                src={logo}
+                src="/logo-mimika.png"
                 alt="Mimika News Portal Logo"
                 className="h-12 w-12 object-contain transition-transform group-hover:scale-105"
               />

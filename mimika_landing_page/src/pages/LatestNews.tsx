@@ -4,40 +4,32 @@ import { useSearchParams } from "react-router-dom";
 import Header from "@/components/Header";
 import NewsCard from "@/components/NewsCard";
 import Footer from "@/components/Footer";
-import { newsArticles } from "@/data/newsData";
-
-const months: { [key: string]: number } = {
-    "Januari": 0, "Februari": 1, "Maret": 2, "April": 3, "Mei": 4, "Juni": 5,
-    "Juli": 6, "Agustus": 7, "September": 8, "Oktober": 9, "November": 10, "Desember": 11
-};
-
-const parseDate = (dateStr: string) => {
-    const parts = dateStr.split(" ");
-    if (parts.length !== 3) return new Date();
-
-    const day = parseInt(parts[0], 10);
-    const month = months[parts[1]] || 0;
-    const year = parseInt(parts[2], 10);
-
-    return new Date(year, month, day);
-};
+import { fetchNews } from "@/services/api";
+import { NewsArticle } from "@/shared/types";
 
 const LatestNews = () => {
+    const [news, setNews] = useState<NewsArticle[]>([]);
+    const [loading, setLoading] = useState(true);
+
     const [searchParams] = useSearchParams();
     const categoryParam = searchParams.get("category");
 
-    const sortedNews = [...newsArticles].sort((a, b) => {
-        return parseDate(b.date).getTime() - parseDate(a.date).getTime();
-    });
+    useEffect(() => {
+        const loadNews = async () => {
+            setLoading(true);
+            try {
+                // Fetch for mimika region
+                const data = await fetchNews("mimika", categoryParam || undefined);
+                setNews(data);
+            } catch (error) {
+                console.error("Failed to load news", error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    const filteredNews = categoryParam
-        ? sortedNews.filter(article => {
-            // Simple mapping to match mixed case or partial categories if needed
-            // For now, strict match or includes
-            return article.category.toLowerCase().includes(categoryParam.toLowerCase()) ||
-                categoryParam.toLowerCase().includes(article.category.toLowerCase());
-        })
-        : sortedNews;
+        loadNews();
+    }, [categoryParam]);
 
     return (
         <div className="min-h-screen flex flex-col">
@@ -56,8 +48,10 @@ const LatestNews = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredNews.length > 0 ? (
-                        filteredNews.map((article) => (
+                    {loading ? (
+                        <div className="col-span-full text-center py-12">Loading...</div>
+                    ) : news.length > 0 ? (
+                        news.map((article) => (
                             <NewsCard
                                 key={article.id}
                                 id={article.id}
@@ -65,6 +59,7 @@ const LatestNews = () => {
                                 date={article.date}
                                 summary={article.summary}
                                 image={article.image}
+                                url={article.url}
                             />
                         ))
                     ) : (

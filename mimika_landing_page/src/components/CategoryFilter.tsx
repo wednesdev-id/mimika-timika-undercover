@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Button } from "@/shared/ui";
+import { ScrollArea, ScrollBar } from "@/shared/ui";
 
 interface CategoryFilterProps {
   selectedCategory: string;
@@ -14,7 +14,7 @@ const categories = [
   "Pendidikan",
   "Budaya",
   "Olahraga",
-  "Lingkungan"
+  "Lingkungan",
 ];
 
 const CategoryFilter = ({ selectedCategory, onCategoryChange }: CategoryFilterProps) => {

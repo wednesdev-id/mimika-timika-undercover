@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
-import SearchBar from "@/components/SearchBar";
 import CategoryFilter from "@/components/CategoryFilter";
 import NewsCard from "@/components/NewsCard";
 import PopularNews from "@/components/PopularNews";
 import Footer from "@/components/Footer";
-import { fetchNews, NewsArticle } from "@/services/api";
-import { siteConfig } from "@/config/site";
+import { fetchNews } from "@/services/api";
+import { NewsArticle } from "@undercover/types";
 import heroImage from "@/assets/hero-papua.jpg";
 
+import { siteConfig } from "@/config/site";
+
 const Index = () => {
-  const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Semua");
   const [news, setNews] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
@@ -31,15 +31,8 @@ const Index = () => {
   }, []);
 
   const filteredNews = news.filter((article) => {
-    const matchesSearch =
-      article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (article.summary || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
-      article.category.toLowerCase().includes(searchQuery.toLowerCase());
-
-    const matchesCategory =
-      selectedCategory === "Semua" || article.category === selectedCategory;
-
-    return matchesSearch && matchesCategory;
+    const matchesCategory = selectedCategory === "Semua" || article.category === selectedCategory;
+    return matchesCategory;
   });
 
   return (
@@ -68,11 +61,6 @@ const Index = () => {
 
       {/* Main Content */}
       <main className="flex-1 container mx-auto px-4 py-8">
-        {/* Search Bar */}
-        <div className="flex justify-center mb-8">
-          <SearchBar onSearch={setSearchQuery} />
-        </div>
-
         {/* Category Filter */}
         <div className="mb-8">
           <CategoryFilter
@@ -96,12 +84,13 @@ const Index = () => {
                     date={article.date}
                     summary={article.summary}
                     image={article.image}
+                    url={article.url}
                   />
                 ))
               ) : (
                 <div className="col-span-2 text-center py-12">
                   <p className="text-muted-foreground">
-                    Tidak ada berita yang ditemukan untuk pencarian "{searchQuery}"
+                    Tidak ada berita yang ditemukan.
                   </p>
                 </div>
               )}

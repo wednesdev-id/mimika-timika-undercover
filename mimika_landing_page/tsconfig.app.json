@@ -23,7 +23,10 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@undercover/types": ["../../packages/types/src/index.ts"],
+      "@undercover/sdk": ["../../packages/sdk/src/client.ts"],
+      "@undercover/ui-react": ["../../packages/ui-react/src/index.ts"]
     }
   },
   "include": ["src"]

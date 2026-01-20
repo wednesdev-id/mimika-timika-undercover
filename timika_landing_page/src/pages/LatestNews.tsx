@@ -4,7 +4,10 @@ import { useSearchParams } from "react-router-dom";
 import Header from "@/components/Header";
 import NewsCard from "@/components/NewsCard";
 import Footer from "@/components/Footer";
-import { fetchNews, NewsArticle } from "@/services/api";
+import SearchBar from "@/components/SearchBar";
+import { fetchNews } from "@/services/api";
+import { NewsArticle } from "@undercover/types";
+
 import { siteConfig } from "@/config/site";
 
 const months: { [key: string]: number } = {
@@ -24,17 +27,18 @@ const parseDate = (dateStr: string) => {
 };
 
 const LatestNews = () => {
-    const [searchParams] = useSearchParams();
-    const categoryParam = searchParams.get("category");
     const [news, setNews] = useState<NewsArticle[]>([]);
     const [loading, setLoading] = useState(true);
+
+    const [searchParams] = useSearchParams();
+    const categoryParam = searchParams.get("category");
 
     useEffect(() => {
         const loadNews = async () => {
             setLoading(true);
             try {
                 // Fetch for timika region
-                const data = await fetchNews(siteConfig.region, categoryParam || undefined);
+                const data = await fetchNews("timika", categoryParam || undefined);
                 setNews(data);
             } catch (error) {
                 console.error("Failed to load news", error);
@@ -42,14 +46,9 @@ const LatestNews = () => {
                 setLoading(false);
             }
         };
+
         loadNews();
     }, [categoryParam]);
-
-    const sortedNews = [...news].sort((a, b) => {
-        return parseDate(b.date).getTime() - parseDate(a.date).getTime();
-    });
-
-    const filteredNews = sortedNews;
 
     return (
         <div className="min-h-screen flex flex-col">
@@ -68,8 +67,10 @@ const LatestNews = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredNews.length > 0 ? (
-                        filteredNews.map((article) => (
+                    {loading ? (
+                        <div className="col-span-full text-center py-12">Loading...</div>
+                    ) : news.length > 0 ? (
+                        news.map((article) => (
                             <NewsCard
                                 key={article.id}
                                 id={article.id}
@@ -77,6 +78,7 @@ const LatestNews = () => {
                                 date={article.date}
                                 summary={article.summary}
                                 image={article.image}
+                                url={article.url}
                             />
                         ))
                     ) : (

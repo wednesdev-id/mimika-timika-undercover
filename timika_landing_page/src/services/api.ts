@@ -1,21 +1,88 @@
-export interface NewsArticle {
+import { siteConfig } from "../config/site";
+import { NewsArticle } from "@undercover/types"; // Shared Type
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || "/api"; // Use env var for Prod, proxy for Dev
+
+// Re-export type if needed locally
+export type { NewsArticle };
+
+// Interface matching backend response structure
+interface BackendArticle {
     id: number;
     title: string;
-    source: string;
-    date: string;
+    summary: string;
+    image_url: string | null;
     category: string;
-    image: string;
-    likes: number;
-    comments: number;
-    summary?: string;
+    region: string;
+    published_at: string;
+    source_url: string;
 }
 
-const API_BASE_URL = "/api/public/v1";
-
-interface ApiResponse {
-    data: any[];
-    meta: any;
+export interface Pagination {
+    current_page: number;
+    total_pages: number;
+    total_items: number;
+    page_size: number;
 }
+
+export interface NewsResponse {
+    data: NewsArticle[];
+    pagination: Pagination;
+}
+
+// Reverted to original simple fetch
+export const fetchNews = async (region?: string, category?: string): Promise<NewsArticle[]> => {
+    const targetRegion = region || siteConfig.region;
+    const params = new URLSearchParams();
+    params.append("region", targetRegion);
+    if (category && category !== "Semua") params.append("category", category);
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/articles?${params.toString()}`);
+        if (!response.ok) throw new Error("Failed to fetch news");
+
+        const json = await response.json();
+
+        return json.map((item: BackendArticle) => ({
+            id: item.id,
+            title: item.title,
+            summary: item.summary,
+            image: item.image_url || "/placeholder.svg",
+            category: item.category,
+            region: item.region,
+            published_at: item.published_at,
+            date: formatDate(item.published_at),
+            url: item.source_url
+        }));
+    } catch (error) {
+        console.error("API Error:", error);
+        return [];
+    }
+};
+
+export const fetchNewsById = async (id: number | string): Promise<NewsArticle | null> => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/articles/${id}`);
+        if (!response.ok) throw new Error("Failed to fetch news detail");
+
+        const item: BackendArticle = await response.json();
+
+        return {
+            id: item.id,
+            title: item.title,
+            summary: item.summary,
+            image: item.image_url || "/placeholder.svg",
+            category: item.category,
+            region: item.region,
+            published_at: item.published_at,
+            date: formatDate(item.published_at),
+            url: item.source_url
+        };
+    } catch (error) {
+        console.error("API Error:", error);
+        return null;
+    }
+};
 
 const months = [
     "Januari", "Februari", "Maret", "April", "Mei", "Juni",
@@ -30,32 +97,3 @@ function formatDate(isoString: string): string {
     const year = date.getFullYear();
     return `${day} ${month} ${year}`;
 }
-
-export const fetchNews = async (region: "mimika" | "timika", category?: string): Promise<NewsArticle[]> => {
-    const params = new URLSearchParams();
-    params.append("region", region);
-    if (category) params.append("category", category);
-
-    try {
-        const response = await fetch(`${API_BASE_URL}/news?${params.toString()}`);
-        if (!response.ok) throw new Error("Failed to fetch news");
-
-        const json: ApiResponse = await response.json();
-
-        // Map Backend Response to Frontend Interface
-        return json.data.map((item: any) => ({
-            id: item.id,
-            title: item.title,
-            source: "Timika News Portal", // Default source if not in API, or map from item.source if available
-            date: formatDate(item.published_at),
-            summary: item.summary,
-            image: item.image_url || "/placeholder.jpg",
-            category: item.category,
-            likes: 0, // Default as API might not return this yet
-            comments: 0 // Default
-        }));
-    } catch (error) {
-        console.error("API Error:", error);
-        return [];
-    }
-};
