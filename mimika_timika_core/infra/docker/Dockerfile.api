@@ -1,0 +1,14 @@
+FROM node:20-alpine AS base
+WORKDIR /app
+RUN corepack enable && corepack prepare pnpm@10.21.0 --activate
+
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json tsconfig.base.json ./
+COPY services ./services
+COPY packages ./packages
+
+RUN pnpm install --frozen-lockfile
+RUN pnpm --filter @undercover/api build
+
+ENV NODE_ENV=production
+EXPOSE 3000
+CMD ["pnpm","--filter","@undercover/api","dev"]

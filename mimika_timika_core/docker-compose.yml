@@ -1,0 +1,97 @@
+services:
+  # 1. Database
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: papuanews
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  # 2. Redis (Optional but defined in config)
+  redis:
+    image: redis:alpine
+    restart: always
+    networks:
+      - app-network
+
+  # 3. Core Backend Service (Python)
+  backend-service:
+    build:
+      context: ./services/backend-service
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - db
+      - redis
+    environment:
+      DATABASE_URL: postgresql://postgres:postgrespassword@db:5432/papuanews
+      REDIS_URL: redis://redis:6379/0
+    networks:
+      - app-network
+
+  # 4. API Gateway (Node.js)
+  undercover-api:
+    build:
+      context: .
+      dockerfile: infra/docker/Dockerfile.api
+    restart: always
+    depends_on:
+      - backend-service
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      BACKEND_SERVICE_URL: http://backend-service:8000
+      DATABASE_URL_TIMIKA: "postgres" # Dummy for now as we want to avoid direct DB access
+      DATABASE_URL_MIMIKA: "postgres"
+      REDIS_URL: redis://redis:6379/0
+    networks:
+      - app-network
+
+  # 5. Frontend: Web Mimika
+  web-mimika:
+    build:
+      context: .
+      dockerfile: infra/docker/Dockerfile.web-mimika
+    restart: always
+    depends_on:
+      - undercover-api
+    ports:
+      - "8080:80"
+    networks:
+      - app-network
+
+  # 6. Frontend: Web Timika
+  web-timika:
+    build:
+      context: .
+      dockerfile: infra/docker/Dockerfile.web-timika
+    restart: always
+    depends_on:
+      - undercover-api
+    ports:
+      - "8081:80"
+    networks:
+      - app-network
+
+  # 7. Frontend: Timika Landing Page (External)
+  web-timika-landing:
+    build:
+      context: ../timika_landing_page
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8082:80"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

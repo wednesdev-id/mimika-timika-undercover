@@ -1,0 +1,47 @@
+services:
+  undercover-api:
+    build:
+      context: ../../
+      dockerfile: infra/docker/Dockerfile.api
+    image: undercover-api:latest
+    container_name: undercover-api
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - SCRAPER_BASE_URL=${SCRAPER_BASE_URL:-https://mimika-api.vercel.app}
+      - DATABASE_URL_TIMIKA=${DATABASE_URL_TIMIKA:-}
+      - DATABASE_URL_MIMIKA=${DATABASE_URL_MIMIKA:-}
+    ports:
+      - "${API_PORT:-3000}:3000"
+    networks:
+      - undercover-net
+
+  web-mimika:
+    build:
+      context: ../../
+      dockerfile: infra/docker/Dockerfile.web-mimika
+    image: undercover-web-mimika:latest
+    container_name: undercover-web-mimika
+    depends_on:
+      - undercover-api
+    ports:
+      - "${MIMIKA_PORT:-8081}:80"
+    networks:
+      - undercover-net
+
+  web-timika:
+    build:
+      context: ../../
+      dockerfile: infra/docker/Dockerfile.web-timika
+    image: undercover-web-timika:latest
+    container_name: undercover-web-timika
+    depends_on:
+      - undercover-api
+    ports:
+      - "${TIMIKA_PORT:-8080}:80"
+    networks:
+      - undercover-net
+
+networks:
+  undercover-net:
+    name: undercover-net
