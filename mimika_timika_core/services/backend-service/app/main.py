@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from datetime import datetime
 from .utils.helpers import normalize_category
 
-models.Base.metadata.create_all(bind=database.engine)
+# Database creation moved to startup event
 
 app = FastAPI(title="Papua News Backend API")
 
@@ -271,6 +271,14 @@ def scheduled_scraper_job():
         print(f"[{datetime.now()}] Error in scheduled scraper: {str(e)}")
     finally:
         db.close()
+
+@app.on_event("startup")
+def init_db():
+    try:
+        models.Base.metadata.create_all(bind=database.engine)
+        print("Database tables created/verified successfully.")
+    except Exception as e:
+        print(f"Error initializing database: {e}")
 
 @app.on_event("startup")
 def start_scheduler():
