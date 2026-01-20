@@ -14,10 +14,5 @@
       "path": "/api/cron/scrape",
       "schedule": "0 0 * * *"
     }
-  ],
-  "functions": {
-    "api/index.py": {
-      "maxDuration": 60
-    }
-  }
+  ]
 }
