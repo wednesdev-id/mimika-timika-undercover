@@ -1,7 +1,7 @@
 import { siteConfig } from "../config/site";
 import { NewsArticle } from "@undercover/types"; // Shared Type
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "/api"; // Use env var for Prod, proxy for Dev
+const API_BASE_URL = "https://papuanews-engine.vercel.app"; // Direct connection to Vercel Backend
 
 // Re-export type if needed locally
 export type { NewsArticle };
