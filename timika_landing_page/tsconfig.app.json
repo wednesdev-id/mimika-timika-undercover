@@ -23,20 +23,9 @@
     "noImplicitAny": false,
     "noFallthroughCasesInSwitch": false,
     "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@undercover/types": [
-        "../../packages/types/src/index.ts"
-      ],
-      "@undercover/sdk": [
-        "../../packages/sdk/src/client.ts"
-      ],
-      "@undercover/ui-react": [
-        "../../packages/ui-react/src/index.ts"
-      ]
-    }
+    "@/*": [
+      "./src/*"
+    ]
   },
   "include": [
     "src"
