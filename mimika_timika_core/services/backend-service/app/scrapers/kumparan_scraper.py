@@ -68,7 +68,7 @@ def scrape_kumparan(keyword="mimika"):
         ]
 
         articles_found = 0
-        max_articles = 5  # Limit to prevent timeout
+        max_articles = 10  # Increased limit to 10 as requested
 
         for url in urls_to_try:
             if articles_found >= max_articles:

@@ -80,12 +80,23 @@ def run_all_scrapers(return_json=True):
                 if articles:
                     # Enrich with region tag
                     for article in articles:
-                        article['region'] = region_name
+                        # Global Filter for Junk Content
+                        title_lower = article.get('title', '').lower()
+                        url_lower = article.get('url', '').lower()
                         
-                        # Only add if not seen (or maybe we want to allow dual-tagging? For now strict unique by URL)
-                        # If a URL is already seen, it means it was found in previous region loop.
-                        # We might want to keep the first finding or update it. 
-                        # Let's simple append for now and handle uniqueness later or let Set handle it.
+                        junk_keywords = [
+                            "tentang kami", "about us", "contact", "hubungi kami", "redaksi",
+                            "pedoman", "cyber media", "siber", "privacy", "kebijakan privasi",
+                            "disclaimer", "karir", "lowongan", "galeri foto", "video story",
+                            "term of use", "ketentuan", "indeks berita"
+                        ]
+                        
+                        if any(k in title_lower for k in junk_keywords) or any(k in url_lower for k in junk_keywords):
+                            logger.info(f"Skipping junk content: {article.get('title')} ({article.get('url')})")
+                            continue
+                            
+                        # Enrich with region tag
+                        article['region'] = region_name
                         all_articles.append(article)
 
                     sources_found.append(f"{site_name} ({region_name})")

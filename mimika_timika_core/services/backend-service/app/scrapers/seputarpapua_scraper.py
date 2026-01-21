@@ -160,7 +160,7 @@ def scrape_seputarpapua(keyword="mimika"):
         logging.info(f"[SeputarPapua] Found {len(items)} items")
         
         count = 0
-        max_items = 5 # Limit to avoid timeout/rate limit
+        max_items = 10 # Increased limit to 10 as requested (running every 30 mins)
         
         for item in items:
             if count >= max_items:
