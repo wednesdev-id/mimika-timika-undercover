@@ -1,7 +1,9 @@
 import { siteConfig } from "../config/site";
 import { NewsArticle } from "@/shared/types"; // Shared Type
 
-const API_BASE_URL = "https://papuanews-engine.vercel.app"; // Direct connection to Vercel Backend
+const API_BASE_URL = import.meta.env.PROD
+    ? "https://papuanews-engine.vercel.app"
+    : "http://localhost:8000";
 
 // Re-export type if needed locally, or use directly from component
 export type { NewsArticle };
@@ -16,6 +18,7 @@ interface BackendArticle {
     region: string;
     published_at: string;
     source_url: string;
+    source_name: string;
 }
 
 export interface Pagination {
@@ -52,7 +55,8 @@ export const fetchNews = async (region?: string, category?: string): Promise<New
             region: item.region,
             published_at: item.published_at,
             date: formatDate(item.published_at),
-            url: item.source_url
+            url: item.source_url,
+            source: item.source_name
         }));
     } catch (error) {
         console.error("API Error:", error);

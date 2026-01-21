@@ -50,7 +50,7 @@ def get_articles(
     db: Session = Depends(database.get_db),
     region: Optional[str] = Query(None, description="Filter by region (mimika/timika)"),
     x_region: Optional[str] = Header(None, alias="x-region"),
-    limit: int = 50
+    limit: int = 1000
 ):
     """
     Get articles filtered by region.
@@ -94,7 +94,7 @@ def read_article(
 @app.post("/articles", response_model=ArticleResponse)
 def create_article(article: ArticleCreate, db: Session = Depends(database.get_db)):
     # 1. Validate Source
-    ALLOWED_SOURCES = ["antara", "kompas", "detik", "papuanews"] # papuanews for internal/testing
+    ALLOWED_SOURCES = ["antara", "kompas", "detik", "papuanews", "seputarpapua"] # papuanews for internal/testing
     if article.source_name.lower() not in ALLOWED_SOURCES:
         raise HTTPException(status_code=400, detail=f"Source '{article.source_name}' is not allowed.")
 

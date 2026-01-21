@@ -93,8 +93,12 @@ def scrape_kumparan(keyword="mimika"):
                     # Check if it's a Kumparan article
                     if ('kumparan.com' in href or href.startswith('/')) and len(href) > 10:
                         # Skip certain URLs
-                        if any(skip in href.lower() for skip in ['login', 'register', 'search', 'tag', '#']):
+                        if any(skip in href.lower() for skip in ['login', 'register', 'search', 'tag', '#', 'tentang-kami', 'redaksi', 'pedoman-media-siber', 'privacy']):
                             continue
+                        
+                        # Skip if title contains non-news keywords
+                        if any(skip in href.lower() for skip in ['tentang kami', 'redaksi', 'pedoman media']):
+                             continue
 
                         # Make URL absolute
                         if href.startswith('/'):

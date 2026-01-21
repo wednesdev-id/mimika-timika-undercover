@@ -9,9 +9,10 @@ interface NewsCardProps {
   summary: string;
   image: string;
   url: string;
+  source?: string;
 }
 
-const NewsCard = ({ id, title, date, summary, image, url }: NewsCardProps) => {
+const NewsCard = ({ id, title, date, summary, image, url, source }: NewsCardProps) => {
   return (
     <Card className="h-full flex flex-col overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <div className="relative h-48 overflow-hidden flex-shrink-0">
@@ -26,6 +27,12 @@ const NewsCard = ({ id, title, date, summary, image, url }: NewsCardProps) => {
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
           <Calendar className="h-4 w-4" />
           <time>{date}</time>
+          {source && (
+            <>
+              <span>|</span>
+              <span className="font-medium">{source}</span>
+            </>
+          )}
         </div>
         <h3 className="font-semibold text-lg leading-tight line-clamp-2">
           {title}

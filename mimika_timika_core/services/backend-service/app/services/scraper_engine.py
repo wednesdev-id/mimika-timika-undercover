@@ -21,6 +21,7 @@ from ..scrapers.antara_scraper import scrape_antara
 from ..scrapers.tempo_scraper import scrape_tempo
 from ..scrapers.kumparan_scraper import scrape_kumparan
 from ..scrapers.detik_scraper import scrape_detik
+from ..scrapers.seputarpapua_scraper import scrape_seputarpapua
 
 from ..utils.helpers import setup_logging, remove_duplicates
 
@@ -31,7 +32,8 @@ SCRAPERS = {
     'cnn': scrape_cnn,
     'antara': scrape_antara,
     'tempo': scrape_tempo,
-    'kumparan': scrape_kumparan
+    'kumparan': scrape_kumparan,
+    'seputarpapua': scrape_seputarpapua
 }
 
 def run_all_scrapers(return_json=True):
