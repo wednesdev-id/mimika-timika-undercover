@@ -282,12 +282,12 @@ def init_db():
 
 @app.on_event("startup")
 def start_scheduler():
-    # Run every 60 minutes (Hourly) as requested
+    # Run every 30 minutes (Half-hourly) to accumulate data safely
     scheduler.add_job(
         scheduled_scraper_job,
-        trigger=IntervalTrigger(minutes=60),
+        trigger=IntervalTrigger(minutes=30),
         id='scraper_job',
-        name='Scrape News Every 60 Minutes',
+        name='Scrape News Every 30 Minutes',
         replace_existing=True
     )
     scheduler.start()

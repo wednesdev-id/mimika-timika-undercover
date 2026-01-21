@@ -99,3 +99,13 @@ The scrapers collect the following unified data model for each article:
   "search_keyword": "String (The keyword used to find this, e.g., 'mimika')"
 }
 ```
+
+## 4. Vercel Optimization Strategy (Serverless Constraints)
+To ensure reliable scraping within Vercel's **10-second Function Timeout** (Free Tier):
+
+1.  **Small Batches**: Scrapers are limited to **5-10 articles** per execution.
+    *   *Reason*: Visiting Detail Pages (e.g., SeputarPapua) takes ~1.5s per article. Procssing 20 articles would take ~30s, causing a timeout.
+2.  **High Frequency**: The Scheduler runs **Every 30 Minutes** (instead of hourly).
+    *   *Result*: 1 Day = 48 runs x 10 articles = **480 potential articles/day**.
+    *   This accumulates data over time without crashing the server.
+3.  **Timeout Protection**: Individual scrapers have internal request timeouts (10-15s) to fail fast rather than hang the entire engine.
