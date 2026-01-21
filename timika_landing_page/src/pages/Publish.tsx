@@ -1,10 +1,15 @@
-import { AdminLayout } from "@/components/AdminLayout";
-import { Card, CardContent, CardHeader, CardTitle } from "@undercover/ui-react";
-import { Button } from "@undercover/ui-react";
-import { Checkbox } from "@undercover/ui-react";
-import { Upload, CheckCircle } from "lucide-react";
 import { useState } from "react";
-import { toast } from "@undercover/ui-react";
+import { Upload, CheckCircle } from "lucide-react";
+import { AdminLayout } from "@/components/AdminLayout";
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+    Button,
+    Checkbox,
+    SonnerToast as toast
+} from "@/shared/ui";
 
 const publishableArticles = [
     {

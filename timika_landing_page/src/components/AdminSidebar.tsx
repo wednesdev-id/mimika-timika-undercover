@@ -16,7 +16,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     useSidebar,
-} from "@undercover/ui-react";
+} from "@/shared/ui";
 
 const menuItems = [
     { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },

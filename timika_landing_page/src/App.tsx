@@ -1,5 +1,5 @@
-import { Toaster as Sonner } from "@undercover/ui-react";
-import { TooltipProvider } from "@undercover/ui-react";
+import { SonnerToaster as Sonner } from "@/shared/ui";
+import { TooltipProvider } from "@/shared/ui";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";

@@ -1,5 +1,5 @@
 import { AdminLayout } from "@/components/AdminLayout";
-import { Card, CardContent, CardHeader, CardTitle } from "@undercover/ui-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
 import { FileText, CheckCircle, AlertTriangle, Newspaper } from "lucide-react";
 
 const stats = [

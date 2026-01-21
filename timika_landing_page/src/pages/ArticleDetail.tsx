@@ -1,20 +1,27 @@
-import { useState, useRef } from "react";
-import { AdminLayout } from "@/components/AdminLayout";
-import { Card, CardContent, CardHeader, CardTitle } from "@undercover/ui-react";
-import { Input } from "@undercover/ui-react";
-import { Textarea } from "@undercover/ui-react";
-import { Button } from "@undercover/ui-react";
-import { Label } from "@undercover/ui-react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@undercover/ui-react";
-import { StatusBadge } from "@/components/StatusBadge";
+import { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, CheckCircle, AlertTriangle, Upload, Save, Image as ImageIcon } from "lucide-react";
-import { toast } from "@undercover/ui-react";
+import { AdminLayout } from "@/components/AdminLayout";
+import { StatusBadge } from "@/components/StatusBadge";
+import { fetchNewsById } from "../services/api";
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+    Input,
+    Textarea,
+    Button,
+    Label,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+    SonnerToast as toast
+} from "@/shared/ui";
 
 type ArticleStatus = "pending" | "verified" | "hoax" | "published";
-
-import { fetchNewsById } from "../services/api";
-import { useEffect } from "react";
 
 export default function ArticleDetail() {
     const { id } = useParams();

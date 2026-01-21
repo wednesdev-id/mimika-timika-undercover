@@ -1,4 +1,4 @@
-import { Badge } from "@undercover/ui-react";
+import { Badge } from "@/shared/ui";
 
 type ArticleStatus = "pending" | "verified" | "hoax" | "published";
 

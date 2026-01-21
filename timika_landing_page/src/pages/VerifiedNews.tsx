@@ -1,19 +1,21 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Search, Eye, Upload } from "lucide-react";
 import { AdminLayout } from "@/components/AdminLayout";
-import { Card, CardContent, CardHeader, CardTitle } from "@undercover/ui-react";
-import { Input } from "@undercover/ui-react";
-import { Button } from "@undercover/ui-react";
 import {
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+    Input,
+    Button,
     Table,
     TableBody,
     TableCell,
     TableHead,
     TableHeader,
-    TableRow,
-} from "@undercover/ui-react";
-import { Search, Eye, Upload } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-
+    TableRow
+} from "@/shared/ui";
 const mockVerifiedArticles = [
     {
         id: 2,

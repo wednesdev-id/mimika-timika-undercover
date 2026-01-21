@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { SidebarProvider } from "@undercover/ui-react";
+import { SidebarProvider } from "@/shared/ui";
 import { AdminSidebar } from "./AdminSidebar";
 import { AdminHeader } from "./AdminHeader";
 

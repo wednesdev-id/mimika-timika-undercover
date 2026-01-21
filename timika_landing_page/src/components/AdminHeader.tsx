@@ -1,6 +1,6 @@
 import { User, LogOut } from "lucide-react";
-import { SidebarTrigger } from "@undercover/ui-react";
-import { Button } from "@undercover/ui-react";
+import { SidebarTrigger } from "@/shared/ui";
+import { Button } from "@/shared/ui";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -8,7 +8,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@undercover/ui-react";
+} from "@/shared/ui";
 
 export function AdminHeader() {
     return (

@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { AdminLayout } from "@/components/AdminLayout";
-import { Card, CardContent, CardHeader, CardTitle } from "@undercover/ui-react";
-import { Input } from "@undercover/ui-react";
-import { Button } from "@undercover/ui-react";
-import { Badge } from "@undercover/ui-react";
-import { Tabs, TabsList, TabsTrigger } from "@undercover/ui-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
+import { Input } from "@/shared/ui";
+import { Button } from "@/shared/ui";
+import { Badge } from "@/shared/ui";
+import { Tabs, TabsList, TabsTrigger } from "@/shared/ui";
 import { Search, RefreshCw, Edit, Trash2, Calendar, FileText } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "@undercover/ui-react";
+import { toast } from "@/shared/ui";
 
 const mockArticles = [
     {

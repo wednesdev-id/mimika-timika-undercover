@@ -1,10 +1,10 @@
 import { AdminLayout } from "@/components/AdminLayout";
-import { Card, CardContent, CardHeader, CardTitle } from "@undercover/ui-react";
-import { Label } from "@undercover/ui-react";
-import { Input } from "@undercover/ui-react";
-import { Button } from "@undercover/ui-react";
-import { Switch } from "@undercover/ui-react";
-import { toast } from "@undercover/ui-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
+import { Label } from "@/shared/ui";
+import { Input } from "@/shared/ui";
+import { Button } from "@/shared/ui";
+import { Switch } from "@/shared/ui";
+import { toast } from "@/shared/ui";
 
 export default function Settings() {
 
