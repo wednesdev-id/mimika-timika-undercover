@@ -272,6 +272,37 @@ def scheduled_scraper_job():
     finally:
         db.close()
 
+@app.get("/maintenance/cleanup-junk")
+def cleanup_junk_data(
+    db: Session = Depends(database.get_db),
+    key: str = Query(..., description="Access Key")
+):
+    """
+    Emergency endpoint to clean junk data from Production DB.
+    """
+    if key != "papua-news-secret-2024":
+        raise HTTPException(status_code=401, detail="Unauthorized")
+        
+    junk_keywords = [
+        "tentang kami", "about us", "contact", "hubungi kami", "redaksi",
+        "pedoman", "cyber media", "siber", "privacy", "kebijakan privasi",
+        "disclaimer", "karir", "lowongan", "galeri foto", "video story",
+        "term of use", "ketentuan", "indeks berita", "kabar daerah"
+    ]
+    
+    deleted_count = 0
+    try:
+        for keyword in junk_keywords:
+            # Delete by Title
+            deleted = db.query(models.Article).filter(models.Article.title.ilike(f"%{keyword}%")).delete(synchronize_session=False)
+            deleted_count += deleted
+            
+        db.commit()
+        return {"status": "success", "deleted_count": deleted_count, "message": "Junk data cleaned."}
+    except Exception as e:
+        db.rollback()
+        return {"status": "error", "message": str(e)}
+
 @app.on_event("startup")
 def init_db():
     try:
