@@ -69,7 +69,20 @@ def scrape_cnn(keyword="mimika"):
         ]
 
         articles_found = 0
-        max_articles = 5  # Limit to prevent timeout
+        
+        # Check if running on Vercel
+        is_vercel = os.environ.get('VERCEL') == '1' or os.environ.get('VERCEL_ENV') is not None
+        
+        # Determine max articles based on page limit env var (approx 10 articles per page)
+        custom_limit = os.environ.get('SCRAPE_PAGES_LIMIT')
+        if custom_limit:
+            try:
+                max_articles = int(custom_limit) * 10
+                logging.info(f"[CNN Indonesia] Using custom limit: {max_articles} articles")
+            except ValueError:
+                max_articles = 20 if is_vercel else 50
+        else:
+            max_articles = 20 if is_vercel else 50  # Default limit
 
         for url in urls_to_try:
             if articles_found >= max_articles:

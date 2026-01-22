@@ -160,7 +160,18 @@ def scrape_seputarpapua(keyword="mimika"):
         logging.info(f"[SeputarPapua] Found {len(items)} items")
         
         count = 0
-        max_items = 10 # Increased limit to 10 as requested (running every 30 mins)
+        count = 0
+        
+        # Determine max items based on page limit env var (approx 10 articles per page)
+        custom_limit = os.environ.get('SCRAPE_PAGES_LIMIT')
+        if custom_limit:
+            try:
+                max_items = int(custom_limit) * 10
+                logging.info(f"[SeputarPapua] Using custom limit: {max_items} articles")
+            except ValueError:
+                 max_items = 10
+        else:
+             max_items = 10 # Default limit
         
         for item in items:
             if count >= max_items:

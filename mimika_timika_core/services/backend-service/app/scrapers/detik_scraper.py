@@ -63,7 +63,18 @@ def scrape_detik(keyword="mimika timika"):
     try:
         # Check if running on Vercel to avoid timeouts
         is_vercel = os.environ.get('VERCEL') == '1' or os.environ.get('VERCEL_ENV') is not None
-        actual_max_pages = 2 if is_vercel else 5  # Always limit to prevent timeout
+        
+        # Get custom limit from env or use defaults
+        custom_limit = os.environ.get('SCRAPE_PAGES_LIMIT')
+        if custom_limit:
+            try:
+                actual_max_pages = int(custom_limit)
+                logging.info(f"[Detik.com] Using custom page limit: {actual_max_pages}")
+            except ValueError:
+                actual_max_pages = 2 if is_vercel else 5
+                logging.warning(f"[Detik.com] Invalid SCRAPE_PAGES_LIMIT, using default: {actual_max_pages}")
+        else:
+            actual_max_pages = 2 if is_vercel else 5  # Always limit to prevent timeout
 
         if is_vercel:
             logging.info(f"[Detik.com] Vercel detected - limiting scrape to {actual_max_pages} pages to avoid timeout")

@@ -4,28 +4,25 @@ SETLOCAL EnableDelayedExpansion
 cd /d "%~dp0"
 
 echo [Backend] Checking Python...
-python --version >nul 2>&1
-IF %ERRORLEVEL% NEQ 0 (
-    echo [Error] Python is not installed or not in PATH.
-    echo Please install Python 3.10+ and add it to PATH.
-    pause
-    exit /b 1
-)
-
-IF NOT EXIST ".venv" (
-    echo [Backend] Creating virtual environment...
+IF NOT EXIST ".venv\Scripts\python.exe" (
+    echo [Backend] Virtual environment not found or broken. Recreating...
+    rmdir /s /q .venv 2>nul
     python -m venv .venv
 )
 
-echo [Backend] Activating virtual environment...
-call .venv\Scripts\activate.bat
+echo [Backend] Using Virtual Environment at %CD%\.venv
+echo.
+echo [Backend] Installing dependencies directly into venv...
 
-echo [Backend] Installing dependencies...
-python -m pip install --upgrade pip
-pip install -r requirements.txt
+:: Use direct path to pip in venv to ensure we install to the correct place
+".venv\Scripts\python.exe" -m pip install --upgrade pip
+".venv\Scripts\python.exe" -m pip install -r requirements.txt
+".venv\Scripts\python.exe" -m pip install apscheduler
 
-echo [Backend] Starting server...
-echo [Backend] Scheduler will start automatically properly.
-python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+echo.
+echo [Backend] Starting server using venv Python...
+echo [Backend] Scheduler initialized.
+echo.
+".venv\Scripts\python.exe" -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 pause

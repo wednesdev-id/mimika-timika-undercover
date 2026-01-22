@@ -69,7 +69,18 @@ def scrape_tempo(keyword="mimika"):
         ]
 
         articles_found = 0
-        max_articles = 5  # Limit to prevent timeout
+        articles_found = 0
+        
+        # Determine max articles based on page limit env var (approx 10 articles per page)
+        custom_limit = os.environ.get('SCRAPE_PAGES_LIMIT')
+        if custom_limit:
+            try:
+                max_articles = int(custom_limit) * 10
+                logging.info(f"[Tempo] Using custom limit: {max_articles} articles")
+            except ValueError:
+                max_articles = 5
+        else:
+            max_articles = 5  # Default limit
 
         for url in urls_to_try:
             if articles_found >= max_articles:

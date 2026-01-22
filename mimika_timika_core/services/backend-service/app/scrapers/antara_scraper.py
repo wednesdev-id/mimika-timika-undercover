@@ -97,7 +97,19 @@ def scrape_antara(keyword="mimika"):
         is_vercel = os.environ.get('VERCEL') == '1' or os.environ.get('VERCEL_ENV') is not None
 
         if is_vercel:
-            logging.info("[Antara News] Vercel detected - limiting scrape to 2 pages per keyword to avoid 10s timeout")
+            logging.info("[Antara News] Vercel detected - limiting scrape to avoid 10s timeout")
+
+        # Get custom limit from env or use defaults
+        custom_limit = os.environ.get('SCRAPE_PAGES_LIMIT')
+        if custom_limit:
+            try:
+                actual_max_pages = int(custom_limit)
+                logging.info(f"[Antara News] Using custom page limit: {actual_max_pages}")
+            except ValueError:
+                actual_max_pages = 2 if is_vercel else 5
+                logging.warning(f"[Antara News] Invalid SCRAPE_PAGES_LIMIT, using default: {actual_max_pages}")
+        else:
+             actual_max_pages = 2 if is_vercel else 5
 
         for keyword in search_keywords:
             logging.info(f"[Antara News] Starting search for keyword: '{keyword}'")
@@ -105,7 +117,7 @@ def scrape_antara(keyword="mimika"):
             page = 1
             while True:
                 # Check for page limit if on Vercel
-                if is_vercel and page > 2:
+                if is_vercel and page > actual_max_pages:
                     logging.info("Vercel page limit reached. Stopping scrape.")
                     break
 

@@ -65,15 +65,26 @@ def scrape_kompas(keyword="mimika timika"):
         # Check if running on Vercel to avoid timeouts
         is_vercel = os.environ.get('VERCEL') == '1' or os.environ.get('VERCEL_ENV') is not None
         
+        # Get custom limit from env or use defaults (Kompas default logic logic handled in loop)
+        custom_limit = os.environ.get('SCRAPE_PAGES_LIMIT')
+        actual_max_pages = 2 # Default for Vercel
+        
+        if custom_limit:
+            try:
+                actual_max_pages = int(custom_limit)
+                logging.info(f"[Kompas.com] Using custom page limit: {actual_max_pages}")
+            except ValueError:
+                logging.warning(f"[Kompas.com] Invalid SCRAPE_PAGES_LIMIT")
+        
         if is_vercel:
-            logging.info("Vercel detected - limiting scrape to 2 pages to avoid 10s timeout")
+            logging.info(f"Vercel detected - limiting scrape to {actual_max_pages} pages to avoid 10s timeout")
 
         logging.info(f"[Kompas.com] Starting search for keyword: '{keyword}'")
         
         page = 1
         while True:
             # Check for page limit if on Vercel
-            if is_vercel and page > 2:
+            if is_vercel and page > actual_max_pages:
                 logging.info("[Kompas.com] Vercel page limit reached. Stopping scrape.")
                 break
 
