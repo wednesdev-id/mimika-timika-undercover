@@ -12812,3 +12812,784 @@
 2026-01-22 12:07:09,502 - INFO - Total unique articles: 257
 2026-01-22 12:07:09,620 - INFO - Job "Startup Immediate Scrape (trigger: date[2026-01-22 12:03:59 +07], next run at: 2026-01-22 12:03:59 +07)" executed successfully
 2026-01-22 12:07:09,621 - INFO - Scheduler has been shut down
+2026-01-22 12:07:11,973 - INFO - ============================================================
+2026-01-22 12:07:11,974 - INFO - Starting news scraping from all sources
+2026-01-22 12:07:11,974 - INFO - ============================================================
+2026-01-22 12:07:11,974 - INFO - --- Scraping Region: TIMIKA (Keyword: timika) ---
+2026-01-22 12:07:11,974 - INFO - Scraping detik for timika...
+2026-01-22 12:07:11,975 - INFO - [Detik.com] Local environment - limiting scrape to 5 pages to prevent timeout
+2026-01-22 12:07:11,975 - INFO - [Detik.com] Starting search for keyword: 'timika'
+2026-01-22 12:07:11,975 - INFO - [Detik.com] Scraping page 1
+2026-01-22 12:07:15,447 - INFO - [Detik.com] Scraping page 2
+2026-01-22 12:07:18,760 - INFO - [Detik.com] Scraping page 3
+2026-01-22 12:07:21,868 - INFO - [Detik.com] Scraping page 4
+2026-01-22 12:07:25,179 - INFO - [Detik.com] Scraping page 5
+2026-01-22 12:07:29,514 - ERROR - [Detik.com] Scraping failed: can't compare offset-naive and offset-aware datetimes
+2026-01-22 12:07:29,516 - WARNING - No articles found from detik for timika
+2026-01-22 12:07:29,516 - INFO - Scraping kompas for timika...
+2026-01-22 12:07:29,517 - INFO - [Kompas.com] Starting search for keyword: 'timika'
+2026-01-22 12:07:29,517 - INFO - [Kompas.com] Scraping page 1
+2026-01-22 12:07:30,271 - INFO - [Kompas.com] Found 5 articles on page 1
+2026-01-22 12:07:32,983 - INFO - [Kompas.com] Scraping page 2
+2026-01-22 12:07:33,704 - INFO - [Kompas.com] No more articles found on page 2
+2026-01-22 12:07:33,705 - INFO - [Kompas.com] Scraping completed successfully
+2026-01-22 12:07:33,707 - INFO - Successfully scraped 5 articles from kompas for timika
+2026-01-22 12:07:33,707 - INFO - Scraping cnn for timika...
+2026-01-22 12:07:33,707 - INFO - [CNN Indonesia] Trying CNN URL: https://www.cnnindonesia.com/search/?query=timika
+2026-01-22 12:07:35,399 - INFO - [CNN Indonesia] Scraping completed successfully
+2026-01-22 12:07:35,399 - INFO - [CNN Indonesia] Successfully collected 0 articles from CNN Indonesia
+2026-01-22 12:07:35,401 - WARNING - No articles found from cnn for timika
+2026-01-22 12:07:35,401 - INFO - Scraping antara for timika...
+2026-01-22 12:07:35,401 - INFO - [Antara News] Starting search for keyword: 'timika'
+2026-01-22 12:07:35,401 - INFO - [Antara News] Scraping timika page 1
+2026-01-22 12:07:35,937 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/20/FotoJet-2026-01-20T122601.664.jpg
+2026-01-22 12:07:35,938 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/20/FotoJet-2026-01-20T122601.664.jpg
+2026-01-22 12:07:35,938 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/12/20260112_182811_YouTube_1.jpg
+2026-01-22 12:07:35,939 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/12/20260112_182811_YouTube_1.jpg
+2026-01-22 12:07:35,939 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/12/IMG-20260112-WA0059.jpg
+2026-01-22 12:07:35,940 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/12/IMG-20260112-WA0059.jpg
+2026-01-22 12:07:35,941 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/05/FotoJet-2026-01-05T160926.395_1.jpg
+2026-01-22 12:07:35,942 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/05/FotoJet-2026-01-05T160926.395_1.jpg
+2026-01-22 12:07:35,943 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/04/pelaku-perampokan-taksi-daring.jpeg
+2026-01-22 12:07:35,944 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/04/pelaku-perampokan-taksi-daring.jpeg
+2026-01-22 12:07:35,945 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/30/FotoJet-2025-12-30T075149.803.jpg
+2026-01-22 12:07:35,945 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/30/FotoJet-2025-12-30T075149.803.jpg
+2026-01-22 12:07:35,946 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/24/BUPATI-MIMIKA-1.jpg
+2026-01-22 12:07:35,946 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/24/BUPATI-MIMIKA-1.jpg
+2026-01-22 12:07:35,947 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/10/IMG_3076.jpg
+2026-01-22 12:07:35,947 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/10/IMG_3076.jpg
+2026-01-22 12:07:35,948 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/10/IMG_3073.jpg
+2026-01-22 12:07:35,948 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/10/IMG_3073.jpg
+2026-01-22 12:07:35,949 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/05/FotoJet-2025-12-05T105423.862.jpg
+2026-01-22 12:07:35,949 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/05/FotoJet-2025-12-05T105423.862.jpg
+2026-01-22 12:07:35,950 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/02/PATROLI-GABUNGAN-POLRES-MIMIKA-1.jpg
+2026-01-22 12:07:35,950 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/02/PATROLI-GABUNGAN-POLRES-MIMIKA-1.jpg
+2026-01-22 12:07:35,950 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/27/REYNOLD-UBRA-1.jpg
+2026-01-22 12:07:35,951 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/27/REYNOLD-UBRA-1.jpg
+2026-01-22 12:07:35,951 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/25/IMG-20251124-WA0017.jpg
+2026-01-22 12:07:35,952 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/25/IMG-20251124-WA0017.jpg
+2026-01-22 12:07:35,952 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/25/IMG-20251124-WA0017.jpg
+2026-01-22 12:07:35,953 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/25/IMG-20251124-WA0017.jpg
+2026-01-22 12:07:35,953 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/14/1000932868.jpg
+2026-01-22 12:07:35,954 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/14/1000932868.jpg
+2026-01-22 12:07:35,954 - INFO - [Antara News] Found 15 articles for 'timika' on page 1
+2026-01-22 12:07:40,807 - INFO - [Antara News] Scraping timika page 2
+2026-01-22 12:07:41,335 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/15/FotoJet-84.jpg
+2026-01-22 12:07:41,335 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/15/FotoJet-84.jpg
+2026-01-22 12:07:41,336 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/14/YULIUS-KOGA.jpg
+2026-01-22 12:07:41,336 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/14/YULIUS-KOGA.jpg
+2026-01-22 12:07:41,337 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/10/FotoJet-72.jpg
+2026-01-22 12:07:41,337 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/10/FotoJet-72.jpg
+2026-01-22 12:07:41,338 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/08/FotoJet-71.jpg
+2026-01-22 12:07:41,338 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/08/FotoJet-71.jpg
+2026-01-22 12:07:41,339 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/07/BAHLIL-LAHADALIA-1_1.jpg
+2026-01-22 12:07:41,340 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/07/BAHLIL-LAHADALIA-1_1.jpg
+2026-01-22 12:07:41,341 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/07/FotoJet-69.jpg
+2026-01-22 12:07:41,342 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/07/FotoJet-69.jpg
+2026-01-22 12:07:41,342 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/07/BAHLIL-LAHADALIA-1.jpg
+2026-01-22 12:07:41,343 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/07/BAHLIL-LAHADALIA-1.jpg
+2026-01-22 12:07:41,343 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/06/FotoJet-66.jpg
+2026-01-22 12:07:41,343 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/06/FotoJet-66.jpg
+2026-01-22 12:07:41,344 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/04/IMG-20251104-WA0027.jpg
+2026-01-22 12:07:41,344 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/04/IMG-20251104-WA0027.jpg
+2026-01-22 12:07:41,345 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2024/07/11/97.jpg
+2026-01-22 12:07:41,345 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2024/07/11/97.jpg
+2026-01-22 12:07:41,346 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2022/11/05/antarafoto-basket-ibl-satya-wacana-menang-atas-nsh-mountain-gold-timika-051222-yud-5.jpg
+2026-01-22 12:07:41,347 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2022/11/05/antarafoto-basket-ibl-satya-wacana-menang-atas-nsh-mountain-gold-timika-051222-yud-5.jpg
+2026-01-22 12:07:41,347 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/03/1001462857.jpg
+2026-01-22 12:07:41,348 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/03/1001462857.jpg
+2026-01-22 12:07:41,349 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/01/POTOWAYBURU-1.jpg
+2026-01-22 12:07:41,349 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/01/POTOWAYBURU-1.jpg
+2026-01-22 12:07:41,350 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/29/FotoJet-14.jpg
+2026-01-22 12:07:41,350 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/29/FotoJet-14.jpg
+2026-01-22 12:07:41,351 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/27/FotoJet-10.jpg
+2026-01-22 12:07:41,352 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/27/FotoJet-10.jpg
+2026-01-22 12:07:41,352 - INFO - [Antara News] Found 15 articles for 'timika' on page 2
+2026-01-22 12:07:45,364 - INFO - [Antara News] Scraping timika page 3
+2026-01-22 12:07:45,888 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/25/1761391101667.jpg
+2026-01-22 12:07:45,888 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/25/1761391101667.jpg
+2026-01-22 12:07:45,889 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/25/JEFRI-DEDA.jpg
+2026-01-22 12:07:45,889 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/25/JEFRI-DEDA.jpg
+2026-01-22 12:07:45,890 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/23/SEKOLAH-RAKYAT-2.jpg
+2026-01-22 12:07:45,890 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/23/SEKOLAH-RAKYAT-2.jpg
+2026-01-22 12:07:45,891 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/23/1001417462.jpg
+2026-01-22 12:07:45,891 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/23/1001417462.jpg
+2026-01-22 12:07:45,892 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/20/FotoJet-3.jpg
+2026-01-22 12:07:45,892 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/20/FotoJet-3.jpg
+2026-01-22 12:07:45,892 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2023/07/17/IMG20230717090652_1.jpg
+2026-01-22 12:07:45,893 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2023/07/17/IMG20230717090652_1.jpg
+2026-01-22 12:07:45,893 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/17/FotoJet-3.jpg
+2026-01-22 12:07:45,894 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/17/FotoJet-3.jpg
+2026-01-22 12:07:45,895 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/16/WhatsApp-Image-2025-10-16-at-15.41.41-1.jpeg
+2026-01-22 12:07:45,895 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/16/WhatsApp-Image-2025-10-16-at-15.41.41-1.jpeg
+2026-01-22 12:07:45,896 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/16/1001389285.jpg
+2026-01-22 12:07:45,896 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/16/1001389285.jpg
+2026-01-22 12:07:45,896 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/15/LEONARDUS-TUMUKA-1.jpg
+2026-01-22 12:07:45,897 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/15/LEONARDUS-TUMUKA-1.jpg
+2026-01-22 12:07:45,897 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/14/904F037C-E6B9-4458-B672-61C2BE75BCBF.jpeg
+2026-01-22 12:07:45,898 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/14/904F037C-E6B9-4458-B672-61C2BE75BCBF.jpeg
+2026-01-22 12:07:45,898 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/01/IMG_5807.jpeg
+2026-01-22 12:07:45,899 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/01/IMG_5807.jpeg
+2026-01-22 12:07:45,899 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/14/7E56F0EF-6126-4F7C-92BB-F23B893B5AB4.jpeg
+2026-01-22 12:07:45,900 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/14/7E56F0EF-6126-4F7C-92BB-F23B893B5AB4.jpeg
+2026-01-22 12:07:45,900 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/aym_PESAWAT-SMART-AIR-TERGELINCIR-DI-PAPUA-PEGUNUNGAN.jpg
+2026-01-22 12:07:45,901 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/aym_PESAWAT-SMART-AIR-TERGELINCIR-DI-PAPUA-PEGUNUNGAN.jpg
+2026-01-22 12:07:45,901 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/12/1001369620.jpg
+2026-01-22 12:07:45,902 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/12/1001369620.jpg
+2026-01-22 12:07:45,902 - INFO - [Antara News] Found 15 articles for 'timika' on page 3
+2026-01-22 12:07:51,559 - INFO - [Antara News] Scraping timika page 4
+2026-01-22 12:07:52,036 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/11/FotoJet-35.jpg
+2026-01-22 12:07:52,037 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/11/FotoJet-35.jpg
+2026-01-22 12:07:52,037 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/09/WhatsApp-Image-2025-08-08-at-18.14.08_5d83481c.jpg
+2026-01-22 12:07:52,038 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/09/WhatsApp-Image-2025-08-08-at-18.14.08_5d83481c.jpg
+2026-01-22 12:07:52,038 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/08/FotoJet-33.jpg
+2026-01-22 12:07:52,039 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/08/FotoJet-33.jpg
+2026-01-22 12:07:52,039 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/08/1000214034.jpg
+2026-01-22 12:07:52,040 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/08/1000214034.jpg
+2026-01-22 12:07:52,040 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/08/1001355358.jpg
+2026-01-22 12:07:52,041 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/08/1001355358.jpg
+2026-01-22 12:07:52,041 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/07/FotoJet-36.jpg
+2026-01-22 12:07:52,042 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/07/FotoJet-36.jpg
+2026-01-22 12:07:52,042 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/07/IMG-20251007-WA0002.jpg
+2026-01-22 12:07:52,043 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/07/IMG-20251007-WA0002.jpg
+2026-01-22 12:07:52,043 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/06/PERTAMINA-NAWARIPI.jpg
+2026-01-22 12:07:52,044 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/06/PERTAMINA-NAWARIPI.jpg
+2026-01-22 12:07:52,044 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/06/FotoJet-29_2.jpg
+2026-01-22 12:07:52,045 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/06/FotoJet-29_2.jpg
+2026-01-22 12:07:52,045 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/06/FotoJet-29.jpg
+2026-01-22 12:07:52,045 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/06/FotoJet-29.jpg
+2026-01-22 12:07:52,046 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/06/FotoJet-29.jpg
+2026-01-22 12:07:52,046 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/06/FotoJet-29.jpg
+2026-01-22 12:07:52,047 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/05/PERUMAHAN-2.jpg
+2026-01-22 12:07:52,047 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/05/PERUMAHAN-2.jpg
+2026-01-22 12:07:52,048 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/01/PEMENANG-LOMBA-1.jpeg
+2026-01-22 12:07:52,048 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/01/PEMENANG-LOMBA-1.jpeg
+2026-01-22 12:07:52,048 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/30/FotoJet-7.jpg
+2026-01-22 12:07:52,049 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/30/FotoJet-7.jpg
+2026-01-22 12:07:52,049 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/30/WISMA-ATLET-PON-XX-TIMIKA.jpg
+2026-01-22 12:07:52,050 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/30/WISMA-ATLET-PON-XX-TIMIKA.jpg
+2026-01-22 12:07:52,050 - INFO - [Antara News] Found 15 articles for 'timika' on page 4
+2026-01-22 12:07:55,074 - INFO - [Antara News] Scraping timika page 5
+2026-01-22 12:07:55,569 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/30/FotoJet-27.jpg
+2026-01-22 12:07:55,570 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/30/FotoJet-27.jpg
+2026-01-22 12:07:55,571 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/29/Satelit-Telkomsat.jpg
+2026-01-22 12:07:55,572 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/29/Satelit-Telkomsat.jpg
+2026-01-22 12:07:55,572 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/29/LAPAS-NABIRE.jpeg
+2026-01-22 12:07:55,573 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/29/LAPAS-NABIRE.jpeg
+2026-01-22 12:07:55,573 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/27/1000080256.jpg
+2026-01-22 12:07:55,574 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/27/1000080256.jpg
+2026-01-22 12:07:55,574 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/25/1000379119.jpg
+2026-01-22 12:07:55,575 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/25/1000379119.jpg
+2026-01-22 12:07:55,575 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/25/FotoJet-22.jpg
+2026-01-22 12:07:55,576 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/25/FotoJet-22.jpg
+2026-01-22 12:07:55,576 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/21/FotoJet-21.jpg
+2026-01-22 12:07:55,577 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/21/FotoJet-21.jpg
+2026-01-22 12:07:55,577 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/21/POLSEK-POMAKO-1.jpeg
+2026-01-22 12:07:55,578 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/21/POLSEK-POMAKO-1.jpeg
+2026-01-22 12:07:55,578 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/19/dampak-gempa-nabire-190925-jack-3.jpg
+2026-01-22 12:07:55,579 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/19/dampak-gempa-nabire-190925-jack-3.jpg
+2026-01-22 12:07:55,579 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/19/dampak-gempa-nabire-190925-jack-3.jpg
+2026-01-22 12:07:55,580 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/19/dampak-gempa-nabire-190925-jack-3.jpg
+2026-01-22 12:07:55,580 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/19/1000216495.jpg
+2026-01-22 12:07:55,581 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/19/1000216495.jpg
+2026-01-22 12:07:55,581 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/18/FotoJet-2025-09-18T175905.323.jpg
+2026-01-22 12:07:55,582 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/18/FotoJet-2025-09-18T175905.323.jpg
+2026-01-22 12:07:55,582 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/17/ImgResizer_20250917_2002_53201.jpg
+2026-01-22 12:07:55,583 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/17/ImgResizer_20250917_2002_53201.jpg
+2026-01-22 12:07:55,583 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/17/1000212111.jpg
+2026-01-22 12:07:55,584 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/17/1000212111.jpg
+2026-01-22 12:07:55,584 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/15/KAPOLRES-MIMIKA-2.jpeg
+2026-01-22 12:07:55,585 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/15/KAPOLRES-MIMIKA-2.jpeg
+2026-01-22 12:07:55,585 - INFO - [Antara News] Found 15 articles for 'timika' on page 5
+2026-01-22 12:08:00,745 - INFO - [Antara News] Scraping timika page 6
+2026-01-22 12:08:01,577 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/14/IMG-20250914-WA0032.jpg
+2026-01-22 12:08:01,578 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/14/IMG-20250914-WA0032.jpg
+2026-01-22 12:08:01,579 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/14/FotoJet-2025-09-14T183953.446_1.jpg
+2026-01-22 12:08:01,579 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/14/FotoJet-2025-09-14T183953.446_1.jpg
+2026-01-22 12:08:01,580 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/14/IMG_7052.jpg
+2026-01-22 12:08:01,580 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/14/IMG_7052.jpg
+2026-01-22 12:08:01,581 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/13/LEO-TUMUKA-1_1.jpeg
+2026-01-22 12:08:01,582 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/13/LEO-TUMUKA-1_1.jpeg
+2026-01-22 12:08:01,582 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/13/PELATIHAN-PETUGAS-MBG-1.jpeg
+2026-01-22 12:08:01,583 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/13/PELATIHAN-PETUGAS-MBG-1.jpeg
+2026-01-22 12:08:01,584 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/IMG-20250912-WA0024.jpg
+2026-01-22 12:08:01,584 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/IMG-20250912-WA0024.jpg
+2026-01-22 12:08:01,586 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/FotoJet-7_1.jpg
+2026-01-22 12:08:01,587 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/FotoJet-7_1.jpg
+2026-01-22 12:08:01,587 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/PETI-JENAZAH.jpeg
+2026-01-22 12:08:01,588 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/PETI-JENAZAH.jpeg
+2026-01-22 12:08:01,589 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/FotoJet-7.jpg
+2026-01-22 12:08:01,589 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/FotoJet-7.jpg
+2026-01-22 12:08:01,590 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/FotoJet-14_1.jpg
+2026-01-22 12:08:01,591 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/FotoJet-14_1.jpg
+2026-01-22 12:08:01,591 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/evakuasi-helikopter-jatuh-di-papua-110925-ho-1.jpg
+2026-01-22 12:08:01,592 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/evakuasi-helikopter-jatuh-di-papua-110925-ho-1.jpg
+2026-01-22 12:08:01,592 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/AB_SAR-TIMIKA-EVAKUASI-EMPAT-JENAZAH-KORBAN-HELIKOPTER-JATUH-DI-MIMIKA.jpg
+2026-01-22 12:08:01,593 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/AB_SAR-TIMIKA-EVAKUASI-EMPAT-JENAZAH-KORBAN-HELIKOPTER-JATUH-DI-MIMIKA.jpg
+2026-01-22 12:08:01,593 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/FotoJet-12.jpg
+2026-01-22 12:08:01,594 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/FotoJet-12.jpg
+2026-01-22 12:08:01,594 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/FotoJet-11.jpg
+2026-01-22 12:08:01,595 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/FotoJet-11.jpg
+2026-01-22 12:08:01,595 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/heli1.jpg
+2026-01-22 12:08:01,596 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/heli1.jpg
+2026-01-22 12:08:01,596 - INFO - [Antara News] Found 15 articles for 'timika' on page 6
+2026-01-22 12:08:06,946 - INFO - [Antara News] Scraping timika page 7
+2026-01-22 12:08:07,480 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/FotoJet-4.jpg
+2026-01-22 12:08:07,480 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/FotoJet-4.jpg
+2026-01-22 12:08:07,481 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/FotoJet-4_1.jpg
+2026-01-22 12:08:07,481 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/FotoJet-4_1.jpg
+2026-01-22 12:08:07,482 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/1757517377085_copy_1808x1206.jpg
+2026-01-22 12:08:07,482 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/1757517377085_copy_1808x1206.jpg
+2026-01-22 12:08:07,482 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/1757513677833_copy_4164x2776.jpg
+2026-01-22 12:08:07,483 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/1757513677833_copy_4164x2776.jpg
+2026-01-22 12:08:07,484 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/AB_TIM-SAR-GABUNGAN-TEMUKAN-HELIKOPTER-HILANG-KONTAK-DI-MIMIKA.jpg
+2026-01-22 12:08:07,485 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/AB_TIM-SAR-GABUNGAN-TEMUKAN-HELIKOPTER-HILANG-KONTAK-DI-MIMIKA.jpg
+2026-01-22 12:08:07,486 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/FotoJet-3.jpg
+2026-01-22 12:08:07,487 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/FotoJet-3.jpg
+2026-01-22 12:08:07,487 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/FotoJet-2.jpg
+2026-01-22 12:08:07,487 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/FotoJet-2.jpg
+2026-01-22 12:08:07,488 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/aktivitas-pertambangan-freeport-160813-wpa-5.jpg
+2026-01-22 12:08:07,488 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/aktivitas-pertambangan-freeport-160813-wpa-5.jpg
+2026-01-22 12:08:07,489 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/FotoJet-1.jpg
+2026-01-22 12:08:07,489 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/FotoJet-1.jpg
+2026-01-22 12:08:07,490 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/1000037335.jpg
+2026-01-22 12:08:07,490 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/1000037335.jpg
+2026-01-22 12:08:07,491 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/1757401307393_copy_2160x1440.jpg
+2026-01-22 12:08:07,491 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/1757401307393_copy_2160x1440.jpg
+2026-01-22 12:08:07,491 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/FotoJet-63.jpg
+2026-01-22 12:08:07,492 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/FotoJet-63.jpg
+2026-01-22 12:08:07,492 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2024/04/01/Freeport-Ekspor-Konsentrat-Tembaga-200915-Adm-2.jpg
+2026-01-22 12:08:07,493 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2024/04/01/Freeport-Ekspor-Konsentrat-Tembaga-200915-Adm-2.jpg
+2026-01-22 12:08:07,493 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/FotoJet.jpg
+2026-01-22 12:08:07,494 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/FotoJet.jpg
+2026-01-22 12:08:07,494 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/14/IMG-20250614-WA0042_copy_1280x853.jpg
+2026-01-22 12:08:07,495 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/14/IMG-20250614-WA0042_copy_1280x853.jpg
+2026-01-22 12:08:07,495 - INFO - [Antara News] Found 15 articles for 'timika' on page 7
+2026-01-22 12:08:12,605 - INFO - [Antara News] Scraping timika page 8
+2026-01-22 12:08:13,110 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/05/BAKTI-SOSIAL-WARGA-TIPUKA-6.jpg
+2026-01-22 12:08:13,111 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/05/BAKTI-SOSIAL-WARGA-TIPUKA-6.jpg
+2026-01-22 12:08:13,111 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/03/LEONARDUS-TUMUKA-1.jpg
+2026-01-22 12:08:13,112 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/03/LEONARDUS-TUMUKA-1.jpg
+2026-01-22 12:08:13,112 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/27/REKONSTRUKSI-PEMBUNUHAN-BRIMOB-NABIRE-1.jpeg
+2026-01-22 12:08:13,113 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/27/REKONSTRUKSI-PEMBUNUHAN-BRIMOB-NABIRE-1.jpeg
+2026-01-22 12:08:13,113 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/26/PESAWAT-TERBAKAR.jpeg
+2026-01-22 12:08:13,113 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/26/PESAWAT-TERBAKAR.jpeg
+2026-01-22 12:08:13,114 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/25/1000196693.jpg
+2026-01-22 12:08:13,115 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/25/1000196693.jpg
+2026-01-22 12:08:13,115 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/25/1001178505.jpg
+2026-01-22 12:08:13,116 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/25/1001178505.jpg
+2026-01-22 12:08:13,116 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/25/1001178280.jpg
+2026-01-22 12:08:13,117 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/25/1001178280.jpg
+2026-01-22 12:08:13,118 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/25/EVAKUASI-BANGKAI-PESAWAT-1_1.jpeg
+2026-01-22 12:08:13,118 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/25/EVAKUASI-BANGKAI-PESAWAT-1_1.jpeg
+2026-01-22 12:08:13,119 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/25/PESAWAT-TERBAKAR-1_1.jpeg
+2026-01-22 12:08:13,119 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/25/PESAWAT-TERBAKAR-1_1.jpeg
+2026-01-22 12:08:13,120 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/23/WARGA-JAGAMIN-1.jpeg
+2026-01-22 12:08:13,120 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/23/WARGA-JAGAMIN-1.jpeg
+2026-01-22 12:08:13,121 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/21/FotoJet-4.jpg
+2026-01-22 12:08:13,121 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/21/FotoJet-4.jpg
+2026-01-22 12:08:13,122 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/21/1755763067982.jpg
+2026-01-22 12:08:13,122 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/21/1755763067982.jpg
+2026-01-22 12:08:13,122 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/19/FotoJet-1_1.jpg
+2026-01-22 12:08:13,123 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/19/FotoJet-1_1.jpg
+2026-01-22 12:08:13,124 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/14/OLAH-TKP-1.jpg
+2026-01-22 12:08:13,124 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/14/OLAH-TKP-1.jpg
+2026-01-22 12:08:13,125 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/12/BUPATI-MIMIKA-1.jpg
+2026-01-22 12:08:13,125 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/12/BUPATI-MIMIKA-1.jpg
+2026-01-22 12:08:13,125 - INFO - [Antara News] Found 15 articles for 'timika' on page 8
+2026-01-22 12:08:18,153 - INFO - [Antara News] Scraping timika page 9
+2026-01-22 12:08:18,736 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/12/BUPATI-MIMIKA-PERESMIAN-PAUD-KASIH-AMURO.jpg
+2026-01-22 12:08:18,737 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/12/BUPATI-MIMIKA-PERESMIAN-PAUD-KASIH-AMURO.jpg
+2026-01-22 12:08:18,737 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/04/BUPATI-MIMIKA-2.jpg
+2026-01-22 12:08:18,738 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/04/BUPATI-MIMIKA-2.jpg
+2026-01-22 12:08:18,738 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/04/PELAJAR-DI-SEMARANG.jpg
+2026-01-22 12:08:18,739 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/04/PELAJAR-DI-SEMARANG.jpg
+2026-01-22 12:08:18,739 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/01/PELAJAR-AMUNGME-KAMORO.jpg
+2026-01-22 12:08:18,740 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/01/PELAJAR-AMUNGME-KAMORO.jpg
+2026-01-22 12:08:18,740 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/01/Bersih-Sampah-Carstensz-4-1.jpg
+2026-01-22 12:08:18,740 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/01/Bersih-Sampah-Carstensz-4-1.jpg
+2026-01-22 12:08:18,741 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/01/SATP-TIMIKA-1.jpg
+2026-01-22 12:08:18,741 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/01/SATP-TIMIKA-1.jpg
+2026-01-22 12:08:18,742 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/31/LEO-TUMUKA.jpg
+2026-01-22 12:08:18,742 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/31/LEO-TUMUKA.jpg
+2026-01-22 12:08:18,743 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/29/DANDIM-MIMIKA-1.jpg
+2026-01-22 12:08:18,743 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/29/DANDIM-MIMIKA-1.jpg
+2026-01-22 12:08:18,743 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/29/1753769370062.jpg
+2026-01-22 12:08:18,744 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/29/1753769370062.jpg
+2026-01-22 12:08:18,744 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/29/1753765331410.jpg
+2026-01-22 12:08:18,745 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/29/1753765331410.jpg
+2026-01-22 12:08:18,745 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/28/Gambar-WhatsApp-2025-07-28-pukul-11.48.39_d4d3fbed.jpg
+2026-01-22 12:08:18,746 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/28/Gambar-WhatsApp-2025-07-28-pukul-11.48.39_d4d3fbed.jpg
+2026-01-22 12:08:18,746 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/26/1001050195.jpg
+2026-01-22 12:08:18,747 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/26/1001050195.jpg
+2026-01-22 12:08:18,747 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/26/WhatsApp-Image-2025-07-26-at-13.57.00_2f180afd.jpg
+2026-01-22 12:08:18,748 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/26/WhatsApp-Image-2025-07-26-at-13.57.00_2f180afd.jpg
+2026-01-22 12:08:18,749 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/24/1000761443.jpg
+2026-01-22 12:08:18,750 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/24/1000761443.jpg
+2026-01-22 12:08:18,751 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/22/WhatsApp-Image-2025-07-22-at-17.07.01_16c7defd.jpg
+2026-01-22 12:08:18,751 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/22/WhatsApp-Image-2025-07-22-at-17.07.01_16c7defd.jpg
+2026-01-22 12:08:18,751 - INFO - [Antara News] Found 15 articles for 'timika' on page 9
+2026-01-22 12:08:24,562 - INFO - [Antara News] Scraping timika page 10
+2026-01-22 12:08:25,179 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/18/1001434540.jpg
+2026-01-22 12:08:25,180 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/18/1001434540.jpg
+2026-01-22 12:08:25,181 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/16/1000902222.jpg
+2026-01-22 12:08:25,182 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/16/1000902222.jpg
+2026-01-22 12:08:25,182 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/29/1000965828.jpg
+2026-01-22 12:08:25,183 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/29/1000965828.jpg
+2026-01-22 12:08:25,183 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/19/1000072995.jpg
+2026-01-22 12:08:25,183 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/19/1000072995.jpg
+2026-01-22 12:08:25,184 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/18/1000031068.jpg
+2026-01-22 12:08:25,184 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/18/1000031068.jpg
+2026-01-22 12:08:25,185 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/17/IMG_2567.jpeg
+2026-01-22 12:08:25,186 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/17/IMG_2567.jpeg
+2026-01-22 12:08:25,186 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/13/1000892495.jpg
+2026-01-22 12:08:25,187 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/13/1000892495.jpg
+2026-01-22 12:08:25,187 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/13/AJANG-CSR-PDB-AWARD-2025-1.jpg
+2026-01-22 12:08:25,188 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/13/AJANG-CSR-PDB-AWARD-2025-1.jpg
+2026-01-22 12:08:25,188 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/13/KAMPUNG-SEHAT-1.jpg
+2026-01-22 12:08:25,189 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/13/KAMPUNG-SEHAT-1.jpg
+2026-01-22 12:08:25,190 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/12/1000888375.jpg
+2026-01-22 12:08:25,190 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/12/1000888375.jpg
+2026-01-22 12:08:25,191 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/12/1000888019.jpg
+2026-01-22 12:08:25,191 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/12/1000888019.jpg
+2026-01-22 12:08:25,192 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/11/AJANG-CSR-PDB-AWARD-2025.jpg
+2026-01-22 12:08:25,192 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/11/AJANG-CSR-PDB-AWARD-2025.jpg
+2026-01-22 12:08:25,193 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/11/1000884761.jpg
+2026-01-22 12:08:25,193 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/11/1000884761.jpg
+2026-01-22 12:08:25,193 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/09/1000067158.jpg
+2026-01-22 12:08:25,194 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/09/1000067158.jpg
+2026-01-22 12:08:25,194 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/04/FotoJet-61.jpg
+2026-01-22 12:08:25,194 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/06/04/FotoJet-61.jpg
+2026-01-22 12:08:25,195 - INFO - [Antara News] Found 15 articles for 'timika' on page 10
+2026-01-22 12:08:30,327 - INFO - [Antara News] Page limit reached for keyword 'timika' (limited to prevent rate limiting)
+2026-01-22 12:08:32,225 - INFO - [Antara News] Scraping completed successfully
+2026-01-22 12:08:32,228 - INFO - Successfully scraped 150 articles from antara for timika
+2026-01-22 12:08:32,228 - INFO - Scraping tempo for timika...
+2026-01-22 12:08:32,229 - INFO - [Tempo] Trying Tempo URL: https://www.tempo.co/search?q=timika
+2026-01-22 12:08:34,095 - INFO - [Tempo] Scraping completed successfully
+2026-01-22 12:08:34,096 - INFO - [Tempo] Successfully collected 0 articles from Tempo
+2026-01-22 12:08:34,098 - WARNING - No articles found from tempo for timika
+2026-01-22 12:08:34,098 - INFO - Scraping kumparan for timika...
+2026-01-22 12:08:34,098 - INFO - [Kumparan] Trying Kumparan URL: https://kumparan.com/search/timika
+2026-01-22 12:08:35,548 - INFO - [Kumparan] Found article: Video Story...
+2026-01-22 12:08:35,548 - INFO - [Kumparan] Found article: Galeri Foto...
+2026-01-22 12:08:35,549 - INFO - [Kumparan] Found article: Kabar Daerah...
+2026-01-22 12:08:35,550 - INFO - [Kumparan] Found article: Tentang Kami...
+2026-01-22 12:08:35,550 - INFO - [Kumparan] Found article: Ketentuan & Kebijakan Privasi...
+2026-01-22 12:08:35,551 - INFO - [Kumparan] Found article: Panduan Komunitas...
+2026-01-22 12:08:35,551 - INFO - [Kumparan] Found article: Peringkat Penulis...
+2026-01-22 12:08:35,551 - INFO - [Kumparan] Found article: Cara Menulis di kumparan...
+2026-01-22 12:08:35,552 - INFO - [Kumparan] Found article: Informasi Kerja Sama...
+2026-01-22 12:08:35,553 - INFO - [Kumparan] Found article: Breaking News...
+2026-01-22 12:08:36,553 - INFO - [Kumparan] Scraping completed successfully
+2026-01-22 12:08:36,553 - INFO - [Kumparan] Successfully collected 10 articles from Kumparan
+2026-01-22 12:08:36,555 - INFO - Skipping junk content: Video Story (https://kumparan.com/video-story)
+2026-01-22 12:08:36,555 - INFO - Skipping junk content: Galeri Foto (https://kumparan.com/topic/galeri-foto)
+2026-01-22 12:08:36,556 - INFO - Skipping junk content: Tentang Kami (https://showcase.kumparan.com/about-us)
+2026-01-22 12:08:36,556 - INFO - Skipping junk content: Ketentuan & Kebijakan Privasi (https://kumparan.com/ketentuan-dan-kebijakan-privasi)
+2026-01-22 12:08:36,556 - INFO - Successfully scraped 10 articles from kumparan for timika
+2026-01-22 12:08:36,556 - INFO - Scraping seputarpapua for timika...
+2026-01-22 12:08:36,557 - INFO - [SeputarPapua] Scraping: https://seputarpapua.com/?s=timika&post_type=post
+2026-01-22 12:08:38,493 - INFO - [SeputarPapua] Found 10 items
+2026-01-22 12:08:38,494 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/waspada-flu-super-di-mimika-puskesmas-timika-perketat-skrining-pasien.html
+2026-01-22 12:08:40,073 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/danlanal-timika-korban-kapal-tenggelam-dievakuasi-tni-al.html
+2026-01-22 12:08:41,650 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/kasus-dbd-menurun-drastis-puskesmas-timika-rutin-survei-vektor.html
+2026-01-22 12:08:43,192 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/lanal-timika-bersama-aparat-gabungan-tangkap-tiga-pelaku-pemakai-narkoba.html
+2026-01-22 12:08:44,745 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/masyarakat-tidak-mampu-bisa-dapat-bantuan-hukum-gratis-di-pn-timika.html
+2026-01-22 12:08:46,347 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/awal-tahun-penuh-promo-di-swiss-belinn-timika-sajikan-cita-rasa-baru-dan-penawaran-menggoda.html
+2026-01-22 12:08:47,921 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/pa-timika-catat-gugatan-perceraian-meningkat-di-2025-terbanyak-digugat-isteri.html
+2026-01-22 12:08:49,521 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/hello-january-ramaikan-promo-awal-tahun-hotel-horison-ultima-timika.html
+2026-01-22 12:08:51,061 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/serunya-nuansa-pergantian-tahun-2025-2026-di-hotel-horison-diana-timika-bertema-flying-with-us.html
+2026-01-22 12:08:52,608 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/ada-spiderman-hingga-marilyn-monroe-rayakan-tahun-baru-di-horison-ultima-timika.html
+2026-01-22 12:08:54,154 - INFO - [SeputarPapua] Scraping completed successfully
+2026-01-22 12:08:54,156 - INFO - Successfully scraped 10 articles from seputarpapua for timika
+2026-01-22 12:08:54,156 - INFO - --- Scraping Region: MIMIKA (Keyword: mimika) ---
+2026-01-22 12:08:54,156 - INFO - Scraping detik for mimika...
+2026-01-22 12:08:54,157 - INFO - [Detik.com] Local environment - limiting scrape to 5 pages to prevent timeout
+2026-01-22 12:08:54,157 - INFO - [Detik.com] Starting search for keyword: 'mimika'
+2026-01-22 12:08:54,157 - INFO - [Detik.com] Scraping page 1
+2026-01-22 12:08:57,657 - INFO - [Detik.com] Scraping page 2
+2026-01-22 12:09:00,828 - INFO - [Detik.com] Scraping page 3
+2026-01-22 12:09:03,737 - INFO - [Detik.com] Scraping page 4
+2026-01-22 12:09:08,137 - INFO - [Detik.com] Scraping page 5
+2026-01-22 12:09:11,430 - ERROR - [Detik.com] Scraping failed: can't compare offset-naive and offset-aware datetimes
+2026-01-22 12:09:11,431 - WARNING - No articles found from detik for mimika
+2026-01-22 12:09:11,432 - INFO - Scraping kompas for mimika...
+2026-01-22 12:09:11,432 - INFO - [Kompas.com] Starting search for keyword: 'mimika'
+2026-01-22 12:09:11,432 - INFO - [Kompas.com] Scraping page 1
+2026-01-22 12:09:12,129 - INFO - [Kompas.com] Found 12 articles on page 1
+2026-01-22 12:09:15,988 - INFO - [Kompas.com] Scraping page 2
+2026-01-22 12:09:16,682 - INFO - [Kompas.com] No more articles found on page 2
+2026-01-22 12:09:16,682 - INFO - [Kompas.com] Scraping completed successfully
+2026-01-22 12:09:16,684 - INFO - Successfully scraped 12 articles from kompas for mimika
+2026-01-22 12:09:16,685 - INFO - Scraping cnn for mimika...
+2026-01-22 12:09:16,685 - INFO - [CNN Indonesia] Trying CNN URL: https://www.cnnindonesia.com/search/?query=mimika
+2026-01-22 12:09:18,282 - INFO - [CNN Indonesia] Scraping completed successfully
+2026-01-22 12:09:18,282 - INFO - [CNN Indonesia] Successfully collected 0 articles from CNN Indonesia
+2026-01-22 12:09:18,284 - WARNING - No articles found from cnn for mimika
+2026-01-22 12:09:18,284 - INFO - Scraping antara for mimika...
+2026-01-22 12:09:18,284 - INFO - [Antara News] Starting search for keyword: 'mimika'
+2026-01-22 12:09:18,284 - INFO - [Antara News] Scraping mimika page 1
+2026-01-22 12:09:18,776 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/20/FotoJet-2026-01-20T122601.664.jpg
+2026-01-22 12:09:18,776 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/20/FotoJet-2026-01-20T122601.664.jpg
+2026-01-22 12:09:18,777 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/15/1000134984.jpg
+2026-01-22 12:09:18,777 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/15/1000134984.jpg
+2026-01-22 12:09:18,778 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/test.04_40_24_22.Still404.jpg
+2026-01-22 12:09:18,778 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/test.04_40_24_22.Still404.jpg
+2026-01-22 12:09:18,779 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/12/1000300247.jpg
+2026-01-22 12:09:18,779 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/12/1000300247.jpg
+2026-01-22 12:09:18,780 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/05/FotoJet-2026-01-05T160926.395_1.jpg
+2026-01-22 12:09:18,780 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2026/01/05/FotoJet-2026-01-05T160926.395_1.jpg
+2026-01-22 12:09:18,780 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/30/FotoJet-2025-12-30T075149.803.jpg
+2026-01-22 12:09:18,781 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/30/FotoJet-2025-12-30T075149.803.jpg
+2026-01-22 12:09:18,782 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/29/FotoJet-2025-12-29T200351.271.jpg
+2026-01-22 12:09:18,783 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/29/FotoJet-2025-12-29T200351.271.jpg
+2026-01-22 12:09:18,783 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/26/1000064409.jpg
+2026-01-22 12:09:18,784 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/26/1000064409.jpg
+2026-01-22 12:09:18,785 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/24/BUPATI-MIMIKA-1.jpg
+2026-01-22 12:09:18,785 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/24/BUPATI-MIMIKA-1.jpg
+2026-01-22 12:09:18,786 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/23/1001661719.jpg
+2026-01-22 12:09:18,786 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/23/1001661719.jpg
+2026-01-22 12:09:18,787 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/AB_KEJATI-PAPUA-AJUKAN-BANDING-ATAS-VONIS-KASUS-KORUPSI-AEROSPORT-MIMIKA.jpg
+2026-01-22 12:09:18,788 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/AB_KEJATI-PAPUA-AJUKAN-BANDING-ATAS-VONIS-KASUS-KORUPSI-AEROSPORT-MIMIKA.jpg
+2026-01-22 12:09:18,788 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/10/1000094653.jpg
+2026-01-22 12:09:18,789 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/10/1000094653.jpg
+2026-01-22 12:09:18,790 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/05/FotoJet-2025-12-05T105423.862.jpg
+2026-01-22 12:09:18,791 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/05/FotoJet-2025-12-05T105423.862.jpg
+2026-01-22 12:09:18,792 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/02/PATROLI-GABUNGAN-POLRES-MIMIKA-1.jpg
+2026-01-22 12:09:18,792 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/02/PATROLI-GABUNGAN-POLRES-MIMIKA-1.jpg
+2026-01-22 12:09:18,793 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/02/1000381156.jpg
+2026-01-22 12:09:18,794 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/12/02/1000381156.jpg
+2026-01-22 12:09:18,794 - INFO - [Antara News] Found 15 articles for 'mimika' on page 1
+2026-01-22 12:09:24,235 - INFO - [Antara News] Scraping mimika page 2
+2026-01-22 12:09:24,777 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/29/IMG-20251129-WA0007.jpg
+2026-01-22 12:09:24,777 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/29/IMG-20251129-WA0007.jpg
+2026-01-22 12:09:24,778 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/28/IMG-20251128-WA0031_1.jpg
+2026-01-22 12:09:24,778 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/28/IMG-20251128-WA0031_1.jpg
+2026-01-22 12:09:24,779 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/27/REYNOLD-UBRA-1.jpg
+2026-01-22 12:09:24,779 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/27/REYNOLD-UBRA-1.jpg
+2026-01-22 12:09:24,780 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/25/IMG-20251124-WA0017.jpg
+2026-01-22 12:09:24,780 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/25/IMG-20251124-WA0017.jpg
+2026-01-22 12:09:24,781 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/22/EFAN06139.jpg
+2026-01-22 12:09:24,781 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/22/EFAN06139.jpg
+2026-01-22 12:09:24,782 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/15/FotoJet-84.jpg
+2026-01-22 12:09:24,783 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/15/FotoJet-84.jpg
+2026-01-22 12:09:24,783 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/14/IMG_8145.jpg
+2026-01-22 12:09:24,784 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/14/IMG_8145.jpg
+2026-01-22 12:09:24,785 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/14/YULIUS-KOGA.jpg
+2026-01-22 12:09:24,789 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/14/YULIUS-KOGA.jpg
+2026-01-22 12:09:24,790 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/09/TambangAktivitasPertambanganAAprionis.jpg
+2026-01-22 12:09:24,790 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/09/TambangAktivitasPertambanganAAprionis.jpg
+2026-01-22 12:09:24,791 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/13/IMG_8105.jpg
+2026-01-22 12:09:24,792 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/13/IMG_8105.jpg
+2026-01-22 12:09:24,793 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/10/IMG_7969.jpg
+2026-01-22 12:09:24,793 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/10/IMG_7969.jpg
+2026-01-22 12:09:24,794 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/10/FotoJet-72.jpg
+2026-01-22 12:09:24,794 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/10/FotoJet-72.jpg
+2026-01-22 12:09:24,795 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/08/FotoJet-71.jpg
+2026-01-22 12:09:24,795 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/08/FotoJet-71.jpg
+2026-01-22 12:09:24,796 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/07/FotoJet-69.jpg
+2026-01-22 12:09:24,796 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/07/FotoJet-69.jpg
+2026-01-22 12:09:24,797 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/07/IMG_7934.jpg
+2026-01-22 12:09:24,797 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/07/IMG_7934.jpg
+2026-01-22 12:09:24,798 - INFO - [Antara News] Found 15 articles for 'mimika' on page 2
+2026-01-22 12:09:30,537 - INFO - [Antara News] Scraping mimika page 3
+2026-01-22 12:09:31,033 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/06/FotoJet-66.jpg
+2026-01-22 12:09:31,033 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/06/FotoJet-66.jpg
+2026-01-22 12:09:31,034 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/06/IMG_20251105_085253.jpg
+2026-01-22 12:09:31,035 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/06/IMG_20251105_085253.jpg
+2026-01-22 12:09:31,035 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/03/AR-BERSIH-AMAR-3.jpg
+2026-01-22 12:09:31,035 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/03/AR-BERSIH-AMAR-3.jpg
+2026-01-22 12:09:31,036 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/01/POTOWAYBURU-1.jpg
+2026-01-22 12:09:31,036 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/11/01/POTOWAYBURU-1.jpg
+2026-01-22 12:09:31,037 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/AB_KEJATI-PAPUA-TAHAN-4-ASN-TERSANGKA-KORUPSI-AEROSPORT-MIMIKA.jpg
+2026-01-22 12:09:31,037 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/AB_KEJATI-PAPUA-TAHAN-4-ASN-TERSANGKA-KORUPSI-AEROSPORT-MIMIKA.jpg
+2026-01-22 12:09:31,038 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/29/FotoJet-14.jpg
+2026-01-22 12:09:31,038 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/29/FotoJet-14.jpg
+2026-01-22 12:09:31,039 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/27/FotoJet-10.jpg
+2026-01-22 12:09:31,039 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/27/FotoJet-10.jpg
+2026-01-22 12:09:31,040 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/26/PR-IPC-1.jpg
+2026-01-22 12:09:31,040 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/26/PR-IPC-1.jpg
+2026-01-22 12:09:31,041 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/25/165393.jpg
+2026-01-22 12:09:31,041 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/25/165393.jpg
+2026-01-22 12:09:31,041 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/25/JEFRI-DEDA.jpg
+2026-01-22 12:09:31,042 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/25/JEFRI-DEDA.jpg
+2026-01-22 12:09:31,042 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/23/1000649422.jpg
+2026-01-22 12:09:31,043 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/23/1000649422.jpg
+2026-01-22 12:09:31,043 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/24/161885.jpg
+2026-01-22 12:09:31,044 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/24/161885.jpg
+2026-01-22 12:09:31,045 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/23/SEKOLAH-RAKYAT-2.jpg
+2026-01-22 12:09:31,045 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/23/SEKOLAH-RAKYAT-2.jpg
+2026-01-22 12:09:31,046 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/23/1001417462.jpg
+2026-01-22 12:09:31,046 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/23/1001417462.jpg
+2026-01-22 12:09:31,046 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/20/FotoJet-3.jpg
+2026-01-22 12:09:31,047 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/20/FotoJet-3.jpg
+2026-01-22 12:09:31,047 - INFO - [Antara News] Found 15 articles for 'mimika' on page 3
+2026-01-22 12:09:35,716 - INFO - [Antara News] Scraping mimika page 4
+2026-01-22 12:09:36,238 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/15/LEONARDUS-TUMUKA-1.jpg
+2026-01-22 12:09:36,238 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/15/LEONARDUS-TUMUKA-1.jpg
+2026-01-22 12:09:36,239 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/15/IMG_5848.jpeg
+2026-01-22 12:09:36,239 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/15/IMG_5848.jpeg
+2026-01-22 12:09:36,240 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/12/1001369620.jpg
+2026-01-22 12:09:36,240 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/12/1001369620.jpg
+2026-01-22 12:09:36,241 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/11/IMG_5602.jpg
+2026-01-22 12:09:36,241 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/11/IMG_5602.jpg
+2026-01-22 12:09:36,242 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/11/FotoJet-35.jpg
+2026-01-22 12:09:36,242 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/11/FotoJet-35.jpg
+2026-01-22 12:09:36,242 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/10/IMG_5543.jpg
+2026-01-22 12:09:36,243 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/10/IMG_5543.jpg
+2026-01-22 12:09:36,244 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/08/1000214034.jpg
+2026-01-22 12:09:36,244 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/08/1000214034.jpg
+2026-01-22 12:09:36,245 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/07/FotoJet-36.jpg
+2026-01-22 12:09:36,245 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/07/FotoJet-36.jpg
+2026-01-22 12:09:36,245 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/07/IMG-20251007-WA0002.jpg
+2026-01-22 12:09:36,246 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/07/IMG-20251007-WA0002.jpg
+2026-01-22 12:09:36,246 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/AB_FREEPORT-INDONESIA-TEMUKAN-TUJUH-KORBAN-LUNCURAN-MATERIAL-BASAH.jpg
+2026-01-22 12:09:36,247 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/AB_FREEPORT-INDONESIA-TEMUKAN-TUJUH-KORBAN-LUNCURAN-MATERIAL-BASAH.jpg
+2026-01-22 12:09:36,247 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/06/PERTAMINA-NAWARIPI.jpg
+2026-01-22 12:09:36,248 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/06/PERTAMINA-NAWARIPI.jpg
+2026-01-22 12:09:36,248 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/06/FotoJet-29_2.jpg
+2026-01-22 12:09:36,249 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/06/FotoJet-29_2.jpg
+2026-01-22 12:09:36,249 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/06/FotoJet-29.jpg
+2026-01-22 12:09:36,250 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/06/FotoJet-29.jpg
+2026-01-22 12:09:36,250 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/06/FotoJet-18.jpg
+2026-01-22 12:09:36,251 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/06/FotoJet-18.jpg
+2026-01-22 12:09:36,252 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/06/FotoJet-29.jpg
+2026-01-22 12:09:36,252 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/06/FotoJet-29.jpg
+2026-01-22 12:09:36,252 - INFO - [Antara News] Found 15 articles for 'mimika' on page 4
+2026-01-22 12:09:40,975 - INFO - [Antara News] Scraping mimika page 5
+2026-01-22 12:09:41,479 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/05/PERUMAHAN-2.jpg
+2026-01-22 12:09:41,480 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/05/PERUMAHAN-2.jpg
+2026-01-22 12:09:41,480 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/02/IMG_7FF0F605CEC6-1.jpeg
+2026-01-22 12:09:41,481 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/02/IMG_7FF0F605CEC6-1.jpeg
+2026-01-22 12:09:41,481 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/01/PEMENANG-LOMBA-1.jpeg
+2026-01-22 12:09:41,482 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/10/01/PEMENANG-LOMBA-1.jpeg
+2026-01-22 12:09:41,482 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/30/FotoJet-7.jpg
+2026-01-22 12:09:41,483 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/30/FotoJet-7.jpg
+2026-01-22 12:09:41,483 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/30/WISMA-ATLET-PON-XX-TIMIKA.jpg
+2026-01-22 12:09:41,484 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/30/WISMA-ATLET-PON-XX-TIMIKA.jpg
+2026-01-22 12:09:41,484 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/27/1000382085.jpg
+2026-01-22 12:09:41,485 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/27/1000382085.jpg
+2026-01-22 12:09:41,485 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/26/IMG_4880_1_1.jpg
+2026-01-22 12:09:41,486 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/26/IMG_4880_1_1.jpg
+2026-01-22 12:09:41,486 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/25/1000379119.jpg
+2026-01-22 12:09:41,487 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/25/1000379119.jpg
+2026-01-22 12:09:41,487 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/25/FotoJet-22.jpg
+2026-01-22 12:09:41,488 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/25/FotoJet-22.jpg
+2026-01-22 12:09:41,488 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/22/1000938629.jpg
+2026-01-22 12:09:41,489 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/22/1000938629.jpg
+2026-01-22 12:09:41,490 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/21/IMG-20250921-WA0009-1.jpg
+2026-01-22 12:09:41,490 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/21/IMG-20250921-WA0009-1.jpg
+2026-01-22 12:09:41,491 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/21/FotoJet-21.jpg
+2026-01-22 12:09:41,491 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/21/FotoJet-21.jpg
+2026-01-22 12:09:41,492 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/21/POLSEK-POMAKO-1.jpeg
+2026-01-22 12:09:41,492 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/21/POLSEK-POMAKO-1.jpeg
+2026-01-22 12:09:41,493 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/20/IMG-20250920-WA0035.jpg
+2026-01-22 12:09:41,493 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/20/IMG-20250920-WA0035.jpg
+2026-01-22 12:09:41,494 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/13/FotoJet-18.jpg
+2026-01-22 12:09:41,494 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/13/FotoJet-18.jpg
+2026-01-22 12:09:41,494 - INFO - [Antara News] Found 15 articles for 'mimika' on page 5
+2026-01-22 12:09:47,000 - INFO - [Antara News] Scraping mimika page 6
+2026-01-22 12:09:47,478 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/18/FotoJet-2025-09-18T175905.323.jpg
+2026-01-22 12:09:47,478 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/18/FotoJet-2025-09-18T175905.323.jpg
+2026-01-22 12:09:47,479 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/17/kebijakan-pasokan-bbm-di-spbu-swasta-2625625.jpg
+2026-01-22 12:09:47,479 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/17/kebijakan-pasokan-bbm-di-spbu-swasta-2625625.jpg
+2026-01-22 12:09:47,480 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/17/1000212111.jpg
+2026-01-22 12:09:47,480 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/17/1000212111.jpg
+2026-01-22 12:09:47,480 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/17/IMG_5462.jpeg
+2026-01-22 12:09:47,481 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/17/IMG_5462.jpeg
+2026-01-22 12:09:47,482 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/17/WhatsApp-Image-2025-09-17-at-12.57.39-PM.jpeg
+2026-01-22 12:09:47,482 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/17/WhatsApp-Image-2025-09-17-at-12.57.39-PM.jpeg
+2026-01-22 12:09:47,482 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/15/IMG-20250915-WA0036_1.jpg
+2026-01-22 12:09:47,483 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/15/IMG-20250915-WA0036_1.jpg
+2026-01-22 12:09:47,484 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/15/205964.jpg
+2026-01-22 12:09:47,484 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/15/205964.jpg
+2026-01-22 12:09:47,485 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/15/KAPOLRES-MIMIKA-2.jpeg
+2026-01-22 12:09:47,485 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/15/KAPOLRES-MIMIKA-2.jpeg
+2026-01-22 12:09:47,486 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/15/IMG_4239.jpg
+2026-01-22 12:09:47,486 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/15/IMG_4239.jpg
+2026-01-22 12:09:47,487 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/14/FotoJet-2025-09-14T183953.446_1.jpg
+2026-01-22 12:09:47,488 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/14/FotoJet-2025-09-14T183953.446_1.jpg
+2026-01-22 12:09:47,488 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/14/IMG_7052.jpg
+2026-01-22 12:09:47,489 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/14/IMG_7052.jpg
+2026-01-22 12:09:47,489 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/13/LEO-TUMUKA-1_1.jpeg
+2026-01-22 12:09:47,490 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/13/LEO-TUMUKA-1_1.jpeg
+2026-01-22 12:09:47,490 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/13/PELATIHAN-PETUGAS-MBG-1.jpeg
+2026-01-22 12:09:47,491 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/13/PELATIHAN-PETUGAS-MBG-1.jpeg
+2026-01-22 12:09:47,491 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/IMG-20250912-WA0024.jpg
+2026-01-22 12:09:47,492 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/IMG-20250912-WA0024.jpg
+2026-01-22 12:09:47,492 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/FotoJet-7_1.jpg
+2026-01-22 12:09:47,493 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/FotoJet-7_1.jpg
+2026-01-22 12:09:47,493 - INFO - [Antara News] Found 15 articles for 'mimika' on page 6
+2026-01-22 12:09:52,034 - INFO - [Antara News] Scraping mimika page 7
+2026-01-22 12:09:52,533 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/IMG_4142_1.jpg
+2026-01-22 12:09:52,534 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/IMG_4142_1.jpg
+2026-01-22 12:09:52,534 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/PETI-JENAZAH.jpeg
+2026-01-22 12:09:52,535 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/PETI-JENAZAH.jpeg
+2026-01-22 12:09:52,535 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/FotoJet-7.jpg
+2026-01-22 12:09:52,536 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/FotoJet-7.jpg
+2026-01-22 12:09:52,536 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/FotoJet-14_1.jpg
+2026-01-22 12:09:52,537 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/12/FotoJet-14_1.jpg
+2026-01-22 12:09:52,537 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/1757401307393_copy_2160x1440.jpg
+2026-01-22 12:09:52,538 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/1757401307393_copy_2160x1440.jpg
+2026-01-22 12:09:52,538 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/evakuasi-helikopter-jatuh-di-papua-110925-ho-1.jpg
+2026-01-22 12:09:52,539 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/evakuasi-helikopter-jatuh-di-papua-110925-ho-1.jpg
+2026-01-22 12:09:52,539 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/AB_SAR-TIMIKA-EVAKUASI-EMPAT-JENAZAH-KORBAN-HELIKOPTER-JATUH-DI-MIMIKA.jpg
+2026-01-22 12:09:52,540 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/AB_SAR-TIMIKA-EVAKUASI-EMPAT-JENAZAH-KORBAN-HELIKOPTER-JATUH-DI-MIMIKA.jpg
+2026-01-22 12:09:52,540 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/FotoJet-12.jpg
+2026-01-22 12:09:52,541 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/FotoJet-12.jpg
+2026-01-22 12:09:52,541 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/FotoJet-11.jpg
+2026-01-22 12:09:52,542 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/FotoJet-11.jpg
+2026-01-22 12:09:52,542 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/heli1.jpg
+2026-01-22 12:09:52,543 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/heli1.jpg
+2026-01-22 12:09:52,543 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/FotoJet-4.jpg
+2026-01-22 12:09:52,543 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/FotoJet-4.jpg
+2026-01-22 12:09:52,544 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/raker-komisi-xi-dpr-dengan-menteri-keuangan-100925-dr-04.jpg
+2026-01-22 12:09:52,545 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/raker-komisi-xi-dpr-dengan-menteri-keuangan-100925-dr-04.jpg
+2026-01-22 12:09:52,545 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/FotoJet-4_1.jpg
+2026-01-22 12:09:52,546 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/11/FotoJet-4_1.jpg
+2026-01-22 12:09:52,546 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/86c8dcda-3819-49e3-8e29-d99769e012cb.jpeg
+2026-01-22 12:09:52,546 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/86c8dcda-3819-49e3-8e29-d99769e012cb.jpeg
+2026-01-22 12:09:52,547 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/1757513677833_copy_4164x2776.jpg
+2026-01-22 12:09:52,547 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/1757513677833_copy_4164x2776.jpg
+2026-01-22 12:09:52,548 - INFO - [Antara News] Found 15 articles for 'mimika' on page 7
+2026-01-22 12:09:55,923 - INFO - [Antara News] Scraping mimika page 8
+2026-01-22 12:09:56,425 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/AB_TIM-SAR-GABUNGAN-TEMUKAN-HELIKOPTER-HILANG-KONTAK-DI-MIMIKA.jpg
+2026-01-22 12:09:56,426 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/AB_TIM-SAR-GABUNGAN-TEMUKAN-HELIKOPTER-HILANG-KONTAK-DI-MIMIKA.jpg
+2026-01-22 12:09:56,426 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/FotoJet-3.jpg
+2026-01-22 12:09:56,427 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/FotoJet-3.jpg
+2026-01-22 12:09:56,427 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/FotoJet-2.jpg
+2026-01-22 12:09:56,427 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/FotoJet-2.jpg
+2026-01-22 12:09:56,428 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/aktivitas-pertambangan-freeport-160813-wpa-5.jpg
+2026-01-22 12:09:56,428 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/aktivitas-pertambangan-freeport-160813-wpa-5.jpg
+2026-01-22 12:09:56,429 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/anadolu_qatar.jpg
+2026-01-22 12:09:56,430 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/anadolu_qatar.jpg
+2026-01-22 12:09:56,430 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/FotoJet-1.jpg
+2026-01-22 12:09:56,431 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/10/FotoJet-1.jpg
+2026-01-22 12:09:56,432 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/1757401307393_copy_2160x1440.jpg
+2026-01-22 12:09:56,433 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/1757401307393_copy_2160x1440.jpg
+2026-01-22 12:09:56,433 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/BAHALIL-TERJUNKAN-TIM-CEK-LONGSOR-TAMBANG-FREEPORT-DI-MIMIKA_1.jpg
+2026-01-22 12:09:56,434 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/BAHALIL-TERJUNKAN-TIM-CEK-LONGSOR-TAMBANG-FREEPORT-DI-MIMIKA_1.jpg
+2026-01-22 12:09:56,434 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/WhatsApp-Image-2025-09-09-at-14.47.36.jpeg
+2026-01-22 12:09:56,435 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/WhatsApp-Image-2025-09-09-at-14.47.36.jpeg
+2026-01-22 12:09:56,436 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/1000037335.jpg
+2026-01-22 12:09:56,436 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/1000037335.jpg
+2026-01-22 12:09:56,437 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/1757401307393_copy_2160x1440.jpg
+2026-01-22 12:09:56,437 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/1757401307393_copy_2160x1440.jpg
+2026-01-22 12:09:56,438 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/FotoJet-63.jpg
+2026-01-22 12:09:56,438 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/FotoJet-63.jpg
+2026-01-22 12:09:56,439 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2024/04/01/Freeport-Ekspor-Konsentrat-Tembaga-200915-Adm-2.jpg
+2026-01-22 12:09:56,439 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2024/04/01/Freeport-Ekspor-Konsentrat-Tembaga-200915-Adm-2.jpg
+2026-01-22 12:09:56,439 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/FotoJet.jpg
+2026-01-22 12:09:56,440 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/09/FotoJet.jpg
+2026-01-22 12:09:56,440 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/07/antarafoto-pon-xxi-aceh-sumut-final-lari-gawang-100-meter-putri-12092024-lmo-11.jpg
+2026-01-22 12:09:56,441 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/07/antarafoto-pon-xxi-aceh-sumut-final-lari-gawang-100-meter-putri-12092024-lmo-11.jpg
+2026-01-22 12:09:56,441 - INFO - [Antara News] Found 15 articles for 'mimika' on page 8
+2026-01-22 12:10:00,444 - INFO - [Antara News] Scraping mimika page 9
+2026-01-22 12:10:00,951 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/05/BAKTI-SOSIAL-WARGA-TIPUKA-6.jpg
+2026-01-22 12:10:00,951 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/05/BAKTI-SOSIAL-WARGA-TIPUKA-6.jpg
+2026-01-22 12:10:00,952 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/03/LEONARDUS-TUMUKA-1.jpg
+2026-01-22 12:10:00,952 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/03/LEONARDUS-TUMUKA-1.jpg
+2026-01-22 12:10:00,953 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/01/1000185931.jpg
+2026-01-22 12:10:00,953 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/09/01/1000185931.jpg
+2026-01-22 12:10:00,954 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/30/Ketua-Umum-PB-PASI-Luhut-Binsar-Pandjaitan.jpg
+2026-01-22 12:10:00,954 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/30/Ketua-Umum-PB-PASI-Luhut-Binsar-Pandjaitan.jpg
+2026-01-22 12:10:00,954 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2024/05/17/WhatsApp-Image-2024-05-17-at-12.15.22_df22a52f.jpg
+2026-01-22 12:10:00,955 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2024/05/17/WhatsApp-Image-2024-05-17-at-12.15.22_df22a52f.jpg
+2026-01-22 12:10:00,955 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/25/1000196693.jpg
+2026-01-22 12:10:00,956 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/25/1000196693.jpg
+2026-01-22 12:10:00,956 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/25/1001178505.jpg
+2026-01-22 12:10:00,957 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/25/1001178505.jpg
+2026-01-22 12:10:00,957 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/23/WARGA-JAGAMIN-1.jpeg
+2026-01-22 12:10:00,958 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/23/WARGA-JAGAMIN-1.jpeg
+2026-01-22 12:10:00,958 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/22/PROGRAM-KAMPUNG-SEHAT-2_2.jpeg
+2026-01-22 12:10:00,959 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/22/PROGRAM-KAMPUNG-SEHAT-2_2.jpeg
+2026-01-22 12:10:00,959 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/15/1001081599.jpg
+2026-01-22 12:10:00,960 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/15/1001081599.jpg
+2026-01-22 12:10:00,960 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/13/IMG_20250813_073302_1.jpg
+2026-01-22 12:10:00,960 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/13/IMG_20250813_073302_1.jpg
+2026-01-22 12:10:00,961 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/12/BUPATI-MIMIKA-1.jpg
+2026-01-22 12:10:00,961 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/12/BUPATI-MIMIKA-1.jpg
+2026-01-22 12:10:00,962 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/12/BUPATI-MIMIKA-PERESMIAN-PAUD-KASIH-AMURO.jpg
+2026-01-22 12:10:00,963 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/12/BUPATI-MIMIKA-PERESMIAN-PAUD-KASIH-AMURO.jpg
+2026-01-22 12:10:00,963 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/08/IMG_4481.jpeg
+2026-01-22 12:10:00,963 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/08/IMG_4481.jpeg
+2026-01-22 12:10:00,964 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/07/IMG_2230.jpg
+2026-01-22 12:10:00,964 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/07/IMG_2230.jpg
+2026-01-22 12:10:00,965 - INFO - [Antara News] Found 15 articles for 'mimika' on page 9
+2026-01-22 12:10:05,720 - INFO - [Antara News] Scraping mimika page 10
+2026-01-22 12:10:06,211 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/07/IMG_2225.jpg
+2026-01-22 12:10:06,211 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/07/IMG_2225.jpg
+2026-01-22 12:10:06,212 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/04/BUPATI-MIMIKA-2.jpg
+2026-01-22 12:10:06,212 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/04/BUPATI-MIMIKA-2.jpg
+2026-01-22 12:10:06,213 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/02/WhatsApp-Image-2025-08-01-at-21.26.34.jpeg
+2026-01-22 12:10:06,213 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/02/WhatsApp-Image-2025-08-01-at-21.26.34.jpeg
+2026-01-22 12:10:06,214 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/01/PELAJAR-AMUNGME-KAMORO.jpg
+2026-01-22 12:10:06,214 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/01/PELAJAR-AMUNGME-KAMORO.jpg
+2026-01-22 12:10:06,215 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/01/Bersih-Sampah-Carstensz-4-1.jpg
+2026-01-22 12:10:06,215 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/01/Bersih-Sampah-Carstensz-4-1.jpg
+2026-01-22 12:10:06,216 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/01/SATP-TIMIKA-1.jpg
+2026-01-22 12:10:06,216 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/01/SATP-TIMIKA-1.jpg
+2026-01-22 12:10:06,217 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/01/IMG_9858-1.jpg
+2026-01-22 12:10:06,218 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/08/01/IMG_9858-1.jpg
+2026-01-22 12:10:06,218 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/31/LEO-TUMUKA.jpg
+2026-01-22 12:10:06,219 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/31/LEO-TUMUKA.jpg
+2026-01-22 12:10:06,219 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/29/DANDIM-MIMIKA-1.jpg
+2026-01-22 12:10:06,220 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/29/DANDIM-MIMIKA-1.jpg
+2026-01-22 12:10:06,220 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/29/1753765331410.jpg
+2026-01-22 12:10:06,221 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/29/1753765331410.jpg
+2026-01-22 12:10:06,221 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/26/WhatsApp-Image-2025-07-26-at-13.57.00_2f180afd.jpg
+2026-01-22 12:10:06,222 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/26/WhatsApp-Image-2025-07-26-at-13.57.00_2f180afd.jpg
+2026-01-22 12:10:06,222 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/22/WhatsApp-Image-2025-07-22-at-17.07.01_16c7defd.jpg
+2026-01-22 12:10:06,223 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/22/WhatsApp-Image-2025-07-22-at-17.07.01_16c7defd.jpg
+2026-01-22 12:10:06,223 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/SIDANG-PERDANA-KASUS-KORUPSI-AEROSPORT-MIMIKA-DIGELAR-DI-JAYAPURA.jpg
+2026-01-22 12:10:06,224 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/SIDANG-PERDANA-KASUS-KORUPSI-AEROSPORT-MIMIKA-DIGELAR-DI-JAYAPURA.jpg
+2026-01-22 12:10:06,224 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/AB_LIMA-TERSANGKA-KASUS-KORUPSI-AEROSPORT-MIMIKA-SIAP-DISIDANGKAN.jpg
+2026-01-22 12:10:06,225 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/AB_LIMA-TERSANGKA-KASUS-KORUPSI-AEROSPORT-MIMIKA-SIAP-DISIDANGKAN.jpg
+2026-01-22 12:10:06,225 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/09/1000327472.jpg
+2026-01-22 12:10:06,226 - INFO - [Antara] Found image: https://img.antaranews.com/cache/350x233/2025/07/09/1000327472.jpg
+2026-01-22 12:10:06,226 - INFO - [Antara News] Found 15 articles for 'mimika' on page 10
+2026-01-22 12:10:11,960 - INFO - [Antara News] Page limit reached for keyword 'mimika' (limited to prevent rate limiting)
+2026-01-22 12:10:13,179 - INFO - [Antara News] Scraping completed successfully
+2026-01-22 12:10:13,189 - INFO - Successfully scraped 150 articles from antara for mimika
+2026-01-22 12:10:13,190 - INFO - Scraping tempo for mimika...
+2026-01-22 12:10:13,191 - INFO - [Tempo] Trying Tempo URL: https://www.tempo.co/search?q=mimika
+2026-01-22 12:10:14,970 - INFO - [Tempo] Scraping completed successfully
+2026-01-22 12:10:14,970 - INFO - [Tempo] Successfully collected 0 articles from Tempo
+2026-01-22 12:10:14,972 - WARNING - No articles found from tempo for mimika
+2026-01-22 12:10:14,973 - INFO - Scraping kumparan for mimika...
+2026-01-22 12:10:14,973 - INFO - [Kumparan] Trying Kumparan URL: https://kumparan.com/search/mimika
+2026-01-22 12:10:16,639 - INFO - [Kumparan] Found article: Video Story...
+2026-01-22 12:10:16,640 - INFO - [Kumparan] Found article: Galeri Foto...
+2026-01-22 12:10:16,641 - INFO - [Kumparan] Found article: Kabar Daerah...
+2026-01-22 12:10:16,641 - INFO - [Kumparan] Found article: Tentang Kami...
+2026-01-22 12:10:16,642 - INFO - [Kumparan] Found article: Ketentuan & Kebijakan Privasi...
+2026-01-22 12:10:16,642 - INFO - [Kumparan] Found article: Panduan Komunitas...
+2026-01-22 12:10:16,643 - INFO - [Kumparan] Found article: Peringkat Penulis...
+2026-01-22 12:10:16,643 - INFO - [Kumparan] Found article: Cara Menulis di kumparan...
+2026-01-22 12:10:16,644 - INFO - [Kumparan] Found article: Informasi Kerja Sama...
+2026-01-22 12:10:16,644 - INFO - [Kumparan] Found article: Breaking News...
+2026-01-22 12:10:17,645 - INFO - [Kumparan] Scraping completed successfully
+2026-01-22 12:10:17,645 - INFO - [Kumparan] Successfully collected 10 articles from Kumparan
+2026-01-22 12:10:17,647 - INFO - Skipping junk content: Video Story (https://kumparan.com/video-story)
+2026-01-22 12:10:17,647 - INFO - Skipping junk content: Galeri Foto (https://kumparan.com/topic/galeri-foto)
+2026-01-22 12:10:17,647 - INFO - Skipping junk content: Tentang Kami (https://showcase.kumparan.com/about-us)
+2026-01-22 12:10:17,648 - INFO - Skipping junk content: Ketentuan & Kebijakan Privasi (https://kumparan.com/ketentuan-dan-kebijakan-privasi)
+2026-01-22 12:10:17,648 - INFO - Successfully scraped 10 articles from kumparan for mimika
+2026-01-22 12:10:17,648 - INFO - Scraping seputarpapua for mimika...
+2026-01-22 12:10:17,648 - INFO - [SeputarPapua] Scraping: https://seputarpapua.com/?s=mimika&post_type=post
+2026-01-22 12:10:19,548 - INFO - [SeputarPapua] Found 10 items
+2026-01-22 12:10:19,548 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/legislator-mimika-apresiasi-kinerja-kepolisian-tangkap-pengedar-narkoba.html
+2026-01-22 12:10:21,113 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/bps-mimika-bakal-gelar-sensus-ekonomi-2026.html
+2026-01-22 12:10:22,665 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/edarkan-sabu-dua-pria-di-mimika-ditangkap-polisi-di-homestay.html
+2026-01-22 12:10:24,277 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/tahap-evaluasi-selesai-apbd-mimika-2026-kini-tunggu-nomor-registrasi-provinsi.html
+2026-01-22 12:10:25,807 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/bmkg-jelaskan-penyebab-cuaca-panas-di-mimika.html
+2026-01-22 12:10:27,376 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/gelontorkan-rp5-miliar-satpol-pp-mimika-beli-9-armada-baru-dari-apbd-induk.html
+2026-01-22 12:10:28,919 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/satpol-pp-mimika-tangkap-tiga-asn-nongkrong-di-coffee-shop-saat-jam-kerja.html
+2026-01-22 12:10:30,477 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/beredar-struktur-pt-mas-bumd-mimika-ketua-pemuda-kamoro-tidak-mewakili-amungme-kamoro.html
+2026-01-22 12:10:32,018 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/waspada-flu-super-di-mimika-puskesmas-timika-perketat-skrining-pasien.html
+2026-01-22 12:10:33,594 - INFO - [SeputarPapua] Fetching details for date: https://seputarpapua.com/view/laut-arafura-bergelombang-tinggi-nelayan-mimika-diimbau-patuhi-arahan-syahbandar.html
+2026-01-22 12:10:35,151 - INFO - [SeputarPapua] Scraping completed successfully
+2026-01-22 12:10:35,153 - INFO - Successfully scraped 10 articles from seputarpapua for mimika
+2026-01-22 12:10:35,153 - INFO - Total unique articles: 257
+2026-01-22 12:10:35,275 - INFO - Job "Startup Immediate Scrape (trigger: date[2026-01-22 12:07:11 +07], next run at: 2026-01-22 12:07:11 +07)" executed successfully
